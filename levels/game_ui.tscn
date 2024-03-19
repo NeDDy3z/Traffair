@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://conakjasj0jik"]
+
+[ext_resource type="PackedScene" uid="uid://bn31staccr4ot" path="res://assets/plane.tscn" id="1_l7sx2"]
+
+[node name="game_ui" type="Control"]
+layout_mode = 3
+anchor_right = 0.208
+anchor_bottom = 1.0
+offset_right = 1520.64
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="timetable" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.208
+anchor_bottom = 1.0
+offset_right = 0.639984
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="ColorRect" parent="timetable"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0509804, 0.0470588, 0.0980392, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="queue_scrollcontainer" type="ScrollContainer" parent="timetable"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="queue_vboxcontainer" type="VBoxContainer" parent="timetable/queue_scrollcontainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="plane" parent="timetable/queue_scrollcontainer/queue_vboxcontainer" instance=ExtResource("1_l7sx2")]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2

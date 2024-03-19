@@ -7,14 +7,14 @@
 		- nařízení letadlu přistát
 	- [ ] Řazení letadel na přistání
 - **UI:** - [3 hod]
-    - [ ] Jednoduché UI
-	    - vizualizace řazení letadýlek na přistání
+	- [x] Jednoduché UI
+		- vizualizace řazení letadýlek na přistání
 ##### #2 fáze: Testování
 - **Testování:** - [1-3 dny]
-    - [ ] AI letadel
-    - [ ] Příkazy letadlům
-    - [ ] Řazení letadel
-    - [ ] UI
+	- [ ] AI letadel
+	- [ ] Příkazy letadlům
+	- [ ] Řazení letadel
+	- [x] UI
 - **Čas pro opravu bugů** - [???]
 ##### #3 fáze: Grafika
 - **Grafika** - [2 hod]
@@ -25,21 +25,21 @@
 	- [ ] GUI
 ##### #4 fáze: Dokumentace
 - **Uživatelská příručka:** - [1 hod]
-    - [ ] Návod v hlavním menu
+	- [ ] Návod v hlavním menu
 - **Technická dokumentace:** - [Po celou dobu budu dokumentaci doplňovat]
-    - [ ] Detailní popis implementace grafiky, ovládání a funkcionalit.
-    - [ ] Vytvoření strukturované dokumentace kódu.
+	- [ ] Detailní popis implementace grafiky, ovládání a funkcionalit.
+	- [ ] Vytvoření strukturované dokumentace kódu.
 
 #### Dodatečné úvahy:
 - **Škálovatelnost:**
-    - Zvážení možnosti ovládání více letišť najednou.
-    - Implementace rozhraní pro přepínání mezi různými letišti.
+	- Zvážení možnosti ovládání více letišť najednou.
+	- Implementace rozhraní pro přepínání mezi různými letišti.
 - **Scénáře:**
-    - Zahrnutí různých scénářů, například změna počasí, nouzové situace atd.
+	- Zahrnutí různých scénářů, například změna počasí, nouzové situace atd.
 - **Hodnocení:**
-    - Implementace systému hodnocení hráče na základě úspěšně přistávajících letadel a minimalizace nehod.
+	- Implementace systému hodnocení hráče na základě úspěšně přistávajících letadel a minimalizace nehod.
 - **Rozšiřitelnost:**
-    - Zvážení možnosti rozšíření hry o další prvky, například různá typy letadel, upgrady atd.
+	- Zvážení možnosti rozšíření hry o další prvky, například různá typy letadel, upgrady atd.
 
 Po dokončení projektu bude důležité zajistit, aby hra byla intuitivní a zábavná pro hráče, a současně měla dostatečnou komplexnost pro zajímavý herní zážitek.
 
