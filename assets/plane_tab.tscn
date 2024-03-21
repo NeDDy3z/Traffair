@@ -1,0 +1,151 @@
+[gd_scene load_steps=14 format=3 uid="uid://cb2uw48ykj7r0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_54lkw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tdgo7"]
+bg_color = Color(0.380392, 0.380392, 0.380392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1vps"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipo3q"]
+bg_color = Color(0.219608, 0.219608, 0.219608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="SystemFont" id="SystemFont_0bmbm"]
+font_names = PackedStringArray("Franklin Gothic")
+font_weight = 100
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_paglu"]
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/styles/focus = SubResource("StyleBoxEmpty_54lkw")
+Button/styles/hover = SubResource("StyleBoxFlat_tdgo7")
+Button/styles/normal = SubResource("StyleBoxFlat_s1vps")
+Button/styles/pressed = SubResource("StyleBoxFlat_ipo3q")
+Label/font_sizes/font_size = 25
+Label/fonts/font = SubResource("SystemFont_0bmbm")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kivkm"]
+bg_color = Color(0.0823529, 0.113725, 0.14902, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxnca"]
+bg_color = Color(0.117647, 0.168627, 0.219608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0myx"]
+bg_color = Color(0.117647, 0.168627, 0.219608, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.231373, 0.329412, 0.431373, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_ybrfd"]
+Button/styles/hover = SubResource("StyleBoxFlat_kivkm")
+Button/styles/normal = SubResource("StyleBoxFlat_mxnca")
+Button/styles/pressed = SubResource("StyleBoxFlat_o0myx")
+
+[sub_resource type="Theme" id="Theme_mhrhy"]
+HBoxContainer/constants/separation = 8
+
+[sub_resource type="Theme" id="Theme_huher"]
+VBoxContainer/constants/separation = -2
+
+[sub_resource type="Theme" id="Theme_tiwi8"]
+VBoxContainer/constants/separation = -2
+
+[node name="plane_tab" type="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(390, 110)
+layout_mode = 3
+anchors_preset = 0
+theme = SubResource("Theme_paglu")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 380.0
+offset_bottom = 110.0
+theme = SubResource("Theme_ybrfd")
+toggle_mode = true
+
+[node name="callsign" type="Label" parent="Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 17.0
+offset_right = -160.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "XYZ-1234"
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
+[node name="data_hboxcontainer" type="HBoxContainer" parent="Button"]
+layout_mode = 0
+offset_left = 201.0
+offset_top = 4.0
+offset_right = 354.0
+offset_bottom = 87.0
+theme = SubResource("Theme_mhrhy")
+
+[node name="labels_vboxcontainer" type="VBoxContainer" parent="Button/data_hboxcontainer"]
+layout_mode = 2
+theme = SubResource("Theme_huher")
+
+[node name="altitude" type="Label" parent="Button/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+text = "ALT"
+
+[node name="heading" type="Label" parent="Button/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+text = "HDG"
+
+[node name="speed" type="Label" parent="Button/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+text = "SPD"
+
+[node name="values_vboxcontainer" type="VBoxContainer" parent="Button/data_hboxcontainer"]
+layout_mode = 2
+theme = SubResource("Theme_tiwi8")
+
+[node name="heading_value" type="Label" parent="Button/data_hboxcontainer/values_vboxcontainer"]
+layout_mode = 2
+text = "00000 ft"
+
+[node name="altitude_value" type="Label" parent="Button/data_hboxcontainer/values_vboxcontainer"]
+layout_mode = 2
+text = "000 °"
+
+[node name="speed_value" type="Label" parent="Button/data_hboxcontainer/values_vboxcontainer"]
+layout_mode = 2
+text = "000 kt"

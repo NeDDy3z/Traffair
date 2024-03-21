@@ -1,39 +1,38 @@
 [gd_scene load_steps=2 format=3 uid="uid://conakjasj0jik"]
 
-[ext_resource type="PackedScene" uid="uid://bn31staccr4ot" path="res://assets/plane.tscn" id="1_l7sx2"]
+[ext_resource type="PackedScene" uid="uid://cb2uw48ykj7r0" path="res://assets/plane_tab.tscn" id="1_wsx4l"]
 
 [node name="game_ui" type="Control"]
 layout_mode = 3
-anchor_right = 0.208
+anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 1520.64
+offset_right = 400.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="timetable" type="Control" parent="."]
 layout_mode = 1
-anchor_right = 0.208
+anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 0.639984
-grow_horizontal = 2
+offset_right = 400.0
 grow_vertical = 2
 
 [node name="background" type="ColorRect" parent="timetable"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0509804, 0.0470588, 0.0980392, 1)
-metadata/_edit_use_anchors_ = true
-
-[node name="queue_scrollcontainer" type="ScrollContainer" parent="timetable"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.117647, 0.129412, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="queue_scrollcontainer" type="ScrollContainer" parent="timetable"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 400.0
 grow_vertical = 2
 horizontal_scroll_mode = 0
 
@@ -42,6 +41,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="plane" parent="timetable/queue_scrollcontainer/queue_vboxcontainer" instance=ExtResource("1_l7sx2")]
-custom_minimum_size = Vector2(0, 110)
+[node name="plane_tab" parent="timetable/queue_scrollcontainer/queue_vboxcontainer" instance=ExtResource("1_wsx4l")]
 layout_mode = 2

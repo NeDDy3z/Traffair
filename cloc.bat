@@ -1,0 +1,1 @@
+cmd /k ".\\cloc-2.00.exe . --include-lang=gdscript --quiet ."

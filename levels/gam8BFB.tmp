@@ -1,0 +1,161 @@
+[gd_scene load_steps=13 format=3 uid="uid://c3tc2r475ktvi"]
+
+[ext_resource type="Script" path="res://logic/game_level_test.gd" id="1_mrjax"]
+[ext_resource type="Texture2D" uid="uid://djw40ufctbg5c" path="res://art/plane/plane.png" id="2_8rqvi"]
+[ext_resource type="Texture2D" uid="uid://c1ow06pocy2vd" path="res://art/plane/plane1.png" id="3_ge215"]
+[ext_resource type="Script" path="res://logic/plane_description.gd" id="4_h60dm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_575os"]
+size = Vector2(5, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p55ue"]
+size = Vector2(5, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m67uu"]
+size = Vector2(87, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tf517"]
+size = Vector2(14, 14)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8dinf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w28rx"]
+
+[sub_resource type="SystemFont" id="SystemFont_2hn8o"]
+font_names = PackedStringArray("Consolas")
+
+[sub_resource type="Theme" id="Theme_78tov"]
+Button/styles/hover = SubResource("StyleBoxEmpty_8dinf")
+Button/styles/normal = SubResource("StyleBoxEmpty_w28rx")
+Label/colors/font_color = Color(0, 0.682353, 1, 1)
+Label/font_sizes/font_size = 13
+Label/fonts/font = SubResource("SystemFont_2hn8o")
+
+[node name="game_level_test" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mrjax")
+
+[node name="background" type="ColorRect" parent="."]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.117647, 0.129412, 1)
+
+[node name="runway09-27" type="Control" parent="."]
+custom_minimum_size = Vector2(500, 5)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_right = 540.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="rw_texture" type="ColorRect" parent="runway09-27"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="rw_texture2" type="ColorRect" parent="runway09-27"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.414
+anchor_right = 0.586
+anchor_bottom = 1.0
+offset_left = 0.199982
+offset_right = -0.200012
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="runway_staticbody" type="StaticBody2D" parent="runway09-27"]
+position = Vector2(250, 0)
+disable_mode = 1
+
+[node name="rw09" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
+position = Vector2(-247.5, 2.5)
+shape = SubResource("RectangleShape2D_575os")
+
+[node name="rw27" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
+position = Vector2(247.5, 2.5)
+shape = SubResource("RectangleShape2D_p55ue")
+
+[node name="landing" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
+position = Vector2(-0.5, 2.5)
+shape = SubResource("RectangleShape2D_m67uu")
+
+[node name="plane" type="CharacterBody2D" parent="."]
+position = Vector2(845, 403)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="plane"]
+shape = SubResource("RectangleShape2D_tf517")
+one_way_collision_margin = 0.0
+
+[node name="body" type="Sprite2D" parent="plane"]
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("2_8rqvi")
+
+[node name="direction" type="Sprite2D" parent="plane"]
+scale = Vector2(0.085, 0.12)
+texture = ExtResource("3_ge215")
+offset = Vector2(450, 0)
+
+[node name="plane_description" type="Control" parent="plane"]
+layout_mode = 3
+anchors_preset = 0
+theme = SubResource("Theme_78tov")
+script = ExtResource("4_h60dm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="plane/plane_description"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.115
+anchor_top = 0.518
+anchor_right = 0.115
+anchor_bottom = 0.518
+offset_left = 16.0
+offset_top = -15.0
+offset_right = 99.0
+offset_bottom = 17.0
+
+[node name="callsign" type="Label" parent="plane/plane_description/VBoxContainer"]
+layout_mode = 2
+text = "XYZ-1234"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="plane/plane_description/VBoxContainer"]
+layout_mode = 2
+
+[node name="heading" type="Label" parent="plane/plane_description/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "090°"
+
+[node name="speed" type="Label" parent="plane/plane_description/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "33000ft"
+
+[node name="button" type="Button" parent="plane/plane_description"]
+layout_mode = 0
+offset_left = -12.0
+offset_top = -17.0
+offset_right = 101.0
+offset_bottom = 16.0
+
+[connection signal="focus_entered" from="plane/plane_description/button" to="plane/plane_description" method="_on_button_focus_entered"]
+[connection signal="mouse_entered" from="plane/plane_description/button" to="plane/plane_description" method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="plane/plane_description/button" to="plane/plane_description" method="_on_button_mouse_exited"]
