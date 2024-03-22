@@ -1,0 +1,110 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3tc2r475ktvi"]
+
+[ext_resource type="Script" path="res://logic/game_level_test.gd" id="1_mrjax"]
+[ext_resource type="PackedScene" uid="uid://sfinjguu5eqh" path="res://assets/plane_body.tscn" id="2_4b217"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_575os"]
+size = Vector2(5, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p55ue"]
+size = Vector2(5, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m67uu"]
+size = Vector2(87, 5)
+
+[node name="game_level_test" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mrjax")
+
+[node name="background" type="ColorRect" parent="."]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0509804, 0.0588235, 0.0666667, 1)
+
+[node name="runway09-27" type="Control" parent="."]
+custom_minimum_size = Vector2(500, 5)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_right = 540.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="rw_texture" type="ColorRect" parent="runway09-27"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="rw_texture2" type="ColorRect" parent="runway09-27"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.414
+anchor_right = 0.586
+anchor_bottom = 1.0
+offset_left = 0.199982
+offset_right = -0.200012
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="runway_staticbody" type="StaticBody2D" parent="runway09-27"]
+position = Vector2(250, 0)
+disable_mode = 1
+
+[node name="rw09" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
+position = Vector2(-247.5, 2.5)
+shape = SubResource("RectangleShape2D_575os")
+
+[node name="rw27" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
+position = Vector2(247.5, 2.5)
+shape = SubResource("RectangleShape2D_p55ue")
+
+[node name="landing" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
+position = Vector2(-0.5, 2.5)
+shape = SubResource("RectangleShape2D_m67uu")
+
+[node name="plane_body" parent="." instance=ExtResource("2_4b217")]
+position = Vector2(1480, 867)
+motion_mode = 1
+slide_on_ceiling = false
+floor_stop_on_slope = false
+floor_constant_speed = false
+floor_block_on_wall = false
+speed = null
+heading = null
+altitude = null
+
+[node name="target_point" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(754, 422)
+
+[node name="Control" type="Control" parent="target_point"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="target_point/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="ready" from="plane_body" to="plane_body" method="_on_ready"]

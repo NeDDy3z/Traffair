@@ -17,40 +17,38 @@ var target_offset_y
 
 
 
-func _on_ready():
+func _ready():
 	# Load nodes into variables
-	target_point = $"../target_point"
+	target_point = get_parent().get_node("target_point")
 	plane_description_gd = $plane_description
 	direction = $direction
 	
-	# Direction the plane is going (rotation)
+	# Randomly place a target point
 	target_offset_x = rng.randf_range(-500, 500)
 	target_offset_y = rng.randf_range(-500, 500)
-	direction.look_at(Vector2(target_point.position.x + target_offset_x, target_point.position.y + target_offset_y))
-
-	# Get the rotation and display it as 0-360° in heading
-	var dgr = direction.rotation_degrees
-	if dgr < 0:
-		dgr = dgr * -1
-	heading = dgr
+	target_point.position = Vector2(target_point.position.x + target_offset_x, target_point.position.y + target_offset_y)
 	
-	print(heading)
+	# Direction & rotation of the plane (go towards target point)
+	direction.look_at(Vector2(target_point.position.x + target_offset_x, target_point.position.y + target_offset_y))
+	direction.rotation = global_position.direction_to(target_point.position).angle()
+
+	
 
 func _process(delta):
-	# Call function to update data of the plane
 	plane_description_gd.update_data(speed, heading, altitude)
 	
-	# Set rotation based on heading degrees
-	"""
-	if heading > 180:
-		direction.rotation_degrees = (heading - 180) * -1
-	else: direction.rotation_degrees = heading
-	"""
+	var angle = direction.rotation_degrees
+	if angle < 0:
+		angle += 360
+		
+	heading = angle + 90
 	
 
+
 func _physics_process(delta):
-	# Move straight (/20 to make it more realistic)
-	velocity = Vector2(0, -1).rotated(direction.rotation) * speed / 20
+	# Move straight (/20 to make the speed of movement more realistic)
+	velocity = Vector2(1, 0).rotated(direction.rotation) * speed / 20
 	
 	# Initiate movement
 	move_and_slide()
+

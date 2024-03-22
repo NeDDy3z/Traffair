@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3tc2r475ktvi"]
+[gd_scene load_steps=7 format=3 uid="uid://c3tc2r475ktvi"]
 
 [ext_resource type="Script" path="res://logic/game_level_test.gd" id="1_mrjax"]
 [ext_resource type="PackedScene" uid="uid://sfinjguu5eqh" path="res://assets/plane_body.tscn" id="2_4b217"]
@@ -12,6 +12,8 @@ size = Vector2(5, 5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m67uu"]
 size = Vector2(87, 5)
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_nwtwp"]
+
 [node name="game_level_test" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -20,9 +22,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mrjax")
-
-[node name="target_point" type="Node2D" parent="."]
-position = Vector2(754, 422)
 
 [node name="background" type="ColorRect" parent="."]
 layout_direction = 1
@@ -33,6 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0509804, 0.0588235, 0.0666667, 1)
+metadata/_edit_lock_ = true
 
 [node name="runway09-27" type="Control" parent="."]
 custom_minimum_size = Vector2(500, 5)
@@ -47,6 +47,7 @@ offset_right = 540.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 0
+metadata/_edit_lock_ = true
 
 [node name="rw_texture" type="ColorRect" parent="runway09-27"]
 layout_mode = 1
@@ -84,7 +85,16 @@ shape = SubResource("RectangleShape2D_p55ue")
 position = Vector2(-0.5, 2.5)
 shape = SubResource("RectangleShape2D_m67uu")
 
-[node name="plane_body" parent="." instance=ExtResource("2_4b217")]
-position = Vector2(1117, 288)
+[node name="target_point" type="Node2D" parent="."]
+position = Vector2(1107, 542)
 
-[connection signal="ready" from="plane_body" to="plane_body" method="_on_ready"]
+[node name="debug_sprite" type="Sprite2D" parent="target_point"]
+position = Vector2(1.90735e-05, 1.14441e-05)
+scale = Vector2(9.99995, 10.909)
+texture = SubResource("CanvasTexture_nwtwp")
+
+[node name="plane_body" parent="." instance=ExtResource("2_4b217")]
+position = Vector2(1068, 320)
+rotation = -0.00647675
+
+[connection signal="ready" from="." to="." method="_on_ready"]

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://logic/plane.gd" id="1_sl2pc"]
 [ext_resource type="Texture2D" uid="uid://djw40ufctbg5c" path="res://art/plane/plane.png" id="1_xputg"]
-[ext_resource type="Texture2D" uid="uid://dcqwjs3s0j884" path="res://art/plane/plane1.png" id="2_axbi5"]
 [ext_resource type="Script" path="res://logic/plane_description.gd" id="3_asivw"]
+[ext_resource type="Texture2D" uid="uid://b2bkbuaxcr4o1" path="res://art/plane/plane2.png" id="3_ebb1a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tf517"]
 size = Vector2(14, 14)
@@ -30,7 +30,6 @@ Label/font_sizes/font_size = 13
 Label/fonts/font = SubResource("SystemFont_2hn8o")
 
 [node name="plane_body" type="CharacterBody2D"]
-floor_constant_speed = true
 script = ExtResource("1_sl2pc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -43,9 +42,9 @@ scale = Vector2(0.04, 0.04)
 texture = ExtResource("1_xputg")
 
 [node name="direction" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.07)
-texture = ExtResource("2_axbi5")
-offset = Vector2(0, -450)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_ebb1a")
+offset = Vector2(450, 0)
 
 [node name="plane_description" type="Control" parent="."]
 layout_mode = 3
