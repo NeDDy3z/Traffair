@@ -99,9 +99,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 15.0
-offset_top = 17.0
+offset_top = 20.0
 offset_right = -160.0
-offset_bottom = -18.0
+offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
@@ -138,13 +138,13 @@ text = "SPD"
 layout_mode = 2
 theme = SubResource("Theme_tiwi8")
 
-[node name="heading_value" type="Label" parent="Button/data_hboxcontainer/values_vboxcontainer"]
-layout_mode = 2
-text = "00000 ft"
-
 [node name="altitude_value" type="Label" parent="Button/data_hboxcontainer/values_vboxcontainer"]
 layout_mode = 2
 text = "000 °"
+
+[node name="heading_value" type="Label" parent="Button/data_hboxcontainer/values_vboxcontainer"]
+layout_mode = 2
+text = "00000 ft"
 
 [node name="speed_value" type="Label" parent="Button/data_hboxcontainer/values_vboxcontainer"]
 layout_mode = 2

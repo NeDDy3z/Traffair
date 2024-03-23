@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3tc2r475ktvi"]
+
+[ext_resource type="Script" path="res://logic/game_level_kbely.gd" id="1_vlc60"]
+[ext_resource type="PackedScene" uid="uid://conakjasj0jik" path="res://levels/game_ui.tscn" id="2_yqmqv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_575os"]
+size = Vector2(5, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p55ue"]
+size = Vector2(5, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m67uu"]
+size = Vector2(87, 5)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nwtwp"]
+
+[node name="game_level_kbely" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vlc60")
+
+[node name="background" type="ColorRect" parent="."]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0509804, 0.0588235, 0.0666667, 1)
+metadata/_edit_lock_ = true
+
+[node name="runway09-27" type="Control" parent="."]
+custom_minimum_size = Vector2(500, 5)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_right = 540.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_lock_ = true
+
+[node name="rw_texture" type="ColorRect" parent="runway09-27"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="rw_texture2" type="ColorRect" parent="runway09-27"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.414
+anchor_right = 0.586
+anchor_bottom = 1.0
+offset_left = 0.199982
+offset_right = -0.200012
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="runway_staticbody" type="StaticBody2D" parent="runway09-27"]
+position = Vector2(250, 0)
+disable_mode = 1
+
+[node name="rw09" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
+position = Vector2(-247.5, 2.5)
+shape = SubResource("RectangleShape2D_575os")
+
+[node name="rw27" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
+position = Vector2(247.5, 2.5)
+shape = SubResource("RectangleShape2D_p55ue")
+
+[node name="landing" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
+position = Vector2(-0.5, 2.5)
+shape = SubResource("RectangleShape2D_m67uu")
+
+[node name="game_ui" parent="." instance=ExtResource("2_yqmqv")]
+layout_mode = 1
+
+[node name="target_point" type="Node2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="debug_sprite" type="Sprite2D" parent="target_point"]
+visible = false
+position = Vector2(1.90735e-05, 1.14441e-05)
+scale = Vector2(9.99995, 10.909)
+texture = SubResource("CanvasTexture_nwtwp")
+
+[connection signal="ready" from="." to="." method="_on_ready"]

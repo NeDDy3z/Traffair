@@ -1,14 +1,16 @@
 [gd_scene load_steps=2 format=3 uid="uid://conakjasj0jik"]
 
-[ext_resource type="PackedScene" uid="uid://cb2uw48ykj7r0" path="res://assets/plane_tab.tscn" id="1_wsx4l"]
+[ext_resource type="Script" path="res://logic/game_ui.gd" id="1_pyp86"]
 
 [node name="game_ui" type="Control"]
+z_index = 1000
 layout_mode = 3
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 400.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pyp86")
 
 [node name="timetable" type="Control" parent="."]
 layout_mode = 1
@@ -40,6 +42,3 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="plane_tab" parent="timetable/queue_scrollcontainer/queue_vboxcontainer" instance=ExtResource("1_wsx4l")]
-layout_mode = 2

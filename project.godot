@@ -16,6 +16,10 @@ run/main_scene="res://levels/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://art/logo.png"
 
+[autoload]
+
+Globals="*res://logic/global.gd"
+
 [display]
 
 window/size/viewport_width=1920
