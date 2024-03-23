@@ -20,7 +20,7 @@ var log_gd = load("res://logic/log.gd")
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var rng = RandomNumberGenerator.new()
 var plane_description_gd 
-var game_ui_gd
+var game_ui
 
 
 
@@ -30,7 +30,7 @@ func _ready():
 	Globals.plane_index += 1
 	
 	# Load game_ui script
-	game_ui_gd = get_parent().get_node("game_ui")
+	game_ui = get_parent().get_node("game_ui")
 	
 	# Load plane related nodes into variables
 	target_point = get_parent().get_node("target_point")
@@ -39,27 +39,31 @@ func _ready():
 	queue = get_parent().get_node("game_ui/timetable/queue_scrollcontainer/queue_vboxcontainer")
 	
 	# Randomly place a target point
-	target_offset_x = rng.randf_range(-500, 500)
-	target_offset_y = rng.randf_range(-500, 500)
-	target_point.position = Vector2(target_point.position.x + target_offset_x, target_point.position.y + target_offset_y)
+	if !Globals.debug:
+		target_offset_x = rng.randf_range(-500, 500)
+		target_offset_y = rng.randf_range(-500, 500)
+		var new_target_pos_x = target_point.position.x + target_offset_x
+		var new_target_pos_y = target_point.position.y + target_offset_y
+		
+		target_point.position = Vector2(new_target_pos_x, new_target_pos_y)
 	
 	# Direction & rotation of the plane (go towards target point)
-	direction.look_at(Vector2(target_point.position.x + target_offset_x, target_point.position.y + target_offset_y))
+	direction.look_at(target_point.position)
 	direction.rotation = global_position.direction_to(target_point.position).angle()
 
 
 func _process(delta):
-	plane_description_gd.update_data(speed, heading, altitude)
+	var angle = int(direction.rotation_degrees)
 	
-	
-	var angle = direction.rotation_degrees
 	if angle < 0:
 		angle += 360
-	if angle == 360:
-		angle = 0
+	if angle > 0:
+		angle += 90
 	if angle > 360:
 		angle -= 360
-	heading = angle + 90
+	
+	heading = angle
+	plane_description_gd.update_data(speed, heading, altitude)
 
 
 func _physics_process(delta):
@@ -70,9 +74,21 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-# Clicked on a new plane, it shows up in the sidebar
-# If the plane was already contacted, it just selects in the side bar
+# Clicked on a new plane, it shows up in the sidebar. If the plane was already contacted, it just selects in the side bar
 func _on_button_pressed():
+	var plane_tabs = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer").get_children()
+	var contains = false
+	
+	for pt in plane_tabs:
+		if pt.name == str(id):
+			pt.get_child(0).emit_signal("pressed")
+			contains = true
+	
+	if !contains:
+		add_new_plane_tab()
+
+
+func add_new_plane_tab():
 	var plane_tab = plane_tab_prefab.instantiate()
 	
 	plane_tab.name = str(id)

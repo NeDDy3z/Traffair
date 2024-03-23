@@ -1,4 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cb2uw48ykj7r0"]
+[gd_scene load_steps=12 format=3 uid="uid://cb2uw48ykj7r0"]
+
+[ext_resource type="Script" path="res://logic/plane_tab.gd" id="1_pwbs1"]
+[ext_resource type="Theme" uid="uid://couvt23w7drrn" path="res://art/themes/plane_tab_button.tres" id="2_8y8cb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_54lkw"]
 
@@ -37,37 +40,6 @@ Button/styles/pressed = SubResource("StyleBoxFlat_ipo3q")
 Label/font_sizes/font_size = 25
 Label/fonts/font = SubResource("SystemFont_0bmbm")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kivkm"]
-bg_color = Color(0.0823529, 0.113725, 0.14902, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxnca"]
-bg_color = Color(0.117647, 0.168627, 0.219608, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0myx"]
-bg_color = Color(0.117647, 0.168627, 0.219608, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.231373, 0.329412, 0.431373, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="Theme" id="Theme_ybrfd"]
-Button/styles/hover = SubResource("StyleBoxFlat_kivkm")
-Button/styles/normal = SubResource("StyleBoxFlat_mxnca")
-Button/styles/pressed = SubResource("StyleBoxFlat_o0myx")
-
 [sub_resource type="Theme" id="Theme_mhrhy"]
 HBoxContainer/constants/separation = 8
 
@@ -83,6 +55,7 @@ custom_minimum_size = Vector2(390, 110)
 layout_mode = 3
 anchors_preset = 0
 theme = SubResource("Theme_paglu")
+script = ExtResource("1_pwbs1")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
@@ -90,20 +63,15 @@ offset_left = 20.0
 offset_top = 20.0
 offset_right = 380.0
 offset_bottom = 110.0
-theme = SubResource("Theme_ybrfd")
+theme = ExtResource("2_8y8cb")
 toggle_mode = true
 
 [node name="callsign" type="Label" parent="Button"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 15.0
 offset_top = 20.0
-offset_right = -160.0
-offset_bottom = -24.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 200.0
+offset_bottom = 66.0
 theme_override_font_sizes/font_size = 40
 text = "XYZ-1234"
 vertical_alignment = 1
@@ -149,3 +117,5 @@ text = "00000 ft"
 [node name="speed_value" type="Label" parent="Button/data_hboxcontainer/values_vboxcontainer"]
 layout_mode = 2
 text = "000 kt"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

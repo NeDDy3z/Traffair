@@ -1,0 +1,38 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://ndkkiukjrq7m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_54lkw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tdgo7"]
+bg_color = Color(0.380392, 0.380392, 0.380392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1vps"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipo3q"]
+bg_color = Color(0.219608, 0.219608, 0.219608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="SystemFont" id="SystemFont_0bmbm"]
+font_names = PackedStringArray("Franklin Gothic")
+font_weight = 100
+subpixel_positioning = 0
+
+[resource]
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/styles/focus = SubResource("StyleBoxEmpty_54lkw")
+Button/styles/hover = SubResource("StyleBoxFlat_tdgo7")
+Button/styles/normal = SubResource("StyleBoxFlat_s1vps")
+Button/styles/pressed = SubResource("StyleBoxFlat_ipo3q")
+Label/font_sizes/font_size = 25
+Label/fonts/font = SubResource("SystemFont_0bmbm")

@@ -8,6 +8,9 @@ var speed
 var heading
 var altitude
 
+var normal = load("res://art/themes/plane_tab_button.tres::StyleBoxFlat_mxnca")
+var hover = load("res://art/themes/plane_tab_button.tres::StyleBoxFlat_kivkm")
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -17,6 +20,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	pass
+
+
+func add_plane_tab(id, callsign, heading, altitude, speed):
 	var plane_values = [
 		get_node("callsign"),
 		get_node("data_hboxcontainer/values_vboxcontainer/heading_value"),
@@ -31,10 +38,6 @@ func _process(delta):
 	plane_values[3].text = speed
 
 
-func add_plane_tab(id, callsign, heading, altitude, speed):
-	pass
-
-
 func update_plane_tab(u_callsign, u_heading, u_altitude, u_speed):
 	# Set data of plane to tab
 	callsign = str(u_callsign)
@@ -46,3 +49,8 @@ func update_plane_tab(u_callsign, u_heading, u_altitude, u_speed):
 	heading += "°"
 	altitude += " ft"
 	speed += " kt"
+
+
+func _on_button_pressed():
+	pass
+	# show description tab

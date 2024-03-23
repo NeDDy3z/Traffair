@@ -1,6 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://conakjasj0jik"]
+[gd_scene load_steps=9 format=3 uid="uid://conakjasj0jik"]
 
 [ext_resource type="Script" path="res://logic/game_ui.gd" id="1_pyp86"]
+[ext_resource type="Theme" uid="uid://ndkkiukjrq7m" path="res://art/themes/styles/plane_tab.tres" id="2_7tg65"]
+
+[sub_resource type="Theme" id="Theme_7gtb0"]
+HBoxContainer/constants/separation = 8
+
+[sub_resource type="Theme" id="Theme_aqmsh"]
+VBoxContainer/constants/separation = -2
+
+[sub_resource type="Theme" id="Theme_bj6sh"]
+VBoxContainer/constants/separation = -2
+
+[sub_resource type="LabelSettings" id="LabelSettings_xc6ws"]
+line_spacing = 41.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sawwn"]
+
+[sub_resource type="Theme" id="Theme_1emgu"]
+Button/styles/normal = SubResource("StyleBoxEmpty_sawwn")
+HBoxContainer/constants/separation = 20
 
 [node name="game_ui" type="Control"]
 z_index = 1000
@@ -42,3 +61,131 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="description" type="Control" parent="."]
+layout_mode = 1
+anchor_top = 0.778
+anchor_bottom = 0.963
+offset_top = -0.240051
+offset_right = 400.0
+offset_bottom = -0.0400391
+grow_vertical = 2
+theme = ExtResource("2_7tg65")
+
+[node name="callsign" type="Label" parent="description"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = -2.0
+offset_right = 235.0
+offset_bottom = 53.0
+theme_override_font_sizes/font_size = 40
+text = "XYZ-1234"
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
+[node name="data_hboxcontainer" type="HBoxContainer" parent="description"]
+offset_left = 10.0
+offset_top = 57.0
+offset_right = 163.0
+offset_bottom = 140.0
+theme = SubResource("Theme_7gtb0")
+
+[node name="labels_vboxcontainer" type="VBoxContainer" parent="description/data_hboxcontainer"]
+layout_mode = 2
+theme = SubResource("Theme_aqmsh")
+
+[node name="altitude" type="Label" parent="description/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+text = "Altitude:"
+
+[node name="heading" type="Label" parent="description/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+text = "Heading:"
+
+[node name="speed" type="Label" parent="description/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+text = "Speed:"
+
+[node name="separator" type="Label" parent="description/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+
+[node name="from" type="Label" parent="description/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+text = "From:"
+
+[node name="to" type="Label" parent="description/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+text = "To:"
+
+[node name="values_vboxcontainer" type="VBoxContainer" parent="description/data_hboxcontainer"]
+layout_mode = 2
+theme = SubResource("Theme_bj6sh")
+
+[node name="TextEdit" type="TextEdit" parent="description/data_hboxcontainer/values_vboxcontainer"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+text = "33000"
+scroll_fit_content_height = true
+
+[node name="separator" type="Label" parent="description/data_hboxcontainer/values_vboxcontainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+label_settings = SubResource("LabelSettings_xc6ws")
+justification_flags = 35
+
+[node name="line" type="ColorRect" parent="description"]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 0.05
+offset_left = 10.0
+offset_right = 390.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.458824, 0.490196, 0.52549, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="controls" type="Control" parent="."]
+layout_mode = 1
+anchor_top = 0.963
+anchor_bottom = 1.0
+offset_top = -0.0400391
+offset_right = 400.0
+grow_vertical = 2
+
+[node name="background" type="ColorRect" parent="controls"]
+layout_mode = 2
+anchor_bottom = 1.0
+offset_right = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.117647, 0.129412, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="line" type="ColorRect" parent="controls"]
+layout_mode = 2
+anchor_bottom = 0.05
+offset_left = 10.0
+offset_right = 390.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.458824, 0.490196, 0.52549, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="controls"]
+layout_mode = 0
+offset_top = 5.0
+offset_right = 400.0
+offset_bottom = 36.0
+theme = SubResource("Theme_1emgu")
+alignment = 1
+
+[node name="pause" type="Button" parent="controls/HBoxContainer"]
+layout_mode = 2
+text = "Pause"
+
+[node name="exit" type="Button" parent="controls/HBoxContainer"]
+layout_mode = 2
+text = "Exit
+"
