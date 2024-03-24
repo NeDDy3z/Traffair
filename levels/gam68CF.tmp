@@ -1,0 +1,326 @@
+[gd_scene load_steps=20 format=3 uid="uid://conakjasj0jik"]
+
+[ext_resource type="Script" path="res://logic/game_ui.gd" id="1_pyp86"]
+[ext_resource type="Theme" uid="uid://ndkkiukjrq7m" path="res://art/themes/styles/plane_tab.tres" id="2_7tg65"]
+[ext_resource type="Script" path="res://logic/description.gd" id="3_lwlko"]
+[ext_resource type="Theme" uid="uid://1lbim2u8mpy3" path="res://art/themes/plane_description_buttons.tres" id="4_4ar2h"]
+[ext_resource type="Script" path="res://logic/controls.gd" id="5_m3hne"]
+
+[sub_resource type="SystemFont" id="SystemFont_lmnue"]
+font_names = PackedStringArray("Lucida Console")
+font_weight = 975
+msdf_size = 53
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l2nxh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mq8de"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8iow7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2roq2"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="Theme" id="Theme_p0vd5"]
+Button/colors/font_color = Color(0.878431, 0, 0, 1)
+Button/colors/font_hover_color = Color(0.541176, 0, 0, 1)
+Button/font_sizes/font_size = 30
+Button/fonts/font = SubResource("SystemFont_lmnue")
+Button/styles/focus = SubResource("StyleBoxEmpty_l2nxh")
+Button/styles/hover = SubResource("StyleBoxFlat_mq8de")
+Button/styles/normal = SubResource("StyleBoxFlat_8iow7")
+Button/styles/pressed = SubResource("StyleBoxFlat_2roq2")
+
+[sub_resource type="Theme" id="Theme_7gtb0"]
+HBoxContainer/constants/separation = 2
+
+[sub_resource type="Theme" id="Theme_aqmsh"]
+VBoxContainer/constants/separation = 1
+
+[sub_resource type="Theme" id="Theme_bj6sh"]
+VBoxContainer/constants/separation = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vl1nn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0uomx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sawwn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_huu5a"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85098, 0.827451, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 2.0
+expand_margin_right = 5.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="Theme" id="Theme_1emgu"]
+Button/styles/focus = SubResource("StyleBoxEmpty_vl1nn")
+Button/styles/hover = SubResource("StyleBoxEmpty_0uomx")
+Button/styles/normal = SubResource("StyleBoxEmpty_sawwn")
+Button/styles/pressed = SubResource("StyleBoxFlat_huu5a")
+HBoxContainer/constants/separation = 20
+
+[node name="game_ui" type="Control"]
+z_index = 1000
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pyp86")
+
+[node name="timetable" type="Control" parent="."]
+layout_mode = 1
+anchor_bottom = 0.963
+offset_right = 400.0
+offset_bottom = -0.0400391
+grow_vertical = 2
+
+[node name="background" type="ColorRect" parent="timetable"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.117647, 0.129412, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="queue_scrollcontainer" type="ScrollContainer" parent="timetable"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 400.0
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="queue_vboxcontainer" type="VBoxContainer" parent="timetable/queue_scrollcontainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="description" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_top = 0.815
+anchor_bottom = 0.963
+offset_top = -0.200073
+offset_right = 400.0
+offset_bottom = -0.0400391
+grow_vertical = 2
+theme = ExtResource("2_7tg65")
+script = ExtResource("3_lwlko")
+
+[node name="line" type="ColorRect" parent="description"]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 0.012
+offset_left = 10.0
+offset_right = 390.0
+offset_bottom = 0.0799999
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.458824, 0.490196, 0.52549, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="callsign" type="Label" parent="description"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = -2.0
+offset_right = 245.0
+offset_bottom = 53.0
+theme_override_font_sizes/font_size = 40
+text = "AAA-0000"
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
+[node name="close_button" type="Button" parent="description"]
+layout_mode = 0
+offset_left = 362.0
+offset_top = 10.0
+offset_right = 380.0
+offset_bottom = 42.0
+theme = SubResource("Theme_p0vd5")
+text = "X"
+
+[node name="data" type="HBoxContainer" parent="description"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 176.0
+offset_bottom = 155.0
+theme = SubResource("Theme_7gtb0")
+
+[node name="labels" type="VBoxContainer" parent="description/data"]
+layout_mode = 2
+theme = SubResource("Theme_aqmsh")
+
+[node name="altitude" type="Label" parent="description/data/labels"]
+layout_mode = 2
+text = "Altitude:"
+
+[node name="heading" type="Label" parent="description/data/labels"]
+layout_mode = 2
+text = "Heading:"
+
+[node name="speed" type="Label" parent="description/data/labels"]
+layout_mode = 2
+text = "Speed:"
+
+[node name="direct" type="Label" parent="description/data/labels"]
+layout_mode = 2
+text = "Direct to:"
+
+[node name="values" type="VBoxContainer" parent="description/data"]
+layout_mode = 2
+theme = SubResource("Theme_bj6sh")
+
+[node name="altitude_value" type="LineEdit" parent="description/data/values"]
+layout_mode = 2
+
+[node name="heading_value" type="LineEdit" parent="description/data/values"]
+layout_mode = 2
+
+[node name="speed_value" type="LineEdit" parent="description/data/values"]
+layout_mode = 2
+
+[node name="direct_value" type="MenuButton" parent="description/data/values"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "---"
+
+[node name="labels_suffix" type="VBoxContainer" parent="description/data"]
+layout_mode = 2
+theme = SubResource("Theme_aqmsh")
+
+[node name="altitude_suffix" type="Label" parent="description/data/labels_suffix"]
+layout_mode = 2
+text = "ft"
+
+[node name="heading_suffix" type="Label" parent="description/data/labels_suffix"]
+layout_mode = 2
+text = "°"
+
+[node name="speed_suffix" type="Label" parent="description/data/labels_suffix"]
+layout_mode = 2
+text = "kt"
+
+[node name="requirement" type="VBoxContainer" parent="description"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 50.0
+offset_right = 331.0
+offset_bottom = 104.0
+
+[node name="req" type="Label" parent="description/requirement"]
+layout_mode = 2
+text = "Requirements:"
+
+[node name="req_value" type="Label" parent="description/requirement"]
+layout_mode = 2
+text = "Land"
+
+[node name="commands" type="HBoxContainer" parent="description"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 120.0
+offset_right = 282.0
+offset_bottom = 150.0
+theme = ExtResource("4_4ar2h")
+theme_override_constants/separation = 15
+
+[node name="land" type="Button" parent="description/commands"]
+layout_mode = 2
+toggle_mode = true
+text = "Land"
+
+[node name="hold" type="Button" parent="description/commands"]
+layout_mode = 2
+toggle_mode = true
+text = "Hold"
+
+[node name="controls" type="Control" parent="."]
+process_mode = 3
+process_priority = 1
+layout_mode = 1
+anchor_top = 0.963
+anchor_bottom = 1.0
+offset_top = -0.0400391
+offset_right = 400.0
+grow_vertical = 2
+script = ExtResource("5_m3hne")
+
+[node name="background" type="ColorRect" parent="controls"]
+layout_mode = 2
+anchor_bottom = 1.0
+offset_right = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.117647, 0.129412, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="line" type="ColorRect" parent="controls"]
+layout_mode = 2
+anchor_bottom = 0.05
+offset_left = 10.0
+offset_right = 390.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.458824, 0.490196, 0.52549, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="controls"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.175
+anchor_bottom = 0.85
+offset_right = 400.0
+theme = SubResource("Theme_1emgu")
+alignment = 1
+
+[node name="pause" type="Button" parent="controls/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+toggle_mode = true
+text = "Pause"
+
+[node name="exit" type="Button" parent="controls/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+text = "Exit
+"
+
+[connection signal="pressed" from="description/close_button" to="description" method="_on_close_button_pressed"]
+[connection signal="text_submitted" from="description/data/values/altitude_value" to="description" method="_on_altitude_value_text_submitted"]
+[connection signal="button_down" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_down"]
+[connection signal="button_up" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_up"]
+[connection signal="toggled" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_toggled"]
+[connection signal="pressed" from="controls/HBoxContainer/exit" to="controls" method="_on_exit_pressed"]

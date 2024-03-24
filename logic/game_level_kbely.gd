@@ -11,7 +11,7 @@ var i = 0
 
 var log_gd = load("res://logic/log.gd")
 var rng = RandomNumberGenerator.new()
-var display_size = DisplayServer.screen_get_size()
+var display_size = DisplayServer.window_get_size()
 
 
 
@@ -40,17 +40,15 @@ func spawn_plane():
 	else:
 		plane.position = random_spawn_position()
 	
-	add_child(plane)
-	log_gd.write_to_log("plane"+str(Globals.plane_index-1), "spawn", "")
-	log_gd.write_to_console("plane"+str(Globals.plane_index-1), "spawn", "")
+	get_node("planes").add_child(plane)
 
 
 func random_spawn_position():
-	var x = rng.randi_range(-100, display_size.x+100)
+	var x = rng.randi_range(-100, display_size.x + 100)
 	var y
 	if x >= 0 and x <= display_size.x:
 		if rng.randi()%2 == 1:
-			y = display_size.y + 100
+			y = display_size.y
 		else:
 			y = -100
 	

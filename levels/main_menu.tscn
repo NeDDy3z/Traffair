@@ -1,29 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5ls15rnmqsac"]
+[gd_scene load_steps=5 format=3 uid="uid://b5ls15rnmqsac"]
 
 [ext_resource type="Script" path="res://logic/main_menu.gd" id="1_7is2i"]
+[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_bdfyr"]
 [ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="2_83rmw"]
-
-[sub_resource type="SystemFont" id="SystemFont_cqyaj"]
-font_names = PackedStringArray("Franklin Gothic")
-font_weight = 500
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y5ac7"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4qs0p"]
-content_margin_left = 30.0
-bg_color = Color(1, 1, 1, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ltpx"]
-content_margin_left = 30.0
-bg_color = Color(0.6, 0.6, 0.6, 0)
-expand_margin_left = 30.0
-
-[sub_resource type="Theme" id="Theme_7gqdo"]
-Button/colors/font_pressed_color = Color(0.156863, 0.156863, 0.156863, 1)
-Button/fonts/font = SubResource("SystemFont_cqyaj")
-Button/styles/focus = SubResource("StyleBoxEmpty_y5ac7")
-Button/styles/hover = SubResource("StyleBoxFlat_4qs0p")
-Button/styles/pressed = SubResource("StyleBoxFlat_7ltpx")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nq0ww"]
 
@@ -34,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_7gqdo")
+theme = ExtResource("1_bdfyr")
 script = ExtResource("1_7is2i")
 metadata/_edit_use_anchors_ = true
 
@@ -69,7 +48,7 @@ layout_mode = 0
 offset_left = 20.0
 offset_top = 100.0
 offset_right = 220.0
-offset_bottom = 315.0
+offset_bottom = 279.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -93,6 +72,28 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_nq0ww")
 text = "EXIT"
+alignment = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -88.0
+offset_right = 245.0
+offset_bottom = -53.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="bonus" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nq0ww")
+text = "BONUS CONTENT"
 alignment = 0
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]

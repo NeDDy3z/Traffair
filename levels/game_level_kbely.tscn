@@ -1,8 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3tc2r475ktvi"]
+[gd_scene load_steps=10 format=3 uid="uid://c3tc2r475ktvi"]
 
 [ext_resource type="Script" path="res://logic/game_level_kbely.gd" id="1_vlc60"]
 [ext_resource type="PackedScene" uid="uid://conakjasj0jik" path="res://levels/game_ui.tscn" id="2_yqmqv"]
+[ext_resource type="Texture2D" uid="uid://bysa5xagdjwkf" path="res://art/trg.png" id="3_mp2mp"]
 [ext_resource type="Script" path="res://logic/target_point.gd" id="3_w2s51"]
+
+[sub_resource type="SystemFont" id="SystemFont_v76dm"]
+font_names = PackedStringArray("Arial")
+font_weight = 450
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_575os"]
 size = Vector2(5, 5)
@@ -34,6 +39,588 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0509804, 0.0588235, 0.0666667, 1)
 metadata/_edit_lock_ = true
+
+[node name="game_ui" parent="." instance=ExtResource("2_yqmqv")]
+layout_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="nav_points" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.208
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.639984
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="agi" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -564.0
+offset_top = 117.0
+offset_right = -514.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/agi"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "AGI
+ "
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/agi"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="bubu" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -504.0
+offset_top = 349.0
+offset_right = -454.0
+offset_bottom = 361.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/bubu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "BUBU
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/bubu"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="bravo" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -308.0
+offset_top = 239.0
+offset_right = -258.0
+offset_bottom = 251.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/bravo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "BRAVO"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/bravo"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="dnipr" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -466.0
+offset_top = -127.0
+offset_right = -416.0
+offset_bottom = -115.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/dnipr"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "DNIPR"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/dnipr"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="egwu" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 154.0
+offset_top = 195.0
+offset_right = 204.0
+offset_bottom = 207.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/egwu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "EGWU
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/egwu"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="elo" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 468.0
+offset_top = 125.0
+offset_right = 518.0
+offset_bottom = 137.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/elo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "ELO
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/elo"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="klo" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -615.0
+offset_top = -408.0
+offset_right = -565.0
+offset_bottom = -396.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/klo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "KLO"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/klo"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="leopa" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = 144.0
+offset_right = -58.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/leopa"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "LEOPA"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/leopa"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="lyd" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 478.0
+offset_top = 371.0
+offset_right = 528.0
+offset_bottom = 383.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/lyd"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "LYD"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/lyd"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="mauri" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 186.0
+offset_top = -174.0
+offset_right = 236.0
+offset_bottom = -162.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/mauri"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "MAURI
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/mauri"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="ondr" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = 354.0
+offset_right = 65.0
+offset_bottom = 366.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/ondr"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "ONDR
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/ondr"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="rvo" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -412.0
+offset_right = -17.0
+offset_bottom = -400.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/rvo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "RVO"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/rvo"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="hvo-n" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 253.0
+offset_top = -463.0
+offset_right = 303.0
+offset_bottom = -451.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/hvo-n"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "HVO-N"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/hvo-n"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="zaro" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 571.0
+offset_top = -103.0
+offset_right = 621.0
+offset_bottom = -91.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/zaro"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "ZARO"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/zaro"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="zet" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -294.0
+offset_top = -298.0
+offset_right = -244.0
+offset_bottom = -286.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/zet"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "ZET
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/zet"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="zf2" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 459.0
+offset_top = -323.0
+offset_right = 509.0
+offset_bottom = -311.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/zf2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "DNIPR"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/zf2"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="zfw" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -156.0
+offset_right = -87.0
+offset_bottom = -144.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/zfw"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_top = -0.00399995
+offset_bottom = 0.00399971
+theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_v76dm")
+theme_override_font_sizes/font_size = 10
+text = "ZFW"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/zfw"]
+position = Vector2(4, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
 
 [node name="runway09-27" type="Control" parent="."]
 custom_minimum_size = Vector2(500, 5)
@@ -86,9 +673,6 @@ shape = SubResource("RectangleShape2D_p55ue")
 position = Vector2(-0.5, 2.5)
 shape = SubResource("RectangleShape2D_m67uu")
 
-[node name="game_ui" parent="." instance=ExtResource("2_yqmqv")]
-layout_mode = 1
-
 [node name="target_point" type="Node2D" parent="."]
 position = Vector2(960, 540)
 script = ExtResource("3_w2s51")
@@ -97,5 +681,7 @@ script = ExtResource("3_w2s51")
 position = Vector2(1.90735e-05, 1.14441e-05)
 scale = Vector2(9.99995, 10.909)
 texture = SubResource("CanvasTexture_nwtwp")
+
+[node name="planes" type="Node2D" parent="."]
 
 [connection signal="ready" from="." to="." method="_on_ready"]

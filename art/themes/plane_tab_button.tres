@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://couvt23w7drrn"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://couvt23w7drrn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rterd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kivkm"]
 bg_color = Color(0.0823529, 0.113725, 0.14902, 1)
@@ -6,13 +8,23 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxnca"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
 bg_color = Color(0.117647, 0.168627, 0.219608, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_right = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0myx"]
 bg_color = Color(0.117647, 0.168627, 0.219608, 1)
@@ -20,13 +32,19 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.231373, 0.329412, 0.431373, 1)
+border_color = Color(0.160784, 0.231373, 0.301961, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [resource]
+Button/constants/h_separation = 8
+Button/styles/focus = SubResource("StyleBoxEmpty_rterd")
 Button/styles/hover = SubResource("StyleBoxFlat_kivkm")
 Button/styles/normal = SubResource("StyleBoxFlat_mxnca")
 Button/styles/pressed = SubResource("StyleBoxFlat_o0myx")

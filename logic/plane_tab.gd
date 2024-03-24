@@ -3,47 +3,49 @@ extends Control
 
 
 var id = name
-var callsign
-var speed
-var heading
-var altitude
+var callsign : String
+var speed : String
+var heading : String
+var altitude : String
 
-var normal = load("res://art/themes/plane_tab_button.tres::StyleBoxFlat_mxnca")
-var hover = load("res://art/themes/plane_tab_button.tres::StyleBoxFlat_kivkm")
+var planes
+var data
+var description
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	planes = get_node("../../../../../planes")
+	data = get_plane()
+	description = get_node("../../../../").get_node("description")
+
+	callsign = $Button/callsign.text
+	altitude = $Button/data_hboxcontainer/values_vboxcontainer/altitude_value.text
+	heading = $Button/data_hboxcontainer/values_vboxcontainer/heading_value.text
+	speed = $Button/data_hboxcontainer/values_vboxcontainer/speed_value.text
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if data != null:
+		update_data(data["callsign"], data["altitude"], data["heading"], data["speed"])
 
 
-func add_plane_tab(id, callsign, heading, altitude, speed):
-	var plane_values = [
-		get_node("callsign"),
-		get_node("data_hboxcontainer/values_vboxcontainer/heading_value"),
-		get_node("data_hboxcontainer/values_vboxcontainer/altitude_value"),
-		get_node("data_hboxcontainer/values_vboxcontainer/speed_value")
-	]
-	
-	# Set data of plane to tab
-	plane_values[0].text = callsign
-	plane_values[1].text = heading
-	plane_values[2].text = altitude
-	plane_values[3].text = speed
+# Get plane by callsign
+func get_plane():
+	var pl = planes.get_children()
+	for p in pl:
+		if p.name.contains(name.get_slice("plane_tab", 1)):
+			return p
 
 
-func update_plane_tab(u_callsign, u_heading, u_altitude, u_speed):
-	# Set data of plane to tab
+# Set data of plane to tab
+func update_data(u_callsign, u_altitude, u_heading, u_speed):	
 	callsign = str(u_callsign)
+	altitude = str(int(u_altitude))
 	heading = str(int(u_heading))
-	altitude = str(u_altitude)
-	speed = str(u_speed)
+	speed = str(int(u_speed))
 	
 	# Suffixes
 	heading += "°"
@@ -51,6 +53,7 @@ func update_plane_tab(u_callsign, u_heading, u_altitude, u_speed):
 	speed += " kt"
 
 
+# Show description tab
 func _on_button_pressed():
-	pass
-	# show description tab
+	description.visible = true
+	description.update_data(callsign, altitude, heading, speed, "")
