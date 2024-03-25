@@ -1,4 +1,4 @@
-# Traffair - ATC arcade game ![](art/logo.png)
+# Traffair - ATC arcade game ![](art/logo.png x=250)
 - Final project of IT Highschool SPŠE Ječná
 ### Features
 - Control your airport
