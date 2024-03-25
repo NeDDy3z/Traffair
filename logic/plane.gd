@@ -17,6 +17,7 @@ var plane_tab_prefab = load("res://assets/plane_tab.tscn")
 var queue
 
 var direction
+var nav_points
 var target_point
 var target_offset_x
 var target_offset_y
@@ -36,10 +37,12 @@ func _ready():
 	game_ui = get_parent().get_parent().get_node("game_ui")
 	
 	# Load plane related nodes into variables
+	queue = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer")
 	target_point = get_parent().get_parent().get_node("target_point")
+	nav_points = get_node("../../nav_points").get_children()
 	plane_description = $plane_description
 	direction = $direction
-	queue = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer")
+	
 	
 	
 	# Randomly place a target point (to which the plane will direct to)
@@ -67,6 +70,7 @@ func _ready():
 	
 	log_gd.write_to_log("plane"+callsign, "spawn", "")
 	log_gd.write_to_console("plane"+callsign, "spawn", "")
+	log_gd.write_to_console("-","","")	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -84,8 +88,6 @@ func _process(delta):
 	# Slowly change the plane altitude/heading/speed
 	slow_update_data()
 	
-	# Nonstop update plane data
-	plane_description.update_data(callsign, altitude, heading)
 
 
 func _physics_process(delta):
@@ -113,7 +115,8 @@ func slow_update_data():
 				altitude -= 500
 			else:
 				altitude += 500
-		
+		if heading != new_hdg and new_hdg != null:
+			heading = new_hdg # TODO: HEADING UPDATE
 		if speed != new_spd and new_spd != null:
 			if speed > new_spd:
 				speed -= 5
@@ -123,7 +126,6 @@ func slow_update_data():
 				speed += 5
 				if speed >= new_spd:
 					speed = new_spd
-		# TODO: HEADING UPDATE
 
 
 # Generate random callsign of plane
@@ -136,6 +138,10 @@ func generate_callsign():
 	
 	for i in rng.randi_range(1,4):
 		sign += str(rng.randi_range(1,9))
+	
+	log_gd.write_to_log("generate_callsign()", "generated", sign)
+	log_gd.write_to_console("generate_callsign()", "generated", sign)
+	
 	return sign
 
 
@@ -143,6 +149,10 @@ func generate_callsign():
 func generate_altitude():
 	var alt : int
 	alt = rng.randi_range(3, 30) * 1000
+	
+	log_gd.write_to_log("generate_altitude()", "generated", alt)
+	log_gd.write_to_console("generate_altitude()", "generated", alt)
+	
 	return alt
 
 
@@ -150,28 +160,46 @@ func generate_altitude():
 func generate_speed():
 	var spd : int
 	spd = rng.randi_range(150,350)
+	
+	log_gd.write_to_log("generate_speed()", "generated", spd)
+	log_gd.write_to_console("generate_speed()", "generated", spd)
+	
 	return spd
 
 
 # Set data of plane
 func set_altitude(value):
 	new_alt = int(value)
+	
+	log_gd.write_to_log("set_altitude()", "set", value)
+	log_gd.write_to_console("set_altitude()", "set", value)
 
 
 # Set heading of plane
 func set_heading(value):
 	new_hdg = int(value)
+	
+	log_gd.write_to_log("set_altitude()", "set", value)
+	log_gd.write_to_console("set_altitude()", "set", value)
 
 
 # Set speed of plane
 func set_speed(value):
 	new_spd = int(value)
+	
+	log_gd.write_to_log("set_speed()", "set", value)
+	log_gd.write_to_console("set_speed()", "set", value)
 
 
 # Send plane towards a point
 func direct_to(value):
-	direction.look_at(value.position)
-	direction.rotation = global_position.direction_to(value.position).angle()
+	for n_p in nav_points:
+		if n_p.name == value.to_lower():
+			direction.look_at(n_p.position)
+			direction.rotation = global_position.direction_to(n_p.position).angle()
+			
+			log_gd.write_to_log("direct_to()", "set", value.name)
+			log_gd.write_to_console("direct_to()", "set", value.name)
 
 
 func add_new_plane_tab():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://conakjasj0jik"]
+[gd_scene load_steps=24 format=3 uid="uid://conakjasj0jik"]
 
 [ext_resource type="Script" path="res://logic/game_ui.gd" id="1_pyp86"]
 [ext_resource type="Theme" uid="uid://ndkkiukjrq7m" path="res://art/themes/styles/plane_tab.tres" id="2_7tg65"]
@@ -51,6 +51,29 @@ VBoxContainer/constants/separation = 1
 
 [sub_resource type="Theme" id="Theme_bj6sh"]
 VBoxContainer/constants/separation = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ymj5g"]
+bg_color = Color(0.6, 0.6, 0.6, 0.447059)
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygg3i"]
+bg_color = Color(0.901961, 0.901961, 0.901961, 0.321569)
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yejjp"]
+bg_color = Color(1, 1, 1, 0)
+border_width_bottom = 1
+
+[sub_resource type="Theme" id="Theme_wk513"]
+OptionButton/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+OptionButton/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+OptionButton/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+OptionButton/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+OptionButton/colors/font_pressed_color = Color(1, 1, 1, 1)
+OptionButton/styles/focus = SubResource("StyleBoxFlat_ymj5g")
+OptionButton/styles/hover = SubResource("StyleBoxFlat_ygg3i")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_yejjp")
+OptionButton/styles/pressed = SubResource("StyleBoxFlat_ymj5g")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vl1nn"]
 
@@ -127,6 +150,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="description" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchor_top = 0.815
 anchor_bottom = 0.963
@@ -211,11 +235,12 @@ layout_mode = 2
 [node name="speed_value" type="LineEdit" parent="description/data/values"]
 layout_mode = 2
 
-[node name="direct_value" type="MenuButton" parent="description/data/values"]
-custom_minimum_size = Vector2(0, 30)
+[node name="direct_value" type="OptionButton" parent="description/data/values"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
+theme = SubResource("Theme_wk513")
 item_count = 1
-popup/item_0/text = "test"
+popup/item_0/text = " -"
 popup/item_0/id = 0
 
 [node name="labels_suffix" type="VBoxContainer" parent="description/data"]
@@ -322,7 +347,7 @@ text = "Exit
 [connection signal="text_submitted" from="description/data/values/altitude_value" to="description" method="_on_altitude_value_text_submitted"]
 [connection signal="text_submitted" from="description/data/values/heading_value" to="description" method="_on_heading_value_text_submitted"]
 [connection signal="text_submitted" from="description/data/values/speed_value" to="description" method="_on_speed_value_text_submitted"]
-[connection signal="pressed" from="description/data/values/direct_value" to="description" method="_on_direct_value_pressed"]
+[connection signal="item_selected" from="description/data/values/direct_value" to="description" method="_on_direct_value_item_selected"]
 [connection signal="button_down" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_down"]
 [connection signal="button_up" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_up"]
 [connection signal="toggled" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_toggled"]

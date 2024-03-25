@@ -5,7 +5,8 @@ extends Control
 @export var plane_spawn_chance = 50 # in %
 @export var plane_spawn_delay_s = 10 # in seconds 
 
-var plane_spawn_delay = plane_spawn_delay_s * DisplayServer.screen_get_refresh_rate() # (*display_fps - ticks are dependent on refreshrate, basicly 60ticks = 1s if monitor is 60hz, 90t = 1s if monitor is 90hz, ...)
+# (*display_fps - ticks are dependent on refreshrate, basicly 60ticks = 1s if monitor is 60hz, 90t = 1s if monitor is 90hz, ...)
+var plane_spawn_delay = plane_spawn_delay_s * DisplayServer.screen_get_refresh_rate() 
 var plane_body_prefab = preload("res://assets/plane_body.tscn")
 var i = 0
 
@@ -36,7 +37,7 @@ func spawn_plane():
 	var plane = plane_body_prefab.instantiate()
 	
 	if Globals.debug:
-		plane.position = Vector2(960, 540)
+		plane.position = Vector2(1200, 600)
 	else:
 		plane.position = random_spawn_position()
 	
