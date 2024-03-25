@@ -1,6 +1,6 @@
 # Traffair - ATC arcade game 
 - Final project of IT Highschool SPŠE Ječná
-<img src="art/logo.png" width="250" height="120"/>
+<img src="art/logo.png" width="250"/>
 ### Features
 - Control your airport
 - Navigate airplanes to land or to pass through your airspace
