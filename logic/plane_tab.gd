@@ -29,14 +29,16 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var data = get_plane().get_plane_data()
+	var data
+	data = get_plane().get_plane_data()
 	if data != null:
 		update_data(data["callsign"], data["altitude"], data["heading"], data["speed"])
 
 
 # Get plane by callsign
 func get_plane():
-	var pl = planes.get_children()
+	var pl
+	pl = planes.get_children()
 	for p in pl:
 		if p.name.contains(labels["callsign"].text):
 			return p

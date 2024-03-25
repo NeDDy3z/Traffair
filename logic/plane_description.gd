@@ -33,7 +33,8 @@ func _process(delta):
 # Update plane data
 func update_data(u_callsign, u_altitude, u_heading):
 	# Make heading text 3chars long
-	var hdg = str(int(u_heading))
+	var hdg
+	hdg = str(int(u_heading))
 	if len(hdg) == 1:
 		hdg = "00" + str(hdg)
 	elif len(hdg) == 2:
@@ -59,6 +60,3 @@ func _on_button_mouse_entered():
 func _on_button_mouse_exited():
 	for label in labels:
 		labels[label].set("theme_override_colors/font_color", NORMAL)
-
-
-

@@ -3,7 +3,6 @@ extends Control
 
 
 var description
-
 var log_gd = load("res://logic/log.gd")
 
 

@@ -49,8 +49,10 @@ func _ready():
 	if !Globals.debug:
 		target_offset_x = rng.randf_range(-500, 500)
 		target_offset_y = rng.randf_range(-500, 500)
-		var new_target_pos_x = target_point.position.x + target_offset_x
-		var new_target_pos_y = target_point.position.y + target_offset_y
+		var new_target_pos_x 
+		var new_target_pos_y
+		new_target_pos_x = target_point.position.x + target_offset_x
+		new_target_pos_y = target_point.position.y + target_offset_y
 		
 		target_point.position = Vector2(new_target_pos_x, new_target_pos_y)
 	
@@ -76,7 +78,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Get heading from object rotation
-	var angle = int(direction.rotation_degrees)
+	var angle
+	angle = int(direction.rotation_degrees)
 	if angle < 0:
 		angle += 360
 	if angle > 0:
@@ -87,16 +90,18 @@ func _process(delta):
 	
 	# Slowly change the plane altitude/heading/speed
 	slow_update_data()
-	
 
 
+# Moevement stuff
 func _physics_process(delta):
 	# Move straight (/80 to make the speed of movement more realistic)
 	velocity = Vector2(1, 0).rotated(direction.rotation) * speed / 80
+	
 	# Initiate movement
 	move_and_slide()
 
 
+# Getter for all of the scripts to retrieve a plane data
 func get_plane_data():
 	return {
 		"callsign" : callsign, 
@@ -106,6 +111,8 @@ func get_plane_data():
 	}
 
 
+# TODO: HEADING UPDATE
+# Slowly transition data altitude/heading/speed into a new values (to feel more realistic)
 func slow_update_data():
 	i += 1
 	if i == int(DisplayServer.screen_get_refresh_rate()):
@@ -116,7 +123,7 @@ func slow_update_data():
 			else:
 				altitude += 500
 		if heading != new_hdg and new_hdg != null:
-			heading = new_hdg # TODO: HEADING UPDATE
+			heading = new_hdg 
 		if speed != new_spd and new_spd != null:
 			if speed > new_spd:
 				speed -= 5
@@ -130,7 +137,8 @@ func slow_update_data():
 
 # Generate random callsign of plane
 func generate_callsign():
-	var letters = "abcdefghijklmnopqrstuvwxyz"
+	var letters 
+	letters = "abcdefghijklmnopqrstuvwxyz"
 	var sign : String
 	
 	for i in rng.randi_range(1,3):
@@ -203,7 +211,8 @@ func direct_to(value):
 
 
 func add_new_plane_tab():
-	var plane_tab = plane_tab_prefab.instantiate()
+	var plane_tab 
+	plane_tab = plane_tab_prefab.instantiate()
 	plane_tab.name = "plane_tab"+str(id)
 	
 	var plane_values = [
@@ -227,8 +236,10 @@ func add_new_plane_tab():
 
 # Clicked on a new plane, it shows up in the sidebar. If the plane was already contacted, it just selects in the side bar
 func _on_plane_button_pressed():
-	var plane_tabs = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer").get_children()
-	var contains = false
+	var plane_tabs 
+	plane_tabs = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer").get_children()
+	var contains
+	contains = false
 	
 	for pt in plane_tabs:
 		if pt.name == "plane_tab"+str(id):

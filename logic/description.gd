@@ -38,7 +38,7 @@ func _ready():
 	log_gd.write_to_console("game_ui_description", "loaded", "")
 
 
-# Update plane data
+# Update plane data in sidebar bottom tab
 func update_data(u_callsign, u_altitude, u_heading, u_speed, u_requirement):
 	callsign.text = str(u_callsign)
 	altitude.text = str(u_altitude)
@@ -49,14 +49,17 @@ func update_data(u_callsign, u_altitude, u_heading, u_speed, u_requirement):
 
 # Get plane by callsign
 func get_plane():
-	var pl = planes.get_children()
+	var pl
+	pl = planes.get_children()
 	for p in pl:
 		if p.name.contains(str(callsign.text)):
 			return p
 
 
+# Add all nav_points into direct_to optionsbutton
 func add_nav_points():
-	var n_p = nav_points.get_children()
+	var n_p
+	n_p = nav_points.get_children()
 	for i in range(0,len(n_p)):
 		direct_to.add_item(n_p[i].name.to_upper(), i)
 		
@@ -80,7 +83,8 @@ func _on_altitude_value_text_submitted(new_text):
 	
 	altitude.text = str(new_text)
 	
-	var plane = get_plane()
+	var plane
+	plane = get_plane()
 	plane.set_altitude(new_text)
 	
 	log_gd.write_to_log("altitude", "set", "")
@@ -98,7 +102,8 @@ func _on_heading_value_text_submitted(new_text):
 	
 	heading.text = str(new_text)
 	
-	var plane = get_plane()
+	var plane
+	plane = get_plane()
 	plane.set_heading(new_text)
 	
 	log_gd.write_to_log("heading", "set", "")
@@ -116,7 +121,8 @@ func _on_speed_value_text_submitted(new_text):
 	
 	speed.text = str(new_text)
 	
-	var plane = get_plane()
+	var plane
+	plane = get_plane()
 	plane.set_speed(new_text)
 	
 	log_gd.write_to_log("speed", "set", "")
@@ -124,7 +130,8 @@ func _on_speed_value_text_submitted(new_text):
 
 
 func _on_direct_value_item_selected(index):
-	var plane = get_plane()
+	var plane
+	plane = get_plane()
 	plane.direct_to(direct_to.get_item_text(index))
 	
 	log_gd.write_to_log("direct_to", "set", "")

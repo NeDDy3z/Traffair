@@ -3,13 +3,12 @@ extends Control
 
 
 var pause
-
 var log_gd = load("res://logic/log.gd")
 
 
 
 func _ready():
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_ALWAYS # The script will work even tho the game is Frozen ("let it go..")
 	
 	pause = $HBoxContainer/pause
 	
@@ -17,7 +16,7 @@ func _ready():
 	log_gd.write_to_console("game_ui_controls", "loaded", "")
 
 
-
+# Read input from user
 func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_ESCAPE:
@@ -26,6 +25,8 @@ func _unhandled_input(event):
 			log_gd.write_to_log("esc button", "game paused", "ingame")
 			log_gd.write_to_console("esc button", "game paused", "ingame")
 
+
+# Exit game to main menu on Exit click
 func _on_exit_pressed():
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://levels/main_menu.tscn")
@@ -34,6 +35,7 @@ func _on_exit_pressed():
 	log_gd.write_to_console("exit button", "back to menu", "ingame")
 
 
+# Pause game = "freze"
 func _on_pause_toggled(toggled_on):
 	get_tree().paused = toggled_on
 	
