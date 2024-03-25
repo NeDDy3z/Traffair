@@ -9,12 +9,12 @@ var labels : Dictionary
 var plane
 var data
 
+var plane_tab
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	plane = get_parent()
-	data = plane.get_plane_data()
-	
 	labels = {
 		"callsign" : $VBoxContainer/callsign,
 		"heading" : $VBoxContainer/HBoxContainer/heading,
@@ -24,6 +24,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	plane = get_parent()
+	data = plane.get_plane_data()
 	if data != null:
 		update_data(data["callsign"], data["altitude"], data["heading"])
 

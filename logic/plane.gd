@@ -109,8 +109,7 @@ func _physics_process(delta):
 
 
 func get_plane_data():
-	return 
-	{
+	return {
 		"callsign" : callsign, 
 		"altitude" : altitude, 
 		"heading" : heading, 
@@ -183,11 +182,7 @@ func add_new_plane_tab():
 	plane_values[2].text = str(altitude)
 	plane_values[3].text = str(speed)
 	
-	# Suffixes
-	plane_values[1].text += "°"
-	plane_values[2].text += " ft"
-	plane_values[3].text += " kt"
-	
+	# Add tab
 	queue.add_child(plane_tab, true)
 	log_gd.write_to_log("plane_tab" + str(id), "added", "")
 	log_gd.write_to_console("plane_tab" + str(id), "added", "")

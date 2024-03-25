@@ -30,10 +30,10 @@ func _ready():
 
 # Update plane data
 func update_data(u_callsign, u_altitude, u_heading, u_speed, u_requirement):
-	callsign.text = u_callsign
-	altitude.text = str(int(u_altitude))
-	heading.text = str(int(u_heading))
-	speed.text = str(int(u_speed))
+	callsign.text = str(u_callsign)
+	altitude.text = str(u_altitude)
+	heading.text = str(u_heading)
+	speed.text = str(u_speed)
 	requirement.text = u_requirement
 
 

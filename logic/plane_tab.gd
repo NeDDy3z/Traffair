@@ -9,7 +9,6 @@ var heading : String
 var altitude : String
 
 var planes
-var data
 var description
 
 
@@ -17,7 +16,6 @@ var description
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	planes = get_node("../../../../../planes")
-	data = get_plane()
 	description = get_node("../../../../").get_node("description")
 
 	callsign = $Button/callsign.text
@@ -28,6 +26,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	var data = get_plane().get_plane_data()
 	if data != null:
 		update_data(data["callsign"], data["altitude"], data["heading"], data["speed"])
 
@@ -36,7 +35,7 @@ func _process(delta):
 func get_plane():
 	var pl = planes.get_children()
 	for p in pl:
-		if p.name.contains(name.get_slice("plane_tab", 1)):
+		if p.name.contains(callsign):
 			return p
 
 
@@ -56,4 +55,4 @@ func update_data(u_callsign, u_altitude, u_heading, u_speed):
 # Show description tab
 func _on_button_pressed():
 	description.visible = true
-	description.update_data(callsign, altitude, heading, speed, "")
+	description.update_data(callsign, int(altitude), int(heading), int(speed), "")
