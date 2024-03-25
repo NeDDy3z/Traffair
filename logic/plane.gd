@@ -82,20 +82,7 @@ func _process(delta):
 	heading = angle
 	
 	# Slowly change the plane altitude/heading/speed
-	i += 1
-	if i == int(DisplayServer.screen_get_refresh_rate()):
-		i = 0
-		if altitude != new_alt and new_alt != null:
-			if altitude > new_alt:
-				altitude -= 500
-			else:
-				altitude += 500
-		
-		if speed != new_spd and new_spd != null:
-			if speed > new_spd:
-				speed -= 15
-			else:
-				speed += 15
+	slow_update_data()
 	
 	# Nonstop update plane data
 	plane_description.update_data(callsign, altitude, heading)
@@ -115,6 +102,28 @@ func get_plane_data():
 		"heading" : heading, 
 		"speed" : speed
 	}
+
+
+func slow_update_data():
+	i += 1
+	if i == int(DisplayServer.screen_get_refresh_rate()):
+		i = 0
+		if altitude != new_alt and new_alt != null:
+			if altitude > new_alt:
+				altitude -= 500
+			else:
+				altitude += 500
+		
+		if speed != new_spd and new_spd != null:
+			if speed > new_spd:
+				speed -= 5
+				if speed <= new_spd:
+					speed = new_spd
+			else:
+				speed += 5
+				if speed >= new_spd:
+					speed = new_spd
+		# TODO: HEADING UPDATE
 
 
 # Generate random callsign of plane
