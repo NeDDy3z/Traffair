@@ -30,8 +30,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var data
-	data = get_plane().get_plane_data()
+	data = get_plane()
 	if data != null:
+		data = data.get_plane_data()
 		update_data(data["callsign"], data["altitude"], data["heading"], data["speed"])
 
 
@@ -39,10 +40,16 @@ func _process(delta):
 func get_plane():
 	var pl
 	pl = planes.get_children()
+	var exists
 	for p in pl:
 		if p.name.contains(labels["callsign"].text):
+			exists = true
 			return p
-
+	
+	if !exists:
+		queue_free()
+		description.visible = false
+		return null
 
 # Set data of plane to tab
 func update_data(u_callsign, u_altitude, u_heading, u_speed):	

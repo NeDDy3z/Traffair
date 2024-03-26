@@ -22,7 +22,6 @@ func _on_options_pressed():
 
 # Exit game on "exit" click
 func _on_exit_pressed():
-	get_tree().change_scene_to_file("res://levels/main_menu_bonus.tscn")
 	log_gd.write_to_log("main_menu", "quit game", "")
 	log_gd.write_to_console("main_menu", "quit game", "")
 	get_tree().quit()
@@ -30,5 +29,6 @@ func _on_exit_pressed():
 
 # Open bonus content on "bonus" click
 func _on_bonus_pressed():
+	get_tree().change_scene_to_file("res://levels/main_menu_bonus.tscn")
 	log_gd.write_to_log("main_menu", "open bonus", "")
 	log_gd.write_to_console("main_menu", "open bonus", "")

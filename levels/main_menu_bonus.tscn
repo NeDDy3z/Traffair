@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfq7e61xiaygd"]
+[gd_scene load_steps=11 format=3 uid="uid://bfq7e61xiaygd"]
 
 [ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_kcd48"]
 [ext_resource type="Script" path="res://logic/main_menu_bonus.gd" id="2_ckixn"]
 [ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_acw8b"]
 [ext_resource type="Script" path="res://logic/tip_dne.gd" id="4_bfooa"]
+[ext_resource type="Script" path="res://logic/pocasi_prg.gd" id="5_83t73"]
+[ext_resource type="Script" path="res://logic/svatek.gd" id="6_0nu32"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xljt0"]
 
@@ -29,18 +31,17 @@ script = ExtResource("2_ckixn")
 
 [node name="background" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -3000.0
-offset_top = -1700.0
-grow_horizontal = 0
-grow_vertical = 0
+offset_left = -440.0
+offset_top = -260.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_acw8b")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 80.0
 offset_right = 220.0
@@ -63,6 +64,22 @@ theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
 text = "POČASÍ V PRAZE"
 alignment = 0
+script = ExtResource("5_83t73")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/pocasi_prg"]
+
+[node name="svatek" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
+text = "KDO MÁ SVÁTEK"
+alignment = 0
+script = ExtResource("6_0nu32")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/svatek"]
+
+[node name="separator" type="Label" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
 
 [node name="back" type="Button" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
@@ -75,18 +92,20 @@ alignment = 0
 [node name="text" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.391
-anchor_top = 0.074
-anchor_right = 0.958
-anchor_bottom = 0.444
-offset_left = 9.27991
-offset_top = 0.0800018
-offset_right = 0.639893
-offset_bottom = 0.47995
+anchor_left = 0.406
+anchor_top = 0.056
+anchor_right = 0.969
+anchor_bottom = 0.264
+offset_left = 0.639893
+offset_top = -0.639999
+offset_right = -0.640137
+offset_bottom = -0.160004
 theme_override_font_sizes/font_size = 40
 label_settings = SubResource("LabelSettings_wvbtf")
 autowrap_mode = 2
 
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/tip_dne" to="MarginContainer2/VBoxContainer/tip_dne" method="_on_pressed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/pocasi_prg" to="." method="_on_pocasi_prg_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/pocasi_prg" to="MarginContainer2/VBoxContainer/pocasi_prg" method="_on_pressed"]
+[connection signal="request_completed" from="MarginContainer2/VBoxContainer/pocasi_prg/HTTPRequest" to="MarginContainer2/VBoxContainer/pocasi_prg" method="_on_http_request_request_completed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/svatek" to="MarginContainer2/VBoxContainer/svatek" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/back" to="." method="_on_back_pressed"]

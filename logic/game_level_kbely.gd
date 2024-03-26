@@ -21,7 +21,7 @@ func _ready():
 	log_gd.write_to_log("game_level_kbely", "loaded", "")
 	log_gd.write_to_console("game_level_kbely", "loaded", "")
 	
-	spawn_plane() # Spawn 1st plane
+	spawn_plane(true) # Spawn 1st plane
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,27 +35,35 @@ func _process(_delta):
 
 
 # Spawn plane
-func spawn_plane():
+func spawn_plane(not_random = false):
 	var plane
 	plane = plane_body_prefab.instantiate()
 	
 	if Globals.debug:
 		plane.position = Vector2(1200, 600)
 	else:
-		plane.position = random_spawn_position()
+		plane.position = random_spawn_position(not_random)
 	
 	get_node("planes").add_child(plane)
 
 
 # Generate a random position for plane to spawn
-func random_spawn_position():
+func random_spawn_position(not_random):
 	var x
-	x = rng.randi_range(-100, display_size.x + 100)
 	var y
-	if x >= 0 and x <= display_size.x:
-		if rng.randi()%2 == 1:
-			y = display_size.y
-		else:
-			y = -100
+	if !not_random:
+		x = rng.randi_range(-100, display_size.x + 100)
+		if x >= 0 and x <= display_size.x:
+			if rng.randi()%2 == 1:
+				y = display_size.y
+			else:
+				y = -100
+	else:
+		x = 350
+		y = 0
+	
+	if x == null && y == null:
+		x = 0
+		y = 0
 	
 	return Vector2(x,y)

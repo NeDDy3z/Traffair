@@ -152,9 +152,9 @@ size_flags_vertical = 3
 [node name="description" type="Control" parent="."]
 visible = false
 layout_mode = 1
-anchor_top = 0.815
+anchor_top = 0.963
 anchor_bottom = 0.963
-offset_top = -0.200073
+offset_top = -160.04
 offset_right = 400.0
 offset_bottom = -0.0400391
 grow_vertical = 2

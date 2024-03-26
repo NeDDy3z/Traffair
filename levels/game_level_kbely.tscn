@@ -8,9 +8,7 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p8w2h"]
 load_path = "res://.godot/imported/background_prague.png-be0a5d7a77959a95ee4845751539da75.ctex"
 
-[sub_resource type="SystemFont" id="SystemFont_v76dm"]
-font_names = PackedStringArray("Arial")
-font_weight = 450
+[sub_resource type="CanvasTexture" id="CanvasTexture_nwtwp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_575os"]
 size = Vector2(5, 5)
@@ -19,9 +17,11 @@ size = Vector2(5, 5)
 size = Vector2(5, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m67uu"]
-size = Vector2(87, 5)
+size = Vector2(100.215, 6.04254)
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_nwtwp"]
+[sub_resource type="Theme" id="Theme_1wl17"]
+Label/colors/font_color = Color(0.505882, 0.254902, 1, 1)
+Label/font_sizes/font_size = 16
 
 [node name="game_level_kbely" type="Control"]
 layout_mode = 3
@@ -54,17 +54,190 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CompressedTexture2D_p8w2h")
 expand_mode = 1
-stretch_mode = 4
+metadata/_edit_lock_ = true
+
+[node name="target_point" type="Node2D" parent="."]
+visible = false
+position = Vector2(960, 540)
+script = ExtResource("3_w2s51")
+
+[node name="debug_sprite" type="Sprite2D" parent="target_point"]
+position = Vector2(1.90735e-05, 1.14441e-05)
+scale = Vector2(9.99995, 10.909)
+texture = SubResource("CanvasTexture_nwtwp")
+
+[node name="planes" type="Node2D" parent="."]
+
+[node name="runways" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="runway_07-25" type="Control" parent="runways"]
+custom_minimum_size = Vector2(500, 6)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 1185.0
+offset_top = 802.0
+offset_right = 1785.0
+offset_bottom = 808.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.349066
+
+[node name="path" type="HBoxContainer" parent="runways/runway_07-25"]
+layout_mode = 1
+anchors_preset = -1
+offset_top = 2.0
+offset_right = 600.0
+offset_bottom = 4.0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="rw_texture" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture2" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture3" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture4" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture5" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture6" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture7" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture8" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture9" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture10" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture11" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture12" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture13" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture14" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture15" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="landing" type="ColorRect" parent="runways/runway_07-25"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 250.0
+offset_right = 350.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="runway_staticbody" type="StaticBody2D" parent="runways/runway_07-25"]
+position = Vector2(300, 0)
+disable_mode = 1
+
+[node name="runway_label" type="Label" parent="runways/runway_07-25/runway_staticbody"]
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 28.0
+offset_bottom = -17.0
+rotation = 0.349066
+text = "KBELY"
+
+[node name="rw07" type="CollisionShape2D" parent="runways/runway_07-25/runway_staticbody"]
+position = Vector2(-300, 2.5)
+shape = SubResource("RectangleShape2D_575os")
+
+[node name="Label" type="Label" parent="runways/runway_07-25/runway_staticbody/rw07"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 20
+text = "RW07"
+
+[node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/runway_staticbody/rw07"]
+offset_left = -2.99002
+offset_top = -3.0562
+offset_right = 3.00998
+offset_bottom = 2.9438
+
+[node name="rw25" type="CollisionShape2D" parent="runways/runway_07-25/runway_staticbody"]
+position = Vector2(300, 2.5)
+shape = SubResource("RectangleShape2D_p55ue")
+
+[node name="Label" type="Label" parent="runways/runway_07-25/runway_staticbody/rw25"]
+offset_left = -55.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 20
+text = "RW25"
+
+[node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/runway_staticbody/rw25"]
+offset_left = -2.99002
+offset_top = -3.0562
+offset_right = 3.00998
+offset_bottom = 2.9438
+
+[node name="landing" type="CollisionShape2D" parent="runways/runway_07-25/runway_staticbody"]
+position = Vector2(-0.334839, 2.73047)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_m67uu")
 
 [node name="nav_points" type="Control" parent="."]
 layout_mode = 1
-anchor_left = 0.208
-anchor_right = 0.208
+anchor_right = 0.996
 anchor_bottom = 1.0
-offset_left = -399.36
-offset_right = 1520.64
+offset_right = 10.2397
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_1wl17")
+metadata/_edit_lock_ = true
 
 [node name="agi" type="Control" parent="nav_points"]
 layout_mode = 1
@@ -73,30 +246,26 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -364.0
+offset_left = -363.64
 offset_top = 117.0
-offset_right = -314.0
-offset_bottom = 129.0
+offset_right = -363.64
+offset_bottom = 117.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="nav_label" type="Label" parent="nav_points/agi"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.28
 anchor_top = -0.083
-anchor_right = 0.9
-anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 30.0
+offset_bottom = 25.0
 text = "AGI
- "
+"
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/agi"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -121,18 +290,15 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_left = 13.0
-offset_top = 2.83704e-05
-offset_right = 41.0
-offset_bottom = 13.0
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 47.0
+offset_bottom = 25.0
 text = "BUBU
 "
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/bubu"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -143,29 +309,26 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -108.0
+offset_left = -107.64
 offset_top = 239.0
-offset_right = -58.0
-offset_bottom = 251.0
+offset_right = -107.64
+offset_bottom = 239.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="nav_label" type="Label" parent="nav_points/bravo"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.28
 anchor_top = -0.083
-anchor_right = 0.9
-anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+anchor_bottom = -0.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 56.0
+offset_bottom = 25.0
 text = "BRAVO"
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/bravo"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -176,29 +339,24 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -266.0
+offset_left = -265.64
 offset_top = -127.0
-offset_right = -216.0
-offset_bottom = -115.0
+offset_right = -265.64
+offset_bottom = -127.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="nav_label" type="Label" parent="nav_points/dnipr"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.28
-anchor_top = -0.083
-anchor_right = 0.9
-anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 52.0
+offset_bottom = 25.0
 text = "DNIPR"
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/dnipr"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -211,8 +369,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 354.0
 offset_top = 195.0
-offset_right = 404.0
-offset_bottom = 207.0
+offset_right = 354.0
+offset_bottom = 195.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -223,16 +381,15 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 50.0
+offset_bottom = 25.0
 text = "EGWU
 "
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/egwu"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -245,8 +402,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 668.0
 offset_top = 125.0
-offset_right = 718.0
-offset_bottom = 137.0
+offset_right = 668.0
+offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -257,16 +414,15 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 33.0
+offset_bottom = 25.0
 text = "ELO
 "
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/elo"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -279,8 +435,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -415.0
 offset_top = -408.0
-offset_right = -365.0
-offset_bottom = -396.0
+offset_right = -415.0
+offset_bottom = -408.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -291,15 +447,14 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 34.0
+offset_bottom = 25.0
 text = "KLO"
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/klo"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -312,8 +467,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 92.0
 offset_top = 144.0
-offset_right = 142.0
-offset_bottom = 156.0
+offset_right = 92.0
+offset_bottom = 144.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -324,48 +479,14 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 53.0
+offset_bottom = 25.0
 text = "LEOPA"
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/leopa"]
-position = Vector2(4, 5)
-scale = Vector2(0.03125, 0.0312499)
-texture = ExtResource("3_mp2mp")
-
-[node name="lyd" type="Control" parent="nav_points"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 678.0
-offset_top = 371.0
-offset_right = 728.0
-offset_bottom = 383.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="nav_label" type="Label" parent="nav_points/lyd"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.28
-anchor_top = -0.083
-anchor_right = 0.9
-anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
-text = "LYD"
-
-[node name="Sprite2D" type="Sprite2D" parent="nav_points/lyd"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -378,8 +499,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 386.0
 offset_top = -174.0
-offset_right = 436.0
-offset_bottom = -162.0
+offset_right = 386.0
+offset_bottom = -174.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -390,16 +511,15 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 55.0
+offset_bottom = 25.0
 text = "MAURI
 "
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/mauri"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -412,8 +532,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 215.0
 offset_top = 354.0
-offset_right = 265.0
-offset_bottom = 366.0
+offset_right = 215.0
+offset_bottom = 354.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -424,16 +544,15 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 50.0
+offset_bottom = 25.0
 text = "ONDR
 "
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/ondr"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -446,8 +565,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 133.0
 offset_top = -412.0
-offset_right = 183.0
-offset_bottom = -400.0
+offset_right = 133.0
+offset_bottom = -412.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -458,15 +577,14 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 35.0
+offset_bottom = 25.0
 text = "RVO"
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/rvo"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -479,8 +597,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 453.0
 offset_top = -463.0
-offset_right = 503.0
-offset_bottom = -451.0
+offset_right = 453.0
+offset_bottom = -463.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -491,15 +609,46 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 55.0
+offset_bottom = 25.0
 text = "HVO-N"
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/hvo-n"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("3_mp2mp")
+
+[node name="lyd" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 678.0
+offset_top = 371.0
+offset_right = 678.0
+offset_bottom = 371.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/lyd"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 32.0
+offset_bottom = 25.0
+text = "LYD"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/lyd"]
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -512,8 +661,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 771.0
 offset_top = -103.0
-offset_right = 821.0
-offset_bottom = -91.0
+offset_right = 771.0
+offset_bottom = -103.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -524,15 +673,14 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 45.0
+offset_bottom = 25.0
 text = "ZARO"
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/zaro"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -545,8 +693,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -94.0
 offset_top = -298.0
-offset_right = -44.0
-offset_bottom = -286.0
+offset_right = -94.0
+offset_bottom = -298.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -557,16 +705,15 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 30.0
+offset_bottom = 25.0
 text = "ZET
 "
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/zet"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -579,8 +726,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 659.0
 offset_top = -323.0
-offset_right = 709.0
-offset_bottom = -311.0
+offset_right = 659.0
+offset_bottom = -323.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -591,16 +738,15 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 29.0
+offset_bottom = 25.0
 text = "ZF2
 "
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/zf2"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
@@ -613,8 +759,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 63.0
 offset_top = -156.0
-offset_right = 113.0
-offset_bottom = -144.0
+offset_right = 63.0
+offset_bottom = -156.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -625,83 +771,19 @@ anchor_left = 0.28
 anchor_top = -0.083
 anchor_right = 0.9
 anchor_bottom = 1.083
-offset_top = -0.00399995
-offset_bottom = 0.00399971
-theme_override_colors/font_color = Color(0.52549, 0.321569, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_v76dm")
-theme_override_font_sizes/font_size = 10
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 35.0
+offset_bottom = 25.0
 text = "ZFW"
 
 [node name="Sprite2D" type="Sprite2D" parent="nav_points/zfw"]
-position = Vector2(4, 5)
+position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
 [node name="game_ui" parent="." instance=ExtResource("2_yqmqv")]
 layout_mode = 1
 metadata/_edit_lock_ = true
-
-[node name="runway09-27" type="Control" parent="."]
-custom_minimum_size = Vector2(500, 5)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 22.0
-offset_top = 87.9999
-offset_right = 522.0
-offset_bottom = 92.9999
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.306424
-
-[node name="rw_texture" type="ColorRect" parent="runway09-27"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.4, 0.4, 0.4, 1)
-
-[node name="rw_texture2" type="ColorRect" parent="runway09-27"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.414
-anchor_right = 0.586
-anchor_bottom = 1.0
-offset_left = 0.199982
-offset_right = -0.200012
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="runway_staticbody" type="StaticBody2D" parent="runway09-27"]
-position = Vector2(250, 0)
-disable_mode = 1
-
-[node name="rw09" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
-position = Vector2(-247.5, 2.5)
-shape = SubResource("RectangleShape2D_575os")
-
-[node name="rw27" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
-position = Vector2(247.5, 2.5)
-shape = SubResource("RectangleShape2D_p55ue")
-
-[node name="landing" type="CollisionShape2D" parent="runway09-27/runway_staticbody"]
-position = Vector2(-0.5, 2.5)
-shape = SubResource("RectangleShape2D_m67uu")
-
-[node name="target_point" type="Node2D" parent="."]
-position = Vector2(960, 540)
-script = ExtResource("3_w2s51")
-
-[node name="debug_sprite" type="Sprite2D" parent="target_point"]
-position = Vector2(1.90735e-05, 1.14441e-05)
-scale = Vector2(9.99995, 10.909)
-texture = SubResource("CanvasTexture_nwtwp")
-
-[node name="planes" type="Node2D" parent="."]
 
 [connection signal="ready" from="." to="." method="_on_ready"]

@@ -1,4 +1,5 @@
 extends Button
+
 var tipy = [
 	"Vytvořte si režim před spaním, který vašemu tělu naznačí, že je čas jít spát.",
 	"Investujte do kvalitních lůžkovin a polštářů, abyste si zajistili pohodlné spaní.",
@@ -283,17 +284,28 @@ var tipy = [
 	"Nezapomeň si užít cestu",
 	"Nedělej si starosti, pokud najdeš chyby ve svých minulých výtvorech, je to proto, že ses vyvinul",
 	"Není to chyba, je to příležitost k učení",
-	"Váš život je již zázrakem náhody, který čeká na to, až budete utvářet jeho osud"
+	"Váš život je již zázrakem náhody, který čeká na to, až budete utvářet jeho osud",
+	"V nouzi poznaš přítele",
+	"Ve světe pro-gamingu je jen jedno pravidlo...",
+	"Pravidla neurčují lidi, ale lidi určují pravidla",
+	"Přidejte si citrón do čaje, bude tak zdravější"
 ]
 
 var text_label
 var log_gd = load("res://logic/log.gd")
 var rng = RandomNumberGenerator.new()
 
+
+
+# Called when the node enters the scene tree for the first time.
 func _ready():
 	text_label = $"../../../text"
 
+
+# On "tip_dne" button click, show tip
 func _on_pressed():
 	text_label.text = tipy[rng.randi_range(0, len(tipy)-1)]
 	log_gd.write_to_log("tip_dne", "show tip", text_label.text)
 	log_gd.write_to_console("tip_dne", "show tip", text_label.text)
+
+# Celý skript má 300 řádků když se nepočítají mezery (což CLOC dělá)

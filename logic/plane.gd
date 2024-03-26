@@ -9,6 +9,8 @@ var id : String
 @export var heading : int
 @export var speed : int
 
+var speed_slowdown = 80
+
 var new_alt
 var new_hdg
 var new_spd
@@ -94,8 +96,24 @@ func _process(delta):
 
 # Moevement stuff
 func _physics_process(delta):
-	# Move straight (/80 to make the speed of movement more realistic)
-	velocity = Vector2(1, 0).rotated(direction.rotation) * speed / 80
+	# Destroy if out of the screen
+	if position.x > DisplayServer.window_get_size().x + 150 or position.x < -150:
+		queue_free()
+	if position.y > DisplayServer.window_get_size().y + 150 or position.y < -150:
+		queue_free()
+	
+	# Go faster if outside of the screen
+	if position.x > DisplayServer.window_get_size().x or position.x < 400:
+		speed_slowdown = 1
+	else:
+		speed_slowdown = 80
+	if position.y > DisplayServer.window_get_size().y or position.y < 0:
+		speed_slowdown = 1
+	else:
+		speed_slowdown = 80
+	
+	# Move straight depending on the direction its looking (/speed_slowdown to make the speed of movement more realistic)
+	velocity = Vector2(1, 0).rotated(direction.rotation) * speed / speed_slowdown # speed_slowdonw = 80 by default
 	
 	# Initiate movement
 	move_and_slide()
@@ -206,8 +224,8 @@ func direct_to(value):
 			direction.look_at(n_p.position)
 			direction.rotation = global_position.direction_to(n_p.position).angle()
 			
-			log_gd.write_to_log("direct_to()", "set", value.name)
-			log_gd.write_to_console("direct_to()", "set", value.name)
+			log_gd.write_to_log("direct_to()", "set", value)
+			log_gd.write_to_console("direct_to()", "set", value)
 
 
 func add_new_plane_tab():
