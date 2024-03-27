@@ -1,70 +1,97 @@
 extends Control
 
 
+
 @export_category("Plane data limits")
-@export var altitude_min : int = 1500
+@export var altitude_min : int = 0
 @export var altitude_max : int = 35000
 @export var heading_min : int = 0
 @export var heading_max : int = 359
-@export var speed_min : int = 110
+@export var speed_min : int = 120
 @export var speed_max : int = 350
 
-var callsign : Object
-var altitude : Object
-var heading : Object
-var speed : Object
-var direct_to
-var requirement
+var callsign_label : Object
+var altitude_textedit : Object
+var heading_textedit : Object
+var speed_textedit : Object
+var direct_to_options : Object	
+var land_options : Object
+
+var nav_points_list : Dictionary
+var runways_list : Dictionary
 
 var log_gd = load("res://logic/log.gd")
 var planes
 var nav_points
+var runways
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	callsign = $callsign
-	altitude = $data/values/altitude_value
-	heading = $data/values/heading_value
-	speed = $data/values/speed_value
-	direct_to = $data/values/direct_value
-	requirement = $requirement/req_value
+	callsign_label = $callsign
+	altitude_textedit = $data/values/altitude_value
+	heading_textedit = $data/values/heading_value
+	speed_textedit = $data/values/speed_value
+	direct_to_options = $data/values/direct_value
+	land_options = $commands/land
 	
 	planes = get_node("../../planes")
 	nav_points = get_node("../../nav_points")
-	add_nav_points()
+	runways = get_node("../../runways")
+	load_nav_points()
+	load_runways()
+	
+	direct_to_options.select(-1)
+	land_options.select(0)
 	
 	log_gd.write_to_log("game_ui_description", "loaded", "")
 	log_gd.write_to_console("game_ui_description", "loaded", "")
 
 
 # Update plane data in sidebar bottom tab
-func update_data(u_callsign, u_altitude, u_heading, u_speed, u_requirement):
-	callsign.text = str(u_callsign)
-	altitude.text = str(u_altitude)
-	heading.text = str(u_heading)
-	speed.text = str(u_speed)
-	requirement.text = u_requirement
-
+func update_data(u_callsign, u_altitude, u_heading, u_speed, u_action):
+	callsign_label.text = str(u_callsign)
+	altitude_textedit.text = str(u_altitude)
+	heading_textedit.text = str(u_heading)
+	speed_textedit.text = str(u_speed)
+	
 
 # Get plane by callsign
 func get_plane():
 	var pl
 	pl = planes.get_children()
 	for p in pl:
-		if p.name.contains(str(callsign.text)):
+		if p.name.contains(str(callsign_label.text)):
 			return p
 
 
-# Add all nav_points into direct_to optionsbutton
-func add_nav_points():
+# Load all nav_points into direct_to optionsbutton
+func load_nav_points():
 	var n_p
 	n_p = nav_points.get_children()
-	for i in range(0,len(n_p)):
-		direct_to.add_item(n_p[i].name.to_upper(), i)
-		
-	log_gd.write_to_log("nav_points", "loaded", "")
-	log_gd.write_to_console("nav_points", "loaded", "")
+	for n in n_p:
+		nav_points_list[n.name.to_upper()] = n
+		direct_to_options.add_item(n.name.to_upper())
+	
+	log_gd.write_to_log("nav_points_selection", "loaded", "")
+	log_gd.write_to_console("nav_points_selection", "loaded", "")
+
+
+# Load all runways just like direct points to the options menu
+func load_runways():
+	var rwys
+	rwys = runways.get_children()
+	for rws in rwys:
+		var rw
+		rw = rws.get_children()
+		for r in rw:
+			if r.name.contains("rw"):
+				runways_list[r.name.to_upper()] = r
+				land_options.add_item(r.name.to_upper())
+	
+	log_gd.write_to_log("runways_selection", "loaded", "")
+	log_gd.write_to_console("runways_selection", "loaded", "")
 
 
 # Hide window on "close" press
@@ -81,7 +108,7 @@ func _on_altitude_value_text_submitted(new_text):
 	if new_text < altitude_min:
 		new_text = altitude_min
 	
-	altitude.text = str(new_text)
+	altitude_textedit.text = str(new_text)
 	
 	var plane
 	plane = get_plane()
@@ -100,7 +127,7 @@ func _on_heading_value_text_submitted(new_text):
 	if new_text < heading_min:
 		new_text = heading_min
 	
-	heading.text = str(new_text)
+	heading_textedit.text = str(new_text)
 	
 	var plane
 	plane = get_plane()
@@ -119,7 +146,7 @@ func _on_speed_value_text_submitted(new_text):
 	if new_text < speed_min:
 		new_text = speed_min
 	
-	speed.text = str(new_text)
+	speed_textedit.text = str(new_text)
 	
 	var plane
 	plane = get_plane()
@@ -129,10 +156,33 @@ func _on_speed_value_text_submitted(new_text):
 	log_gd.write_to_console("speed", "set", "")
 
 
+# Direct to selected -> plane gets sent to it
 func _on_direct_value_item_selected(index):
 	var plane
-	plane = get_plane()
-	plane.direct_to(direct_to.get_item_text(index))
+	var point
 	
-	log_gd.write_to_log("direct_to", "set", "")
-	log_gd.write_to_console("direct_to", "set", "")
+	point = nav_points_list[str(direct_to_options.get_item_text(index))]
+	land_options.select(0)
+	
+	plane = get_plane()
+	plane.direct_to(point)
+	plane.set_status("direct")
+	
+	log_gd.write_to_log("fly towards nav_point", "set", "")
+	log_gd.write_to_console("fly towards nav_point", "set", "")
+
+
+# Runway selected -> plane gets sent to it
+func _on_land_item_selected(index):
+	var plane
+	var point
+	
+	point = runways_list[str(land_options.get_item_text(index))]
+	direct_to_options.select(-1)
+	
+	plane = get_plane()
+	plane.direct_to(point)
+	plane.set_status("direct")
+	
+	log_gd.write_to_log("land on runway", "set", "")
+	log_gd.write_to_console("land on runway", "set", "")

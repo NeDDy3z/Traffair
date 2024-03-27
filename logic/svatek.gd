@@ -34,6 +34,8 @@ func set_text_label(data):
 func _on_http_request_request_completed(result, response_code, headers, body):
 	var data = body.get_string_from_utf8()
 	set_text_label(data)
+	log_gd.write_to_log("svatek", "pulled data from api", data)
+	log_gd.write_to_console("svatek", "pulled data from api", data)
 
 
 func _on_pressed():
@@ -41,3 +43,5 @@ func _on_pressed():
 	HTTP_req.request(api_link)
 	
 	text_label.text = "Loading..."
+	log_gd.write_to_log("svatek", "show who has svátek", text_label.text)
+	log_gd.write_to_console("svatek", "show who has svátek", text_label.text)

@@ -11,7 +11,7 @@ var rng = RandomNumberGenerator.new()
 func _ready():
 	text_label = $text
 	
-	# Randomly show a hamburgr
+	# Randomly show a hamburgr - friend wanted it
 	if rng.randi_range(1, 20) == 1:
 		var hamburgr
 		var x = rng.randi_range(100, DisplayServer.window_get_size().x - 100)

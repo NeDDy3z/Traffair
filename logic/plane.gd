@@ -2,34 +2,42 @@ extends CharacterBody2D
 
 
 
-var id : String
 @export_category("Plane data")
 @export var callsign : String
 @export var altitude : int
 @export var heading : int
 @export var speed : int
+@export var status : String
 
-var speed_slowdown = 80
+var states = { # Enum doesnt work here
+	"fly" : "Flying",
+	"direct" : "Directed to NAV point",
+	"land" : "Landing",
+	"hold" : "In holding patter"
+}
 
+var direct
+var rw
 var new_alt
 var new_hdg
 var new_spd
+var speed_up = 1
 
-var plane_tab_prefab = load("res://assets/plane_tab.tscn")
-var queue
-
-var direction
-var nav_points
-var target_point
+var queue : Object
+var direction : Object
+var nav_points : Array
+var target_point : Object
 var target_offset_x
 var target_offset_y
 
 var log_gd = load("res://logic/log.gd")
+var plane_tab_prefab = load("res://assets/plane_tab.tscn")
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var window_size = DisplayServer.window_get_size()
 var rng = RandomNumberGenerator.new()
+var plane_description : Object
+var game_ui : Object
 var i : int
-var plane_description
-var game_ui
 
 
 
@@ -44,7 +52,6 @@ func _ready():
 	nav_points = get_node("../../nav_points").get_children()
 	plane_description = $plane_description
 	direction = $direction
-	
 	
 	
 	# Randomly place a target point (to which the plane will direct to)
@@ -66,9 +73,9 @@ func _ready():
 	callsign = generate_callsign()
 	altitude = generate_altitude()
 	speed = generate_speed()
+	status = states["fly"]
 	
 	# Set ID & node name; and increment it
-	id = callsign
 	name = "plane_"+callsign
 	Globals.plane_index += 1
 	
@@ -97,24 +104,23 @@ func _process(delta):
 # Moevement stuff
 func _physics_process(delta):
 	# Destroy if out of the screen
-	if position.x > DisplayServer.window_get_size().x + 150 or position.x < -150:
+	if position.x > window_size.x + 150 or position.x < -150:
 		queue_free()
-	if position.y > DisplayServer.window_get_size().y + 150 or position.y < -150:
+	if position.y > window_size.y + 150 or position.y < -150:
 		queue_free()
 	
 	# Go faster if outside of the screen
-	if position.x > DisplayServer.window_get_size().x or position.x < 400:
-		speed_slowdown = 1
+	if position.x < window_size.x and position.x > 400:
+		speed_up = 1
 	else:
-		speed_slowdown = 80
-	if position.y > DisplayServer.window_get_size().y or position.y < 0:
-		speed_slowdown = 1
+		speed_up = 10
+	if position.y < window_size.y and position.y > 0:
+		speed_up = 1
 	else:
-		speed_slowdown = 80
+		speed_up = 10
 	
 	# Move straight depending on the direction its looking (/speed_slowdown to make the speed of movement more realistic)
-	velocity = Vector2(1, 0).rotated(direction.rotation) * speed / speed_slowdown # speed_slowdonw = 80 by default
-	
+	velocity = ((Vector2(1, 0).rotated(direction.rotation) * speed) / 100) * speed_up # speed_slowdonw = 80 by default
 	# Initiate movement
 	move_and_slide()
 
@@ -125,7 +131,8 @@ func get_plane_data():
 		"callsign" : callsign, 
 		"altitude" : altitude, 
 		"heading" : heading, 
-		"speed" : speed
+		"speed" : speed,
+		"status" : status
 	}
 
 
@@ -217,21 +224,27 @@ func set_speed(value):
 	log_gd.write_to_console("set_speed()", "set", value)
 
 
+func set_status(value):
+	status = states[value]
+	
+	log_gd.write_to_log("set_status()", "set", value)
+	log_gd.write_to_console("set_status()", "set", value)
+
+
 # Send plane towards a point
-func direct_to(value):
-	for n_p in nav_points:
-		if n_p.name == value.to_lower():
-			direction.look_at(n_p.position)
-			direction.rotation = global_position.direction_to(n_p.position).angle()
-			
-			log_gd.write_to_log("direct_to()", "set", value)
-			log_gd.write_to_console("direct_to()", "set", value)
+func direct_to(point):
+	if point != null:
+		direction.look_at(point.position)
+		direction.rotation = global_position.direction_to(point.global_position).angle()
+		
+		log_gd.write_to_log("direct_to()", "set", point.name)
+		log_gd.write_to_console("direct_to()", "set", point.name) 
 
 
 func add_new_plane_tab():
 	var plane_tab 
 	plane_tab = plane_tab_prefab.instantiate()
-	plane_tab.name = "plane_tab"+str(id)
+	plane_tab.name = "plane_tab"+str(name)
 	
 	var plane_values = [
 		plane_tab.get_node("Button/callsign"),
@@ -248,8 +261,8 @@ func add_new_plane_tab():
 	
 	# Add tab
 	queue.add_child(plane_tab, true)
-	log_gd.write_to_log("plane_tab" + str(id), "added", "")
-	log_gd.write_to_console("plane_tab" + str(id), "added", "")
+	log_gd.write_to_log("plane_tab" + str(name), "added", "")
+	log_gd.write_to_console("plane_tab" + str(name), "added", "")
 
 
 # Clicked on a new plane, it shows up in the sidebar. If the plane was already contacted, it just selects in the side bar
@@ -260,7 +273,7 @@ func _on_plane_button_pressed():
 	contains = false
 	
 	for pt in plane_tabs:
-		if pt.name == "plane_tab"+str(id):
+		if pt.name == "plane_tab"+str(name):
 			pt.get_child(0).emit_signal("pressed")
 			contains = true
 	if !contains:

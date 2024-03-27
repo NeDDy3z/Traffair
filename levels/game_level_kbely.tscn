@@ -1,27 +1,27 @@
-[gd_scene load_steps=11 format=3 uid="uid://c3tc2r475ktvi"]
+[gd_scene load_steps=12 format=3 uid="uid://c3tc2r475ktvi"]
 
 [ext_resource type="Script" path="res://logic/game_level_kbely.gd" id="1_vlc60"]
 [ext_resource type="PackedScene" uid="uid://conakjasj0jik" path="res://levels/game_ui.tscn" id="2_yqmqv"]
+[ext_resource type="Script" path="res://logic/runway.gd" id="3_ley1n"]
 [ext_resource type="Texture2D" uid="uid://bysa5xagdjwkf" path="res://art/trg.png" id="3_mp2mp"]
 [ext_resource type="Script" path="res://logic/target_point.gd" id="3_w2s51"]
+
+[sub_resource type="Theme" id="Theme_qqgfg"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p8w2h"]
 load_path = "res://.godot/imported/background_prague.png-be0a5d7a77959a95ee4845751539da75.ctex"
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_nwtwp"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_575os"]
-size = Vector2(5, 5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p55ue"]
-size = Vector2(5, 5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m67uu"]
-size = Vector2(100.215, 6.04254)
-
 [sub_resource type="Theme" id="Theme_1wl17"]
 Label/colors/font_color = Color(0.505882, 0.254902, 1, 1)
 Label/font_sizes/font_size = 16
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0uyc2"]
+size = Vector2(28.7773, 5.98007)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n4n2x"]
+radius = 4.27193
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nwtwp"]
 
 [node name="game_level_kbely" type="Control"]
 layout_mode = 3
@@ -40,6 +40,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_qqgfg")
 color = Color(0.0509804, 0.0588235, 0.0666667, 1)
 metadata/_edit_lock_ = true
 
@@ -55,179 +56,6 @@ grow_vertical = 2
 texture = SubResource("CompressedTexture2D_p8w2h")
 expand_mode = 1
 metadata/_edit_lock_ = true
-
-[node name="target_point" type="Node2D" parent="."]
-visible = false
-position = Vector2(960, 540)
-script = ExtResource("3_w2s51")
-
-[node name="debug_sprite" type="Sprite2D" parent="target_point"]
-position = Vector2(1.90735e-05, 1.14441e-05)
-scale = Vector2(9.99995, 10.909)
-texture = SubResource("CanvasTexture_nwtwp")
-
-[node name="planes" type="Node2D" parent="."]
-
-[node name="runways" type="Node2D" parent="."]
-metadata/_edit_lock_ = true
-
-[node name="runway_07-25" type="Control" parent="runways"]
-custom_minimum_size = Vector2(500, 6)
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 1185.0
-offset_top = 802.0
-offset_right = 1785.0
-offset_bottom = 808.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.349066
-
-[node name="path" type="HBoxContainer" parent="runways/runway_07-25"]
-layout_mode = 1
-anchors_preset = -1
-offset_top = 2.0
-offset_right = 600.0
-offset_bottom = 4.0
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="rw_texture" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture2" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture3" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture4" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture5" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture6" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture7" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture8" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture9" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture10" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture11" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture12" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture13" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture14" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="rw_texture15" type="ColorRect" parent="runways/runway_07-25/path"]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-color = Color(0.337255, 0.337255, 0.337255, 1)
-
-[node name="landing" type="ColorRect" parent="runways/runway_07-25"]
-layout_mode = 1
-anchors_preset = -1
-offset_left = 250.0
-offset_right = 350.0
-offset_bottom = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="runway_staticbody" type="StaticBody2D" parent="runways/runway_07-25"]
-position = Vector2(300, 0)
-disable_mode = 1
-
-[node name="runway_label" type="Label" parent="runways/runway_07-25/runway_staticbody"]
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 28.0
-offset_bottom = -17.0
-rotation = 0.349066
-text = "KBELY"
-
-[node name="rw07" type="CollisionShape2D" parent="runways/runway_07-25/runway_staticbody"]
-position = Vector2(-300, 2.5)
-shape = SubResource("RectangleShape2D_575os")
-
-[node name="Label" type="Label" parent="runways/runway_07-25/runway_staticbody/rw07"]
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 20
-text = "RW07"
-
-[node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/runway_staticbody/rw07"]
-offset_left = -2.99002
-offset_top = -3.0562
-offset_right = 3.00998
-offset_bottom = 2.9438
-
-[node name="rw25" type="CollisionShape2D" parent="runways/runway_07-25/runway_staticbody"]
-position = Vector2(300, 2.5)
-shape = SubResource("RectangleShape2D_p55ue")
-
-[node name="Label" type="Label" parent="runways/runway_07-25/runway_staticbody/rw25"]
-offset_left = -55.0
-offset_bottom = 28.0
-theme_override_font_sizes/font_size = 20
-text = "RW25"
-
-[node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/runway_staticbody/rw25"]
-offset_left = -2.99002
-offset_top = -3.0562
-offset_right = 3.00998
-offset_bottom = 2.9438
-
-[node name="landing" type="CollisionShape2D" parent="runways/runway_07-25/runway_staticbody"]
-position = Vector2(-0.334839, 2.73047)
-scale = Vector2(1, 1)
-shape = SubResource("RectangleShape2D_m67uu")
 
 [node name="nav_points" type="Control" parent="."]
 layout_mode = 1
@@ -782,8 +610,198 @@ position = Vector2(-10, 5)
 scale = Vector2(0.03125, 0.0312499)
 texture = ExtResource("3_mp2mp")
 
+[node name="runways" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="runway_07-25" type="Control" parent="runways"]
+custom_minimum_size = Vector2(500, 6)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = 134.0
+offset_right = 483.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.349066
+script = ExtResource("3_ley1n")
+
+[node name="path" type="HBoxContainer" parent="runways/runway_07-25"]
+layout_mode = 1
+anchors_preset = -1
+offset_top = 2.0
+offset_right = 600.0
+offset_bottom = 4.0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="rw_texture" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture2" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture3" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture4" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture5" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture6" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture7" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture8" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture9" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture10" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture11" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture12" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture13" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture14" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture15" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="landing" type="Area2D" parent="runways/runway_07-25"]
+position = Vector2(250, 3)
+
+[node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/landing"]
+offset_top = -3.0
+offset_right = 100.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="runway_label" type="Label" parent="runways/runway_07-25/landing"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0002
+offset_top = -43.0
+offset_right = 78.0002
+offset_bottom = -20.0
+rotation = 0.349066
+text = "KBELY"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="runways/runway_07-25/landing"]
+position = Vector2(50, 0)
+shape = SubResource("RectangleShape2D_0uyc2")
+
+[node name="rw07" type="Area2D" parent="runways/runway_07-25"]
+position = Vector2(0, 3)
+
+[node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/rw07"]
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 3.0
+
+[node name="Label" type="Label" parent="runways/runway_07-25/rw07"]
+offset_left = -4.0
+offset_right = 51.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 20
+text = "RW07"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="runways/runway_07-25/rw07"]
+shape = SubResource("CircleShape2D_n4n2x")
+
+[node name="rw25" type="Area2D" parent="runways/runway_07-25"]
+position = Vector2(600, 3)
+
+[node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/rw25"]
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 3.0
+
+[node name="Label" type="Label" parent="runways/runway_07-25/rw25"]
+offset_left = -50.0
+offset_right = 5.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 20
+text = "RW25"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="runways/runway_07-25/rw25"]
+shape = SubResource("CircleShape2D_n4n2x")
+
+[node name="runways" type="Node2D" parent="runways/runway_07-25"]
+
+[node name="planes" type="Node2D" parent="."]
+
+[node name="target_point" type="Node2D" parent="."]
+visible = false
+position = Vector2(960, 540)
+script = ExtResource("3_w2s51")
+
+[node name="debug_sprite" type="Sprite2D" parent="target_point"]
+position = Vector2(1.90735e-05, 1.14441e-05)
+scale = Vector2(9.99995, 10.909)
+texture = SubResource("CanvasTexture_nwtwp")
+
 [node name="game_ui" parent="." instance=ExtResource("2_yqmqv")]
 layout_mode = 1
 metadata/_edit_lock_ = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="body_entered" from="runways/runway_07-25/landing" to="runways/runway_07-25" method="_on_landing_body_entered"]
+[connection signal="body_entered" from="runways/runway_07-25/rw07" to="runways/runway_07-25" method="_on_rw_07_body_entered"]
+[connection signal="body_entered" from="runways/runway_07-25/rw25" to="runways/runway_07-25" method="_on_rw_25_body_entered"]

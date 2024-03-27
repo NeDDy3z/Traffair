@@ -1,6 +1,7 @@
 extends Control
 
 
+var default_time_scale
 
 var pause
 var log_gd = load("res://logic/log.gd")
@@ -10,6 +11,7 @@ var log_gd = load("res://logic/log.gd")
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS # The script will work even tho the game is Frozen ("let it go..")
 	
+	default_time_scale = 1.0
 	pause = $HBoxContainer/pause
 	
 	log_gd.write_to_log("game_ui_controls", "loaded", "")
@@ -41,3 +43,11 @@ func _on_pause_toggled(toggled_on):
 	
 	log_gd.write_to_log("pause button", "game paused", "ingame")
 	log_gd.write_to_console("pause button", "game paused", "ingame")
+
+
+# Speed up the game on ">>>" click
+func _on_speedup_toggled(toggled_on):
+	if toggled_on:
+		Engine.time_scale = 5.0
+	else:
+		Engine.time_scale = default_time_scale

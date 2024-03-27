@@ -44,7 +44,7 @@ Button/styles/normal = SubResource("StyleBoxFlat_8iow7")
 Button/styles/pressed = SubResource("StyleBoxFlat_2roq2")
 
 [sub_resource type="Theme" id="Theme_7gtb0"]
-HBoxContainer/constants/separation = 2
+HBoxContainer/constants/separation = 5
 
 [sub_resource type="Theme" id="Theme_aqmsh"]
 VBoxContainer/constants/separation = 1
@@ -54,15 +54,15 @@ VBoxContainer/constants/separation = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ymj5g"]
 bg_color = Color(0.6, 0.6, 0.6, 0.447059)
-border_width_bottom = 1
+border_width_bottom = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygg3i"]
 bg_color = Color(0.901961, 0.901961, 0.901961, 0.321569)
-border_width_bottom = 1
+border_width_bottom = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yejjp"]
 bg_color = Color(1, 1, 1, 0)
-border_width_bottom = 1
+border_width_bottom = 2
 
 [sub_resource type="Theme" id="Theme_wk513"]
 OptionButton/colors/font_color = Color(0.875, 0.875, 0.875, 1)
@@ -150,13 +150,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="description" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchor_top = 0.963
 anchor_bottom = 0.963
-offset_top = -160.04
+offset_top = -179.72
 offset_right = 400.0
-offset_bottom = -0.0400391
+offset_bottom = 0.280029
 grow_vertical = 2
 theme = ExtResource("2_7tg65")
 script = ExtResource("3_lwlko")
@@ -197,9 +196,9 @@ text = "X"
 [node name="data" type="HBoxContainer" parent="description"]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 50.0
-offset_right = 176.0
-offset_bottom = 155.0
+offset_top = 60.0
+offset_right = 189.0
+offset_bottom = 163.0
 theme = SubResource("Theme_7gtb0")
 
 [node name="labels" type="VBoxContainer" parent="description/data"]
@@ -239,9 +238,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 theme = SubResource("Theme_wk513")
-item_count = 1
-popup/item_0/text = " -"
-popup/item_0/id = 0
 
 [node name="labels_suffix" type="VBoxContainer" parent="description/data"]
 layout_mode = 2
@@ -259,34 +255,51 @@ text = "°"
 layout_mode = 2
 text = "kt"
 
-[node name="requirement" type="VBoxContainer" parent="description"]
+[node name="action" type="VBoxContainer" parent="description"]
 layout_mode = 0
-offset_left = 200.0
-offset_top = 50.0
-offset_right = 331.0
-offset_bottom = 104.0
+offset_left = 230.0
+offset_top = 60.0
+offset_right = 371.0
+offset_bottom = 114.0
 
-[node name="req" type="Label" parent="description/requirement"]
+[node name="action" type="Label" parent="description/action"]
 layout_mode = 2
-text = "Requirements:"
+text = "Flying through..."
 
-[node name="req_value" type="Label" parent="description/requirement"]
+[node name="fuel" type="HBoxContainer" parent="description/action"]
 layout_mode = 2
-text = "Land"
+
+[node name="fuel" type="Label" parent="description/action/fuel"]
+layout_mode = 2
+text = "Fuel: "
+
+[node name="fuel_value" type="Label" parent="description/action/fuel"]
+layout_mode = 2
+text = "100"
+
+[node name="fuel_suffix" type="Label" parent="description/action/fuel"]
+layout_mode = 2
+text = "%
+"
 
 [node name="commands" type="HBoxContainer" parent="description"]
 layout_mode = 0
-offset_left = 200.0
-offset_top = 120.0
-offset_right = 282.0
-offset_bottom = 150.0
+offset_left = 230.0
+offset_top = 135.0
+offset_right = 345.0
+offset_bottom = 165.0
 theme = ExtResource("4_4ar2h")
 theme_override_constants/separation = 15
 
-[node name="land" type="Button" parent="description/commands"]
+[node name="land" type="OptionButton" parent="description/commands"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
-toggle_mode = true
-text = "Land"
+theme = SubResource("Theme_wk513")
+item_count = 1
+selected = 0
+popup/item_0/text = " Land"
+popup/item_0/id = 0
+popup/item_0/disabled = true
 
 [node name="hold" type="Button" parent="description/commands"]
 layout_mode = 2
@@ -331,6 +344,12 @@ offset_right = 400.0
 theme = SubResource("Theme_1emgu")
 alignment = 1
 
+[node name="speedup" type="Button" parent="controls/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+toggle_mode = true
+text = ">>>"
+
 [node name="pause" type="Button" parent="controls/HBoxContainer"]
 process_mode = 3
 layout_mode = 2
@@ -348,6 +367,10 @@ text = "Exit
 [connection signal="text_submitted" from="description/data/values/heading_value" to="description" method="_on_heading_value_text_submitted"]
 [connection signal="text_submitted" from="description/data/values/speed_value" to="description" method="_on_speed_value_text_submitted"]
 [connection signal="item_selected" from="description/data/values/direct_value" to="description" method="_on_direct_value_item_selected"]
+[connection signal="item_selected" from="description/commands/land" to="description" method="_on_land_item_selected"]
+[connection signal="button_down" from="controls/HBoxContainer/speedup" to="controls" method="_on_pause_button_down"]
+[connection signal="button_up" from="controls/HBoxContainer/speedup" to="controls" method="_on_pause_button_up"]
+[connection signal="toggled" from="controls/HBoxContainer/speedup" to="controls" method="_on_speedup_toggled"]
 [connection signal="button_down" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_down"]
 [connection signal="button_up" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_up"]
 [connection signal="toggled" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_toggled"]

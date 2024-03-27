@@ -35,8 +35,11 @@ func set_text_label(json):
 
 
 func _on_http_request_request_completed(result, response_code, headers, body):
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	set_text_label(json)
+	var data = JSON.parse_string(body.get_string_from_utf8())
+	set_text_label(data)
+	
+	log_gd.write_to_log("weather", "pulled data from api", data)
+	log_gd.write_to_console("weather", "pulled data from api", data)
 
 
 func _on_pressed():
