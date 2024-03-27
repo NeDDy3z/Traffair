@@ -9,7 +9,6 @@ extends Control
 var plane_spawn_delay = plane_spawn_delay_s * DisplayServer.screen_get_refresh_rate()
 var plane_body_prefab = preload("res://assets/plane_body.tscn")
 
-var log_gd = load("res://logic/log.gd")
 var rng = RandomNumberGenerator.new()
 var display_size = DisplayServer.window_get_size()
 var i = 0
@@ -18,10 +17,11 @@ var i = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	log_gd.write_to_log("game_level_kbely", "loaded", "")
-	log_gd.write_to_console("game_level_kbely", "loaded", "")
-	
-	spawn_plane() # Spawn 1st plane
+	Logger.write_to_log("game_level_kbely", "loaded", "")
+	Logger.write_to_console("game_level_kbely", "loaded", "")
+
+	# Spawn 1st plane
+	spawn_plane() 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,7 +39,7 @@ func spawn_plane():
 	var plane
 	plane = plane_body_prefab.instantiate()
 	
-	if Globals.debug:
+	if Global.debug:
 		plane.position = Vector2(1200, 900)
 	else:
 		plane.position = random_spawn_position()
@@ -62,4 +62,3 @@ func random_spawn_position():
 		y = 0
 	var out = Vector2(x,y)
 	return out
-

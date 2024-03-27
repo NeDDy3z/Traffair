@@ -802,9 +802,6 @@ layout_mode = 1
 metadata/_edit_lock_ = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]
-[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
-[connection signal="tree_exited" from="runways" to="." method="_on_runways_tree_exited"]
-[connection signal="tree_exiting" from="runways" to="." method="_on_runways_tree_exiting"]
 [connection signal="body_entered" from="runways/runway_07-25/landing" to="runways/runway_07-25" method="_on_landing_body_entered"]
 [connection signal="body_entered" from="runways/runway_07-25/rw07" to="runways/runway_07-25" method="_on_rw_07_body_entered"]
 [connection signal="body_entered" from="runways/runway_07-25/rw25" to="runways/runway_07-25" method="_on_rw_25_body_entered"]

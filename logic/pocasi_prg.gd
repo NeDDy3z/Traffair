@@ -1,11 +1,11 @@
 extends Button
 
 
+
 var api_link = "https://api.open-meteo.com/v1/forecast?latitude=50.088&longitude=14.4208&current=temperature_2m,apparent_temperature,precipitation&forecast_days=1"
 
 var HTTP_req
 var text_label
-var log_gd = load("res://logic/log.gd")
 
 
 
@@ -38,8 +38,8 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 	var data = JSON.parse_string(body.get_string_from_utf8())
 	set_text_label(data)
 	
-	log_gd.write_to_log("weather", "pulled data from api", data)
-	log_gd.write_to_console("weather", "pulled data from api", data)
+	Logger.write_to_log("weather", "pulled data from api", data)
+	Logger.write_to_console("weather", "pulled data from api", data)
 
 
 func _on_pressed():

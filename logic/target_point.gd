@@ -10,7 +10,7 @@ var sprite
 func _ready():
 	sprite = $debug_sprite
 	
-	if Globals.debug:
+	if Global.debug:
 		sprite.visible = true
 	else:
 		sprite.visible = false

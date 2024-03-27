@@ -9,8 +9,6 @@ var landing : Object
 var game_level : Object
 var planes
 
-var log_gd = load("res://logic/log.gd")
-
 
 
 # Called when the node enters the scene tree for the first time.

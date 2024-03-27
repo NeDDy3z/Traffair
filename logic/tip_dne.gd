@@ -288,11 +288,11 @@ var tipy = [
 	"V nouzi poznaš přítele",
 	"Ve světe pro-gamingu je jen jedno pravidlo...",
 	"Pravidla neurčují lidi, ale lidi určují pravidla",
-	"Přidejte si citrón do čaje, bude tak zdravější"
+	"Přidejte si citrón do čaje, bude tak zdravější",
+	"Není nad oběd od babičky"
 ]
 
 var text_label
-var log_gd = load("res://logic/log.gd")
 var rng = RandomNumberGenerator.new()
 
 
@@ -305,7 +305,7 @@ func _ready():
 # On "tip_dne" button click, show tip
 func _on_pressed():
 	text_label.text = tipy[rng.randi_range(0, len(tipy)-1)]
-	log_gd.write_to_log("tip_dne", "show tip", text_label.text)
-	log_gd.write_to_console("tip_dne", "show tip", text_label.text)
+	Logger.write_to_log("tip_dne", "show tip", text_label.text)
+	Logger.write_to_console("tip_dne", "show tip", text_label.text)
 
 # Celý skript má 300 řádků když se nepočítají mezery (což CLOC dělá)

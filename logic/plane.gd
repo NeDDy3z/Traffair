@@ -29,7 +29,6 @@ var target_point : Object
 var target_offset_x
 var target_offset_y
 
-var log_gd = load("res://logic/log.gd")
 var plane_tab_prefab = load("res://assets/plane_tab.tscn")
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var window_size = DisplayServer.window_get_size()
@@ -54,7 +53,7 @@ func _ready():
 	
 	
 	# Randomly place a target point (to which the plane will direct to)
-	if !Globals.debug:
+	if !Global.debug:
 		target_offset_x = rng.randf_range(-500, 500)
 		target_offset_y = rng.randf_range(-500, 500)
 		var new_target_pos_x 
@@ -76,11 +75,11 @@ func _ready():
 	
 	# Set ID & node name; and increment it
 	name = "plane_"+callsign
-	Globals.plane_index += 1
+	Global.plane_index += 1
 	
-	log_gd.write_to_log("plane"+callsign, "spawn", "")
-	log_gd.write_to_console("plane"+callsign, "spawn", "")
-	log_gd.write_to_console("-","","")	
+	Logger.write_to_log("plane"+callsign, "spawn", "")
+	Logger.write_to_console("plane"+callsign, "spawn", "")
+	Logger.write_to_console("-","","")	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -172,8 +171,8 @@ func generate_callsign():
 	for i in rng.randi_range(1,4):
 		sign += str(rng.randi_range(1,9))
 	
-	log_gd.write_to_log("generate_callsign()", "generated", sign)
-	log_gd.write_to_console("generate_callsign()", "generated", sign)
+	Logger.write_to_log("generate_callsign()", "generated", sign)
+	Logger.write_to_console("generate_callsign()", "generated", sign)
 	
 	return sign
 
@@ -183,8 +182,8 @@ func generate_altitude():
 	var alt : int
 	alt = rng.randi_range(3, 30) * 1000
 	
-	log_gd.write_to_log("generate_altitude()", "generated", alt)
-	log_gd.write_to_console("generate_altitude()", "generated", alt)
+	Logger.write_to_log("generate_altitude()", "generated", alt)
+	Logger.write_to_console("generate_altitude()", "generated", alt)
 	
 	return alt
 
@@ -194,8 +193,8 @@ func generate_speed():
 	var spd : int
 	spd = rng.randi_range(150,350)
 	
-	log_gd.write_to_log("generate_speed()", "generated", spd)
-	log_gd.write_to_console("generate_speed()", "generated", spd)
+	Logger.write_to_log("generate_speed()", "generated", spd)
+	Logger.write_to_console("generate_speed()", "generated", spd)
 	
 	return spd
 
@@ -204,31 +203,31 @@ func generate_speed():
 func set_altitude(value):
 	new_alt = int(value)
 	
-	log_gd.write_to_log("set_altitude()", "set", value)
-	log_gd.write_to_console("set_altitude()", "set", value)
+	Logger.write_to_log("set_altitude()", "set", value)
+	Logger.write_to_console("set_altitude()", "set", value)
 
 
 # Set heading of plane
 func set_heading(value):
 	new_hdg = int(value)
 	
-	log_gd.write_to_log("set_altitude()", "set", value)
-	log_gd.write_to_console("set_altitude()", "set", value)
+	Logger.write_to_log("set_altitude()", "set", value)
+	Logger.write_to_console("set_altitude()", "set", value)
 
 
 # Set speed of plane
 func set_speed(value):
 	new_spd = int(value)
 	
-	log_gd.write_to_log("set_speed()", "set", value)
-	log_gd.write_to_console("set_speed()", "set", value)
+	Logger.write_to_log("set_speed()", "set", value)
+	Logger.write_to_console("set_speed()", "set", value)
 
 
 func set_status(value):
 	status = states[value]
 	
-	log_gd.write_to_log("set_status()", "set", value)
-	log_gd.write_to_console("set_status()", "set", value)
+	Logger.write_to_log("set_status()", "set", value)
+	Logger.write_to_console("set_status()", "set", value)
 
 
 # Send plane towards a point
@@ -238,8 +237,8 @@ func direct_to(point):
 		direction.rotation = global_position.direction_to(point.global_position).angle()
 		direct = point.name.to_upper()
 
-		log_gd.write_to_log("direct_to()", "set", point.name)
-		log_gd.write_to_console("direct_to()", "set", point.name) 
+		Logger.write_to_log("direct_to()", "set", point.name)
+		Logger.write_to_console("direct_to()", "set", point.name) 
 
 
 # Add new plane tab
@@ -263,8 +262,8 @@ func add_new_plane_tab():
 	
 	# Add tab
 	queue.add_child(plane_tab, true)
-	log_gd.write_to_log("plane_tab" + str(name), "added", "")
-	log_gd.write_to_console("plane_tab" + str(name), "added", "")
+	Logger.write_to_log("plane_tab" + str(name), "added", "")
+	Logger.write_to_console("plane_tab" + str(name), "added", "")
 
 
 # Clicked on a new plane, it shows up in the sidebar. If the plane was already contacted, it just selects in the side bar

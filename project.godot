@@ -19,7 +19,13 @@ config/icon="res://art/logo.png"
 
 [autoload]
 
-Globals="*res://logic/global.gd"
+Logger="*res://logic/log.gd"
+Global="*res://logic/global.gd"
+
+[debug]
+
+file_logging/enable_file_logging=true
+file_logging/log_path="user://godot_logs/godot.log"
 
 [display]
 

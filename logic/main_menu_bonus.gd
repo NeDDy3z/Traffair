@@ -3,7 +3,6 @@ extends Control
 
 
 var text_label
-var log_gd = load("res://logic/log.gd")
 var rng = RandomNumberGenerator.new()
 
 
@@ -27,5 +26,5 @@ func _ready():
 # Go back to main menu on button press
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://levels/main_menu.tscn")
-	log_gd.write_to_log("bonus_menu", "open main_menu", "")
-	log_gd.write_to_console("bonus_menu", "open main_menu", "")
+	Logger.write_to_log("bonus_menu", "open main_menu", "")
+	Logger.write_to_console("bonus_menu", "open main_menu", "")

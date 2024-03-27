@@ -21,13 +21,13 @@ var land_options : Object
 var nav_points_list : Dictionary
 var runways_list : Dictionary
 
-var log_gd = load("res://logic/log.gd")
 var id_callsign
 var planes
 var nav_points
 var runways
 var i : int
-	
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,8 +48,8 @@ func _ready():
 	direct_to_options.select(-1)
 	land_options.select(0)
 	
-	log_gd.write_to_log("game_ui_description", "loaded", "")
-	log_gd.write_to_console("game_ui_description", "loaded", "")
+	Logger.write_to_log("game_ui_description", "loaded", "")
+	Logger.write_to_console("game_ui_description", "loaded", "")
 
 
 # Every 5 seconds update data
@@ -94,8 +94,8 @@ func get_direct_point(value):
 # Set the point the plane is going towards
 func get_direct_runway(value):
 	for i in range(0, land_options.item_count):
-			if land_options.get_item_text(i) == value:
-				return i
+		if land_options.get_item_text(i) == value:
+			return i
 	return 0
 
 
@@ -111,8 +111,8 @@ func load_nav_points():
 		nav_points_list[n.name.to_upper()] = n
 		direct_to_options.add_item(n.name.to_upper())
 	
-	log_gd.write_to_log("nav_points_selection", "loaded", "")
-	log_gd.write_to_console("nav_points_selection", "loaded", "")
+	Logger.write_to_log("nav_points_selection", "loaded", "")
+	Logger.write_to_console("nav_points_selection", "loaded", "")
 
 
 # Load all runways just like direct points to the options menu
@@ -127,8 +127,8 @@ func load_runways():
 				runways_list[r.name.to_upper()] = r
 				land_options.add_item(r.name.to_upper())
 	
-	log_gd.write_to_log("runways_selection", "loaded", "")
-	log_gd.write_to_console("runways_selection", "loaded", "")
+	Logger.write_to_log("runways_selection", "loaded", "")
+	Logger.write_to_console("runways_selection", "loaded", "")
 
 
 # Update data when description tab is shown
@@ -156,8 +156,8 @@ func _on_altitude_value_text_submitted(new_text):
 	plane = get_plane()
 	plane.set_altitude(new_text)
 	
-	log_gd.write_to_log("altitude", "set", "")
-	log_gd.write_to_console("altitude", "set", "")
+	Logger.write_to_log("altitude", "set", "")
+	Logger.write_to_console("altitude", "set", "")
 
 
 # Set heading of plane on text change
@@ -175,8 +175,8 @@ func _on_heading_value_text_submitted(new_text):
 	plane = get_plane()
 	plane.set_heading(new_text)
 	
-	log_gd.write_to_log("heading", "set", "")
-	log_gd.write_to_console("heading", "set", "")
+	Logger.write_to_log("heading", "set", "")
+	Logger.write_to_console("heading", "set", "")
 
 
 # Set speed of plane on text change
@@ -194,8 +194,8 @@ func _on_speed_value_text_submitted(new_text):
 	plane = get_plane()
 	plane.set_speed(new_text)
 	
-	log_gd.write_to_log("speed", "set", "")
-	log_gd.write_to_console("speed", "set", "")
+	Logger.write_to_log("speed", "set", "")
+	Logger.write_to_console("speed", "set", "")
 
 
 # Direct to selected -> plane gets sent to it
@@ -210,8 +210,8 @@ func _on_direct_value_item_selected(index):
 	plane.direct_to(point)
 	plane.set_status("direct")
 	
-	log_gd.write_to_log("fly towards nav_point", "set", "")
-	log_gd.write_to_console("fly towards nav_point", "set", "")
+	Logger.write_to_log("fly towards nav_point", "set", "")
+	Logger.write_to_console("fly towards nav_point", "set", "")
 
 
 # Runway selected -> plane gets sent to it
@@ -226,5 +226,5 @@ func _on_land_item_selected(index):
 	plane.direct_to(point)
 	plane.set_status("direct")
 	
-	log_gd.write_to_log("land on runway", "set", "")
-	log_gd.write_to_console("land on runway", "set", "")
+	Logger.write_to_log("land on runway", "set", "")
+	Logger.write_to_console("land on runway", "set", "")
