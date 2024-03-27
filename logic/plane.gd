@@ -10,13 +10,15 @@ extends CharacterBody2D
 @export var status : String
 
 var states = { # Enum doesnt work here
-	"fly" : "Flying",
+	"fly" : "Flying through",
 	"direct" : "Directed to NAV point",
 	"land" : "Landing",
-	"hold" : "In holding patter"
+	"hold" : "In holding patter",
+	"error" : "ALT / SPD too high for landing (≥4000ft & ≥150kt)"
 }
 
 var direct : String
+var holding : bool
 var new_alt
 var new_hdg
 var new_spd
@@ -77,13 +79,13 @@ func _ready():
 	name = "plane_"+callsign
 	Global.plane_index += 1
 	
-	Logger.write_to_log("plane"+callsign, "spawn", "")
-	Logger.write_to_console("plane"+callsign, "spawn", "")
-	Logger.write_to_console("-","","")	
+	Logger.write_to_log("plane"+callsign, "spawn", "plane_count="+str(Global.plane_index))
+	Logger.write_to_console("plane"+callsign, "spawn", "plane_count="+str(Global.plane_index))
+	Logger.write_to_console("-","")	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	# Get heading from object rotation
 	var angle
 	angle = int(direction.rotation_degrees)
@@ -100,7 +102,7 @@ func _process(delta):
 
 
 # Moevement stuff
-func _physics_process(delta):
+func _physics_process(_delta):
 	# Destroy if out of the screen
 	if position.x > window_size.x + 150 or position.x < -150:
 		queue_free()
@@ -143,9 +145,9 @@ func slow_update_data():
 		i = 0
 		if altitude != new_alt and new_alt != null:
 			if altitude > new_alt:
-				altitude -= 500
+				altitude -= 200
 			else:
-				altitude += 500
+				altitude += 200
 		if heading != new_hdg and new_hdg != null:
 			heading = new_hdg 
 		if speed != new_spd and new_spd != null:
@@ -159,25 +161,25 @@ func slow_update_data():
 					speed = new_spd
 
 
-# Generate random callsign of plane
+# Generate random callsign of plane (for spawning)
 func generate_callsign():
 	var letters 
 	letters = "abcdefghijklmnopqrstuvwxyz"
-	var sign : String
+	var c_sign : String = ""
 	
-	for i in rng.randi_range(1,3):
-		sign += letters[rng.randi_range(0,len(letters)-1)].to_upper()
+	for j in rng.randi_range(1,3):
+		c_sign += letters[rng.randi_range(0,len(letters)-1)].to_upper()
 	
-	for i in rng.randi_range(1,4):
-		sign += str(rng.randi_range(1,9))
+	for j in rng.randi_range(1,4):
+		c_sign += str(rng.randi_range(1,9))
 	
-	Logger.write_to_log("generate_callsign()", "generated", sign)
-	Logger.write_to_console("generate_callsign()", "generated", sign)
+	Logger.write_to_log("generate_callsign()", "generated", c_sign)
+	Logger.write_to_console("generate_callsign()", "generated", c_sign)
 	
-	return sign
+	return c_sign
 
 
-# Generate random altitude of plane
+# Generate random altitude of plane (for spawning)
 func generate_altitude():
 	var alt : int
 	alt = rng.randi_range(3, 30) * 1000
@@ -188,7 +190,7 @@ func generate_altitude():
 	return alt
 
 
-# Generate random speed of plane
+# Generate random speed of plane (for spawning)
 func generate_speed():
 	var spd : int
 	spd = rng.randi_range(150,350)
@@ -223,6 +225,7 @@ func set_speed(value):
 	Logger.write_to_console("set_speed()", "set", value)
 
 
+# Set statu of plane
 func set_status(value):
 	status = states[value]
 	
@@ -233,12 +236,40 @@ func set_status(value):
 # Send plane towards a point
 func direct_to(point):
 	if point != null:
+		# Set the planes path
 		direction.look_at(point.position)
 		direction.rotation = global_position.direction_to(point.global_position).angle()
-		direct = point.name.to_upper()
+		# Show in game_ui_description where the plane is going
+		direct = point.name.to_upper() 
+		
+		status = states["direct"]
 
-		Logger.write_to_log("direct_to()", "set", point.name)
-		Logger.write_to_console("direct_to()", "set", point.name) 
+		Logger.write_to_log("direct_to()", "set", direct)
+		Logger.write_to_console("direct_to()", "set", direct) 
+
+
+# Intiate holding pattern
+func hold():
+	direct = ""
+	status = states["hold"]
+	
+	if is_in_group("land"):
+		remove_from_group("land")
+	if is_in_group("landing"):
+		remove_from_group("landing")
+	
+	
+	
+	Logger.write_to_log("hold()", "set holding pattern")
+	Logger.write_to_console("hold()", "set holding pattern")
+
+
+# Cancel landing
+func cancel_landing():
+	remove_from_group("land")
+	remove_from_group("landing")
+	
+	status = states["fly"]
 
 
 # Add new plane tab
@@ -262,8 +293,8 @@ func add_new_plane_tab():
 	
 	# Add tab
 	queue.add_child(plane_tab, true)
-	Logger.write_to_log("plane_tab" + str(name), "added", "")
-	Logger.write_to_console("plane_tab" + str(name), "added", "")
+	Logger.write_to_log("plane_tab" + str(name), "added")
+	Logger.write_to_console("plane_tab" + str(name), "added")
 
 
 # Clicked on a new plane, it shows up in the sidebar. If the plane was already contacted, it just selects in the side bar
@@ -279,3 +310,5 @@ func _on_plane_button_pressed():
 			contains = true
 	if !contains:
 		add_new_plane_tab()
+		plane_tabs = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer").get_children()
+		plane_tabs[plane_tabs.size()-1].get_child(0).emit_signal("pressed")

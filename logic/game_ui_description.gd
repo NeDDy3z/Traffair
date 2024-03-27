@@ -45,17 +45,18 @@ func _ready():
 	load_nav_points()
 	load_runways()
 	
-	direct_to_options.select(-1)
+	direct_to_options.select(0)
 	land_options.select(0)
 	
-	Logger.write_to_log("game_ui_description", "loaded", "")
-	Logger.write_to_console("game_ui_description", "loaded", "")
+	Logger.write_to_log("game_ui_description", "loaded")
+	Logger.write_to_console("game_ui_description", "loaded")
 
 
-# Every 5 seconds update data
-func _process(delta):
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	# Every 2 seconds update data
 	i += 1
-	if i == int(DisplayServer.screen_get_refresh_rate()) * 10:
+	if i == int(DisplayServer.screen_get_refresh_rate()) * 2:
 		i = 0
 		update_data()
 
@@ -63,10 +64,11 @@ func _process(delta):
 # Get plane by callsign
 func get_plane():
 	var pl
-	pl = planes.get_children()
-	for p in pl:
-		if p.name.contains(str(id_callsign)):
-			return p
+	if planes != null:
+		pl = planes.get_children()
+		for p in pl:
+			if p.name.contains(str(id_callsign)):
+				return p
 
 
 # Update plane data in sidebar bottom tab
@@ -76,29 +78,35 @@ func update_data():
 	if data != null:
 		data = data.get_plane_data()
 		callsign_label.text = str(data["callsign"])
-		altitude_textedit.text = str(data["altitude"])
-		heading_textedit.text = str(data["heading"])
-		speed_textedit.text = str(data["speed"])
+		
+		if !altitude_textedit.has_focus():
+			altitude_textedit.text = str(data["altitude"])
+		if !heading_textedit.has_focus():
+			heading_textedit.text = str(data["heading"])
+		if !speed_textedit.has_focus():
+			speed_textedit.text = str(data["speed"])
+		
+		status_label.text = str(data["status"])
 		direct_to_options.select(get_direct_point(str(data["direct"])))
 		land_options.select(get_direct_runway(str(data["direct"])))
 
-
-# Set the point the plane is going towards
+# Set the point the plane is going towards 
 func get_direct_point(value):
-	for i in range(0, direct_to_options.item_count):
-		if direct_to_options.get_item_text(i) == value:
-			return i
-	return -1
+	for j in range(0, direct_to_options.item_count):
+		if direct_to_options.get_item_text(j) == value:
+			return j
+	return 0
 
 
 # Set the point the plane is going towards
 func get_direct_runway(value):
-	for i in range(0, land_options.item_count):
-		if land_options.get_item_text(i) == value:
-			return i
+	for j in range(0, land_options.item_count):
+		if land_options.get_item_text(j) == value:
+			return j
 	return 0
 
 
+# Set callsign to refer to a plane
 func set_callsign(value):
 	id_callsign = value.text
 
@@ -106,29 +114,39 @@ func set_callsign(value):
 # Load all nav_points into direct_to optionsbutton
 func load_nav_points():
 	var n_p
-	n_p = nav_points.get_children()
-	for n in n_p:
-		nav_points_list[n.name.to_upper()] = n
-		direct_to_options.add_item(n.name.to_upper())
+	if nav_points != null:
+		n_p = nav_points.get_children()
+		for n in n_p:
+			nav_points_list[n.name.to_upper()] = n
+			direct_to_options.add_item(n.name.to_upper())
 	
-	Logger.write_to_log("nav_points_selection", "loaded", "")
-	Logger.write_to_console("nav_points_selection", "loaded", "")
+	Logger.write_to_log("nav_points_selection", "loaded")
+	Logger.write_to_console("nav_points_selection", "loaded")
 
 
 # Load all runways just like direct points to the options menu
 func load_runways():
 	var rwys
-	rwys = runways.get_children()
-	for rws in rwys:
-		var rw
-		rw = rws.get_children()
-		for r in rw:
-			if r.name.contains("rw"):
-				runways_list[r.name.to_upper()] = r
-				land_options.add_item(r.name.to_upper())
+	if runways != null:
+		rwys = runways.get_children()
+		for rws in rwys:
+			var rw
+			rw = rws.get_children()
+			for r in rw:
+				if r.name.contains("rw"):
+					runways_list[r.name.to_upper()] = r
+					land_options.add_item(r.name.to_upper())
 	
-	Logger.write_to_log("runways_selection", "loaded", "")
-	Logger.write_to_console("runways_selection", "loaded", "")
+	Logger.write_to_log("runways_selection", "loaded")
+	Logger.write_to_console("runways_selection", "loaded")
+
+
+# Reset plane data on landing canceled
+func cancel_landing(plane):
+	if plane.is_in_group("landing"):
+		plane.cancel_landing()
+		plane.set_altitude(8000)
+		plane.set_speed(250)
 
 
 # Update data when description tab is shown
@@ -156,8 +174,11 @@ func _on_altitude_value_text_submitted(new_text):
 	plane = get_plane()
 	plane.set_altitude(new_text)
 	
-	Logger.write_to_log("altitude", "set", "")
-	Logger.write_to_console("altitude", "set", "")
+	# Reset plane data on landing canceled
+	cancel_landing(plane)
+	
+	Logger.write_to_log("altitude", "set", new_text)
+	Logger.write_to_console("altitude", "set", new_text)
 
 
 # Set heading of plane on text change
@@ -175,8 +196,11 @@ func _on_heading_value_text_submitted(new_text):
 	plane = get_plane()
 	plane.set_heading(new_text)
 	
-	Logger.write_to_log("heading", "set", "")
-	Logger.write_to_console("heading", "set", "")
+	# Reset plane data on landing canceled
+	cancel_landing(plane)
+	
+	Logger.write_to_log("heading", "set", new_text)
+	Logger.write_to_console("heading", "set", new_text)
 
 
 # Set speed of plane on text change
@@ -194,8 +218,11 @@ func _on_speed_value_text_submitted(new_text):
 	plane = get_plane()
 	plane.set_speed(new_text)
 	
-	Logger.write_to_log("speed", "set", "")
-	Logger.write_to_console("speed", "set", "")
+	# Reset plane data on landing canceled
+	cancel_landing(plane)
+	
+	Logger.write_to_log("speed", "set", new_text)
+	Logger.write_to_console("speed", "set", new_text)
 
 
 # Direct to selected -> plane gets sent to it
@@ -208,10 +235,12 @@ func _on_direct_value_item_selected(index):
 	
 	plane = get_plane()
 	plane.direct_to(point)
-	plane.set_status("direct")
 	
-	Logger.write_to_log("fly towards nav_point", "set", "")
-	Logger.write_to_console("fly towards nav_point", "set", "")
+	# Reset plane data on landing canceled
+	cancel_landing(plane)
+	
+	Logger.write_to_log("fly towards nav_point", "set", point.name)
+	Logger.write_to_console("fly towards nav_point", "set", point.name)
 
 
 # Runway selected -> plane gets sent to it
@@ -220,11 +249,11 @@ func _on_land_item_selected(index):
 	var point
 	
 	point = runways_list[str(land_options.get_item_text(index))]
-	direct_to_options.select(-1)
+	direct_to_options.select(0)
 	
 	plane = get_plane()
 	plane.direct_to(point)
-	plane.set_status("direct")
+	plane.add_to_group("land")
 	
-	Logger.write_to_log("land on runway", "set", "")
-	Logger.write_to_console("land on runway", "set", "")
+	Logger.write_to_log("land on runway", "set", point.name)
+	Logger.write_to_console("land on runway", "set", point.name)

@@ -1,10 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://conakjasj0jik"]
+[gd_scene load_steps=26 format=3 uid="uid://conakjasj0jik"]
 
 [ext_resource type="Script" path="res://logic/game_ui.gd" id="1_pyp86"]
 [ext_resource type="Theme" uid="uid://ndkkiukjrq7m" path="res://art/themes/styles/plane_tab.tres" id="2_7tg65"]
-[ext_resource type="Script" path="res://logic/description.gd" id="3_lwlko"]
+[ext_resource type="Script" path="res://logic/game_ui_description.gd" id="3_udi1h"]
 [ext_resource type="Theme" uid="uid://1lbim2u8mpy3" path="res://art/themes/plane_description_buttons.tres" id="4_4ar2h"]
-[ext_resource type="Script" path="res://logic/controls.gd" id="5_m3hne"]
+[ext_resource type="Script" path="res://logic/game_ui_controls.gd" id="5_ednpf"]
 
 [sub_resource type="SystemFont" id="SystemFont_lmnue"]
 font_names = PackedStringArray("Lucida Console")
@@ -74,6 +74,15 @@ OptionButton/styles/focus = SubResource("StyleBoxFlat_ymj5g")
 OptionButton/styles/hover = SubResource("StyleBoxFlat_ygg3i")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_yejjp")
 OptionButton/styles/pressed = SubResource("StyleBoxFlat_ymj5g")
+
+[sub_resource type="SystemFont" id="SystemFont_3f4en"]
+font_names = PackedStringArray("Franklin Gothic")
+font_italic = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_5m6un"]
+line_spacing = -2.0
+font = SubResource("SystemFont_3f4en")
+font_size = 17
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vl1nn"]
 
@@ -159,7 +168,7 @@ offset_right = 400.0
 offset_bottom = 0.280029
 grow_vertical = 2
 theme = ExtResource("2_7tg65")
-script = ExtResource("3_lwlko")
+script = ExtResource("3_udi1h")
 
 [node name="line" type="ColorRect" parent="description"]
 layout_mode = 1
@@ -195,11 +204,15 @@ theme = SubResource("Theme_p0vd5")
 text = "X"
 
 [node name="data" type="HBoxContainer" parent="description"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 60.0
-offset_right = 189.0
-offset_bottom = 163.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.333
+anchor_right = 0.472
+anchor_bottom = 0.906
+offset_top = 0.0599976
+offset_right = 0.199982
+offset_bottom = -0.0800018
 theme = SubResource("Theme_7gtb0")
 
 [node name="labels" type="VBoxContainer" parent="description/data"]
@@ -229,19 +242,37 @@ theme = SubResource("Theme_bj6sh")
 [node name="altitude_value" type="LineEdit" parent="description/data/values"]
 layout_mode = 2
 max_length = 5
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+select_all_on_focus = true
 
 [node name="heading_value" type="LineEdit" parent="description/data/values"]
 layout_mode = 2
 max_length = 3
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+select_all_on_focus = true
 
 [node name="speed_value" type="LineEdit" parent="description/data/values"]
 layout_mode = 2
 max_length = 3
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+drag_and_drop_selection_enabled = false
+select_all_on_focus = true
 
 [node name="direct_value" type="OptionButton" parent="description/data/values"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 theme = SubResource("Theme_wk513")
+item_count = 1
+selected = 0
+popup/item_0/text = ""
+popup/item_0/id = 0
+popup/item_0/disabled = true
 
 [node name="labels_suffix" type="VBoxContainer" parent="description/data"]
 layout_mode = 2
@@ -260,17 +291,26 @@ layout_mode = 2
 text = "kt"
 
 [node name="status" type="VBoxContainer" parent="description"]
-layout_mode = 0
-offset_left = 230.0
-offset_top = 60.0
-offset_right = 371.0
-offset_bottom = 114.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.575
+anchor_top = 0.333
+anchor_right = 0.95
+anchor_bottom = 0.633
+offset_left = -1.52588e-05
+offset_top = 0.0599976
+offset_right = -3.05176e-05
+offset_bottom = 12.06
 
 [node name="status" type="Label" parent="description/status"]
 layout_mode = 2
-text = "Flying through..."
+theme_override_font_sizes/font_size = 17
+text = "..."
+label_settings = SubResource("LabelSettings_5m6un")
+autowrap_mode = 2
 
 [node name="fuel" type="HBoxContainer" parent="description/status"]
+visible = false
 layout_mode = 2
 
 [node name="fuel" type="Label" parent="description/status/fuel"]
@@ -287,11 +327,16 @@ text = "%
 "
 
 [node name="commands" type="HBoxContainer" parent="description"]
-layout_mode = 0
-offset_left = 230.0
-offset_top = 135.0
-offset_right = 345.0
-offset_bottom = 165.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.575
+anchor_top = 0.75
+anchor_right = 0.862
+anchor_bottom = 0.906
+offset_left = -1.52588e-05
+offset_top = -2.00002
+offset_right = 0.199982
+offset_bottom = -0.0800018
 theme = ExtResource("4_4ar2h")
 theme_override_constants/separation = 15
 
@@ -318,7 +363,7 @@ anchor_bottom = 1.0
 offset_top = -0.0400391
 offset_right = 400.0
 grow_vertical = 2
-script = ExtResource("5_m3hne")
+script = ExtResource("5_ednpf")
 
 [node name="background" type="ColorRect" parent="controls"]
 layout_mode = 2
@@ -368,8 +413,14 @@ text = "Exit
 
 [connection signal="draw" from="description" to="description" method="_on_draw"]
 [connection signal="pressed" from="description/close_button" to="description" method="_on_close_button_pressed"]
+[connection signal="focus_entered" from="description/data/values/altitude_value" to="description" method="_on_altitude_value_focus_entered"]
+[connection signal="focus_exited" from="description/data/values/altitude_value" to="description" method="_on_altitude_value_focus_exited"]
 [connection signal="text_submitted" from="description/data/values/altitude_value" to="description" method="_on_altitude_value_text_submitted"]
+[connection signal="focus_entered" from="description/data/values/heading_value" to="description" method="_on_heading_value_focus_entered"]
+[connection signal="focus_exited" from="description/data/values/heading_value" to="description" method="_on_heading_value_focus_exited"]
 [connection signal="text_submitted" from="description/data/values/heading_value" to="description" method="_on_heading_value_text_submitted"]
+[connection signal="focus_entered" from="description/data/values/speed_value" to="description" method="_on_speed_value_focus_entered"]
+[connection signal="focus_exited" from="description/data/values/speed_value" to="description" method="_on_speed_value_focus_exited"]
 [connection signal="text_submitted" from="description/data/values/speed_value" to="description" method="_on_speed_value_text_submitted"]
 [connection signal="item_selected" from="description/data/values/direct_value" to="description" method="_on_direct_value_item_selected"]
 [connection signal="item_selected" from="description/commands/land" to="description" method="_on_land_item_selected"]

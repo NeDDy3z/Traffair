@@ -1,14 +1,13 @@
 extends Node
 
 
+
 var file_path : String
 var log_read
 var log_write
 
 var dir_access 
 var temp_data : String = ""
-
-
 
 
 
@@ -26,12 +25,12 @@ func _ready():
 	
 	write_to_log("Game", "new game started", "----------------------------------- ]]]")
 	write_to_console("Game", "new game started", "----------------------------------- ]]]")
-	write_to_log("Logger", "loaded", "")
-	write_to_console("Logger", "loaded", "")
+	write_to_log("Logger", "loaded")
+	write_to_console("Logger", "loaded")
 
 
 # Write into file log
-func write_to_log(object, action, message):
+func write_to_log(object, action, message = ""):
 	var time
 	time = Time.get_time_string_from_system()
 	
@@ -67,7 +66,7 @@ func write_to_log(object, action, message):
 
 
 # Write into console log
-func write_to_console(object, action, message):
+func write_to_console(object, action, message = ""):
 	var time
 	time = Time.get_time_string_from_system()
 	

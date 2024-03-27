@@ -17,8 +17,8 @@ var i = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Logger.write_to_log("game_level_kbely", "loaded", "")
-	Logger.write_to_console("game_level_kbely", "loaded", "")
+	Logger.write_to_log("game_level_kbely", "loaded")
+	Logger.write_to_console("game_level_kbely", "loaded")
 
 	# Spawn 1st plane
 	spawn_plane() 

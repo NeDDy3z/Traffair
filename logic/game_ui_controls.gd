@@ -13,8 +13,8 @@ func _ready():
 	default_time_scale = 1.0
 	pause = $HBoxContainer/pause
 	
-	Logger.write_to_log("game_ui_controls", "loaded", "")
-	Logger.write_to_console("game_ui_controls", "loaded", "")
+	Logger.write_to_log("game_ui_controls", "loaded")
+	Logger.write_to_console("game_ui_controls", "loaded")
 
 
 # Read input from user
@@ -47,6 +47,6 @@ func _on_pause_toggled(toggled_on):
 # Speed up the game on ">>>" click
 func _on_speedup_toggled(toggled_on):
 	if toggled_on:
-		Engine.time_scale = 5.0
+		Engine.time_scale = 10.0
 	else:
 		Engine.time_scale = default_time_scale

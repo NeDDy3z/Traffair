@@ -3,9 +3,9 @@
 [ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_kcd48"]
 [ext_resource type="Script" path="res://logic/main_menu_bonus.gd" id="2_ckixn"]
 [ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_acw8b"]
-[ext_resource type="Script" path="res://logic/tip_dne.gd" id="4_bfooa"]
-[ext_resource type="Script" path="res://logic/pocasi_prg.gd" id="5_83t73"]
-[ext_resource type="Script" path="res://logic/svatek.gd" id="6_0nu32"]
+[ext_resource type="Script" path="res://logic/bonus_tip_dne.gd" id="4_bfooa"]
+[ext_resource type="Script" path="res://logic/bonus_pocasi_prg.gd" id="5_83t73"]
+[ext_resource type="Script" path="res://logic/bonus_svatek.gd" id="6_0nu32"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xljt0"]
 
