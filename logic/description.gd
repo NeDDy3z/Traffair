@@ -14,18 +14,20 @@ var callsign_label : Object
 var altitude_textedit : Object
 var heading_textedit : Object
 var speed_textedit : Object
-var direct_to_options : Object	
+var status_label : Object
+var direct_to_options : Object
 var land_options : Object
 
 var nav_points_list : Dictionary
 var runways_list : Dictionary
 
 var log_gd = load("res://logic/log.gd")
+var id_callsign
 var planes
 var nav_points
 var runways
-
-
+var i : int
+	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,6 +35,7 @@ func _ready():
 	altitude_textedit = $data/values/altitude_value
 	heading_textedit = $data/values/heading_value
 	speed_textedit = $data/values/speed_value
+	status_label = $status/status
 	direct_to_options = $data/values/direct_value
 	land_options = $commands/land
 	
@@ -49,21 +52,55 @@ func _ready():
 	log_gd.write_to_console("game_ui_description", "loaded", "")
 
 
-# Update plane data in sidebar bottom tab
-func update_data(u_callsign, u_altitude, u_heading, u_speed, u_action):
-	callsign_label.text = str(u_callsign)
-	altitude_textedit.text = str(u_altitude)
-	heading_textedit.text = str(u_heading)
-	speed_textedit.text = str(u_speed)
-	
+# Every 5 seconds update data
+func _process(delta):
+	i += 1
+	if i == int(DisplayServer.screen_get_refresh_rate()) * 10:
+		i = 0
+		update_data()
+
 
 # Get plane by callsign
 func get_plane():
 	var pl
 	pl = planes.get_children()
 	for p in pl:
-		if p.name.contains(str(callsign_label.text)):
+		if p.name.contains(str(id_callsign)):
 			return p
+
+
+# Update plane data in sidebar bottom tab
+func update_data():
+	var data
+	data = get_plane()
+	if data != null:
+		data = data.get_plane_data()
+		callsign_label.text = str(data["callsign"])
+		altitude_textedit.text = str(data["altitude"])
+		heading_textedit.text = str(data["heading"])
+		speed_textedit.text = str(data["speed"])
+		direct_to_options.select(get_direct_point(str(data["direct"])))
+		land_options.select(get_direct_runway(str(data["direct"])))
+
+
+# Set the point the plane is going towards
+func get_direct_point(value):
+	for i in range(0, direct_to_options.item_count):
+		if direct_to_options.get_item_text(i) == value:
+			return i
+	return -1
+
+
+# Set the point the plane is going towards
+func get_direct_runway(value):
+	for i in range(0, land_options.item_count):
+			if land_options.get_item_text(i) == value:
+				return i
+	return 0
+
+
+func set_callsign(value):
+	id_callsign = value.text
 
 
 # Load all nav_points into direct_to optionsbutton
@@ -92,6 +129,11 @@ func load_runways():
 	
 	log_gd.write_to_log("runways_selection", "loaded", "")
 	log_gd.write_to_console("runways_selection", "loaded", "")
+
+
+# Update data when description tab is shown
+func _on_draw():
+	update_data()
 
 
 # Hide window on "close" press

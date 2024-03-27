@@ -150,6 +150,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="description" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchor_top = 0.963
 anchor_bottom = 0.963
@@ -227,12 +228,15 @@ theme = SubResource("Theme_bj6sh")
 
 [node name="altitude_value" type="LineEdit" parent="description/data/values"]
 layout_mode = 2
+max_length = 5
 
 [node name="heading_value" type="LineEdit" parent="description/data/values"]
 layout_mode = 2
+max_length = 3
 
 [node name="speed_value" type="LineEdit" parent="description/data/values"]
 layout_mode = 2
+max_length = 3
 
 [node name="direct_value" type="OptionButton" parent="description/data/values"]
 custom_minimum_size = Vector2(0, 25)
@@ -255,29 +259,29 @@ text = "°"
 layout_mode = 2
 text = "kt"
 
-[node name="action" type="VBoxContainer" parent="description"]
+[node name="status" type="VBoxContainer" parent="description"]
 layout_mode = 0
 offset_left = 230.0
 offset_top = 60.0
 offset_right = 371.0
 offset_bottom = 114.0
 
-[node name="action" type="Label" parent="description/action"]
+[node name="status" type="Label" parent="description/status"]
 layout_mode = 2
 text = "Flying through..."
 
-[node name="fuel" type="HBoxContainer" parent="description/action"]
+[node name="fuel" type="HBoxContainer" parent="description/status"]
 layout_mode = 2
 
-[node name="fuel" type="Label" parent="description/action/fuel"]
+[node name="fuel" type="Label" parent="description/status/fuel"]
 layout_mode = 2
 text = "Fuel: "
 
-[node name="fuel_value" type="Label" parent="description/action/fuel"]
+[node name="fuel_value" type="Label" parent="description/status/fuel"]
 layout_mode = 2
 text = "100"
 
-[node name="fuel_suffix" type="Label" parent="description/action/fuel"]
+[node name="fuel_suffix" type="Label" parent="description/status/fuel"]
 layout_mode = 2
 text = "%
 "
@@ -362,6 +366,7 @@ layout_mode = 2
 text = "Exit
 "
 
+[connection signal="draw" from="description" to="description" method="_on_draw"]
 [connection signal="pressed" from="description/close_button" to="description" method="_on_close_button_pressed"]
 [connection signal="text_submitted" from="description/data/values/altitude_value" to="description" method="_on_altitude_value_text_submitted"]
 [connection signal="text_submitted" from="description/data/values/heading_value" to="description" method="_on_heading_value_text_submitted"]

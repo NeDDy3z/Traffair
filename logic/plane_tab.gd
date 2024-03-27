@@ -3,10 +3,10 @@ extends Control
 
 
 var id = name
-var callsign : Object
-var speed : Object
-var heading : Object
-var altitude : Object
+var callsign_label : Object
+var altitude_label : Object
+var heading_label : Object
+var speed_label : Object
 
 var planes
 var labels
@@ -19,12 +19,10 @@ func _ready():
 	planes = get_node("../../../../../planes")
 	description = get_node("../../../../").get_node("description")
 
-	labels = {
-		"callsign" : $Button/callsign,
-		"altitude" : $Button/data_hboxcontainer/values_vboxcontainer/altitude_value,
-		"heading" : $Button/data_hboxcontainer/values_vboxcontainer/heading_value,
-		"speed" : $Button/data_hboxcontainer/values_vboxcontainer/speed_value
-	}
+	callsign_label = $Button/callsign
+	altitude_label = $Button/data_hboxcontainer/values_vboxcontainer/altitude_value
+	heading_label = $Button/data_hboxcontainer/values_vboxcontainer/heading_value
+	speed_label = $Button/data_hboxcontainer/values_vboxcontainer/speed_value
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,7 +40,7 @@ func get_plane():
 	pl = planes.get_children()
 	var exists
 	for p in pl:
-		if p.name.contains(labels["callsign"].text):
+		if p.name.contains(callsign_label.text):
 			exists = true
 			return p
 	
@@ -51,20 +49,22 @@ func get_plane():
 		description.visible = false
 		return null
 
+
 # Set data of plane to tab
 func update_data(u_callsign, u_altitude, u_heading, u_speed):	
-	labels["callsign"].text = str(u_callsign)
-	labels["altitude"].text = str(int(u_altitude))
-	labels["heading"].text = str(int(u_heading))
-	labels["speed"].text = str(int(u_speed))
+	callsign_label.text = str(u_callsign)
+	altitude_label.text = str(int(u_altitude))
+	heading_label.text = str(int(u_heading))
+	speed_label.text = str(int(u_speed))
 	
 	# Suffixes
-	labels["altitude"].text += " ft"
-	labels["heading"].text += "°"
-	labels["speed"].text += " kt"
+	altitude_label.text += " ft"
+	heading_label.text += "°"
+	speed_label.text += " kt"
 
 
 # Show description tab
 func _on_button_pressed():
 	description.visible = true
-	description.update_data(labels["callsign"].text, int(labels["altitude"].text), int(labels["heading"].text), int(labels["speed"].text), "")
+	description.set_callsign(callsign_label)
+	description.emit_signal("draw")

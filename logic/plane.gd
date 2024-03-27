@@ -16,8 +16,7 @@ var states = { # Enum doesnt work here
 	"hold" : "In holding patter"
 }
 
-var direct
-var rw
+var direct : String
 var new_alt
 var new_hdg
 var new_spd
@@ -132,7 +131,8 @@ func get_plane_data():
 		"altitude" : altitude, 
 		"heading" : heading, 
 		"speed" : speed,
-		"status" : status
+		"status" : status,
+		"direct" : direct
 	}
 
 
@@ -236,11 +236,13 @@ func direct_to(point):
 	if point != null:
 		direction.look_at(point.position)
 		direction.rotation = global_position.direction_to(point.global_position).angle()
-		
+		direct = point.name.to_upper()
+
 		log_gd.write_to_log("direct_to()", "set", point.name)
 		log_gd.write_to_console("direct_to()", "set", point.name) 
 
 
+# Add new plane tab
 func add_new_plane_tab():
 	var plane_tab 
 	plane_tab = plane_tab_prefab.instantiate()
