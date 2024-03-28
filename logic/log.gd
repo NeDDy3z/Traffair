@@ -61,7 +61,7 @@ func write_to_log(object, action, message = ""):
 		temp_data = log_read.get_as_text()
 		
 	log_write = FileAccess.open(file_path, FileAccess.WRITE_READ)
-	log_write.store_string(temp_data + str(time) +" "+ str(out))
+	log_write.store_line(temp_data + str(time) +" "+ str(out))
 	log_write.close()
 
 
