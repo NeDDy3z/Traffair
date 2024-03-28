@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://c3tc2r475ktvi"]
+[gd_scene load_steps=12 format=3 uid="uid://c3tc2r475ktvi"]
 
 [ext_resource type="Script" path="res://logic/game_level_kbely.gd" id="1_vlc60"]
 [ext_resource type="PackedScene" uid="uid://conakjasj0jik" path="res://levels/game_ui.tscn" id="2_yqmqv"]
 [ext_resource type="Script" path="res://logic/runway.gd" id="3_ley1n"]
 [ext_resource type="Texture2D" uid="uid://bysa5xagdjwkf" path="res://art/trg.png" id="3_mp2mp"]
 [ext_resource type="Script" path="res://logic/target_point.gd" id="3_w2s51"]
-[ext_resource type="Texture2D" uid="uid://bmkow5fum487y" path="res://art/holding_pattern.png" id="5_tk36h"]
 
 [sub_resource type="Theme" id="Theme_qqgfg"]
 
@@ -23,12 +22,6 @@ size = Vector2(50.9915, 5.98007)
 radius = 4.27193
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_nwtwp"]
-
-[sub_resource type="Curve2D" id="Curve2D_jol1l"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -37, 35, 0, 0, 0, 0, 39, 35, 0, 0, 0, 0, 55, 30, 0, 0, 0, 0, 68, 19, 0, 0, 0, 0, 74, 0, 0, 0, 0, 0, 68, -19, 0, 0, 0, 0, 54, -31, 0, 0, 0, 0, 35, -35, 0, 0, 0, 0, -35, -35, 0, 0, 0, 0, -55, -31, 0, 0, 0, 0, -70, -17, 0, 0, 0, 0, -75, 1, 0, 0, 0, 0, -69, 19, 0, 0, 0, 0, -54, 30, 0, 0, 0, 0, -37, 35)
-}
-point_count = 15
 
 [node name="game_level_kbely" type="Control"]
 layout_mode = 3
@@ -820,16 +813,6 @@ script = ExtResource("3_w2s51")
 position = Vector2(1.90735e-05, 1.14441e-05)
 scale = Vector2(9.99995, 10.909)
 texture = SubResource("CanvasTexture_nwtwp")
-
-[node name="holding_pattern" type="Node2D" parent="."]
-visible = false
-
-[node name="holding_patter_sprite" type="Sprite2D" parent="holding_pattern"]
-scale = Vector2(0.202703, 0.169412)
-texture = ExtResource("5_tk36h")
-
-[node name="holding_pattern_path" type="Path2D" parent="holding_pattern"]
-curve = SubResource("Curve2D_jol1l")
 
 [node name="game_ui" parent="." instance=ExtResource("2_yqmqv")]
 layout_mode = 1

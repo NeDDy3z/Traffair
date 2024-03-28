@@ -21,6 +21,7 @@ config/icon="res://art/logo.png"
 
 Logger="*res://logic/log.gd"
 Global="*res://logic/global.gd"
+Math="*res://logic/math.gd"
 
 [debug]
 

@@ -86,16 +86,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	# Get heading from object rotation
-	var angle
-	angle = int(direction.rotation_degrees)
-	if angle < 0:
-		angle += 360
-	if angle > 0:
-		angle += 90
-	if angle > 360:
-		angle -= 360
-	heading = angle
+	# Set heading based on rotation of [Direction] Node
+	heading = Math.rotation_to_deg(int(direction.rotation_degrees))
+	# set rotation based on heading
+	direction.rotation_degrees = Math.deg_to_rotation(heading)
 	
 	# Slowly change the plane altitude/heading/speed
 	slow_update_data()
@@ -150,6 +144,7 @@ func slow_update_data():
 				altitude += 200
 		if heading != new_hdg and new_hdg != null:
 			heading = new_hdg 
+			
 		if speed != new_spd and new_spd != null:
 			if speed > new_spd:
 				speed -= 5
@@ -227,7 +222,7 @@ func set_speed(value):
 
 # Set statu of plane
 func set_status(value):
-	status = states[value]
+	status = states[str(value)]
 	
 	Logger.write_to_log("set_status()", "set", value)
 	Logger.write_to_console("set_status()", "set", value)

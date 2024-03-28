@@ -1,11 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://bfq7e61xiaygd"]
+[gd_scene load_steps=13 format=3 uid="uid://bfq7e61xiaygd"]
 
 [ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_kcd48"]
 [ext_resource type="Script" path="res://logic/main_menu_bonus.gd" id="2_ckixn"]
 [ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_acw8b"]
-[ext_resource type="Script" path="res://logic/bonus_tip_dne.gd" id="4_bfooa"]
-[ext_resource type="Script" path="res://logic/bonus_pocasi_prg.gd" id="5_83t73"]
-[ext_resource type="Script" path="res://logic/bonus_svatek.gd" id="6_0nu32"]
+[ext_resource type="Script" path="res://logic/bonus_tip_of_the_day.gd" id="4_bfooa"]
+[ext_resource type="Script" path="res://logic/bonus_weather_prg.gd" id="5_83t73"]
+[ext_resource type="Script" path="res://logic/bonus_riddle.gd" id="5_fn8ew"]
+[ext_resource type="Script" path="res://logic/bonus_name_day.gd" id="6_0nu32"]
+[ext_resource type="Script" path="res://logic/letiste_prg.gd" id="6_u7327"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xljt0"]
 
@@ -50,35 +52,69 @@ offset_bottom = 259.0
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
 
-[node name="tip_dne" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="tip_of_the_day" type="Button" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
-text = "TIP DNE"
+text = "TIP OF THE DAY"
 alignment = 0
 script = ExtResource("4_bfooa")
 
-[node name="pocasi_prg" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="riddle" type="Button" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
-text = "POČASÍ V PRAZE"
+text = "RIDDLE"
+alignment = 0
+script = ExtResource("5_fn8ew")
+
+[node name="separator" type="Label" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="weather_prg" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
+text = "WEATHER IN PRAGUE"
 alignment = 0
 script = ExtResource("5_83t73")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/pocasi_prg"]
+[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/weather_prg"]
 
-[node name="svatek" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="letiste_prg" type="Button" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
-text = "KDO MÁ SVÁTEK"
+text = "PRAGUE AIRPORT
+"
+alignment = 0
+script = ExtResource("6_u7327")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/letiste_prg"]
+
+[node name="separator2" type="Label" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="name_day" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
+text = "TODAY'S NAME DAY"
 alignment = 0
 script = ExtResource("6_0nu32")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/svatek"]
+[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/name_day"]
 
-[node name="separator" type="Label" parent="MarginContainer2/VBoxContainer"]
+[node name="holidays" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
+text = "TODAY'S HOLIDAYS"
+alignment = 0
+
+[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/holidays"]
+
+[node name="separator3" type="Label" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 
 [node name="back" type="Button" parent="MarginContainer2/VBoxContainer"]
@@ -104,8 +140,10 @@ theme_override_font_sizes/font_size = 40
 label_settings = SubResource("LabelSettings_wvbtf")
 autowrap_mode = 2
 
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/tip_dne" to="MarginContainer2/VBoxContainer/tip_dne" method="_on_pressed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/pocasi_prg" to="MarginContainer2/VBoxContainer/pocasi_prg" method="_on_pressed"]
-[connection signal="request_completed" from="MarginContainer2/VBoxContainer/pocasi_prg/HTTPRequest" to="MarginContainer2/VBoxContainer/pocasi_prg" method="_on_http_request_request_completed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/svatek" to="MarginContainer2/VBoxContainer/svatek" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/tip_of_the_day" to="MarginContainer2/VBoxContainer/tip_of_the_day" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/riddle" to="MarginContainer2/VBoxContainer/riddle" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/weather_prg" to="MarginContainer2/VBoxContainer/weather_prg" method="_on_pressed"]
+[connection signal="request_completed" from="MarginContainer2/VBoxContainer/weather_prg/HTTPRequest" to="MarginContainer2/VBoxContainer/weather_prg" method="_on_http_request_request_completed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/letiste_prg" to="MarginContainer2/VBoxContainer/letiste_prg" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/name_day" to="MarginContainer2/VBoxContainer/name_day" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/back" to="." method="_on_back_pressed"]

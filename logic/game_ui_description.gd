@@ -25,6 +25,7 @@ var id_callsign
 var planes
 var nav_points
 var runways
+var update_repeat_s : int = 1
 var i : int
 
 
@@ -56,7 +57,7 @@ func _ready():
 func _process(_delta):
 	# Every 2 seconds update data
 	i += 1
-	if i == int(DisplayServer.screen_get_refresh_rate()) * 2:
+	if i == int(DisplayServer.screen_get_refresh_rate()) * update_repeat_s:
 		i = 0
 		update_data()
 
@@ -78,6 +79,7 @@ func update_data():
 	if data != null:
 		data = data.get_plane_data()
 		callsign_label.text = str(data["callsign"])
+		status_label.text = str(data["status"])
 		
 		if !altitude_textedit.has_focus():
 			altitude_textedit.text = str(data["altitude"])
@@ -85,10 +87,10 @@ func update_data():
 			heading_textedit.text = str(data["heading"])
 		if !speed_textedit.has_focus():
 			speed_textedit.text = str(data["speed"])
-		
-		status_label.text = str(data["status"])
-		direct_to_options.select(get_direct_point(str(data["direct"])))
-		land_options.select(get_direct_runway(str(data["direct"])))
+		if !direct_to_options.has_focus():
+			direct_to_options.select(get_direct_point(str(data["direct"])))
+		if !land_options.has_focus():
+			land_options.select(get_direct_runway(str(data["direct"])))
 
 # Set the point the plane is going towards 
 func get_direct_point(value):
@@ -107,7 +109,7 @@ func get_direct_runway(value):
 
 
 # Set callsign to refer to a plane
-func set_callsign(value):
+func callsign_reference(value):
 	id_callsign = value.text
 
 

@@ -66,5 +66,5 @@ func update_data(u_callsign, u_altitude, u_heading, u_speed):
 # Show description tab
 func _on_button_pressed():
 	description.visible = true
-	description.set_callsign(callsign_label)
+	description.callsign_reference(callsign_label)
 	description.emit_signal("draw")
