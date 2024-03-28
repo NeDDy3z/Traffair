@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bfq7e61xiaygd"]
+[gd_scene load_steps=14 format=3 uid="uid://bfq7e61xiaygd"]
 
 [ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_kcd48"]
 [ext_resource type="Script" path="res://logic/main_menu_bonus.gd" id="2_ckixn"]
@@ -7,7 +7,8 @@
 [ext_resource type="Script" path="res://logic/bonus_weather_prg.gd" id="5_83t73"]
 [ext_resource type="Script" path="res://logic/bonus_riddle.gd" id="5_fn8ew"]
 [ext_resource type="Script" path="res://logic/bonus_name_day.gd" id="6_0nu32"]
-[ext_resource type="Script" path="res://logic/letiste_prg.gd" id="6_u7327"]
+[ext_resource type="Script" path="res://logic/bonus_airport_prg.gd" id="6_u7327"]
+[ext_resource type="Script" path="res://logic/bonus_holiday.gd" id="9_qe58e"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xljt0"]
 
@@ -68,7 +69,9 @@ text = "RIDDLE"
 alignment = 0
 script = ExtResource("5_fn8ew")
 
-[node name="separator" type="Label" parent="MarginContainer2/VBoxContainer"]
+[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/riddle"]
+
+[node name="separator3" type="Label" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 
 [node name="weather_prg" type="Button" parent="MarginContainer2/VBoxContainer"]
@@ -92,7 +95,7 @@ script = ExtResource("6_u7327")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/letiste_prg"]
 
-[node name="separator2" type="Label" parent="MarginContainer2/VBoxContainer"]
+[node name="separator4" type="Label" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 
 [node name="name_day" type="Button" parent="MarginContainer2/VBoxContainer"]
@@ -105,16 +108,17 @@ script = ExtResource("6_0nu32")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/name_day"]
 
-[node name="holidays" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="holiday" type="Button" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
-text = "TODAY'S HOLIDAYS"
+text = "TODAY'S HOLIDAY"
 alignment = 0
+script = ExtResource("9_qe58e")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/holidays"]
+[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/holiday"]
 
-[node name="separator3" type="Label" parent="MarginContainer2/VBoxContainer"]
+[node name="separator5" type="Label" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 
 [node name="back" type="Button" parent="MarginContainer2/VBoxContainer"]
@@ -146,4 +150,5 @@ autowrap_mode = 2
 [connection signal="request_completed" from="MarginContainer2/VBoxContainer/weather_prg/HTTPRequest" to="MarginContainer2/VBoxContainer/weather_prg" method="_on_http_request_request_completed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/letiste_prg" to="MarginContainer2/VBoxContainer/letiste_prg" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/name_day" to="MarginContainer2/VBoxContainer/name_day" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/holiday" to="MarginContainer2/VBoxContainer/holiday" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/back" to="." method="_on_back_pressed"]

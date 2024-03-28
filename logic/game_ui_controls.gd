@@ -2,7 +2,15 @@ extends Control
 
 
 var default_time_scale
+var current_position
+var time_scale_stages = [
+	1,
+	5,
+	10,
+	20,
+]
 
+var speedup
 var pause
 
 
@@ -10,8 +18,11 @@ var pause
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS # The script will work even tho the game is Frozen ("let it go..")
 	
-	default_time_scale = 1.0
+	speedup = $HBoxContainer/speedup
 	pause = $HBoxContainer/pause
+	
+	default_time_scale = 1.0
+	current_position = 0
 	
 	Logger.write_to_log("game_ui_controls", "loaded")
 	Logger.write_to_console("game_ui_controls", "loaded")
@@ -44,9 +55,12 @@ func _on_pause_toggled(toggled_on):
 	Logger.write_to_console("pause button", "game paused", "ingame")
 
 
-# Speed up the game on ">>>" click
-func _on_speedup_toggled(toggled_on):
-	if toggled_on:
-		Engine.time_scale = 10.0
+# On press change time scale of the game
+func _on_speedup_pressed():
+	if current_position == len(time_scale_stages)-1:
+		current_position = 0
 	else:
-		Engine.time_scale = default_time_scale
+		current_position += 1
+		
+	Engine.time_scale = time_scale_stages[current_position]
+	speedup.text = str(time_scale_stages[current_position]) +"x"

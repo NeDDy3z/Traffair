@@ -13,8 +13,8 @@ func _ready():
 	# Randomly show a hamburgr - friend wanted it
 	if rng.randi_range(1, 20) == 1:
 		var hamburgr
-		var x = rng.randi_range(100, DisplayServer.window_get_size().x - 100)
-		var y = rng.randi_range(100, DisplayServer.window_get_size().y - 100)		
+		var x = rng.randi_range(200, DisplayServer.window_get_size().x - 200)
+		var y = rng.randi_range(200, DisplayServer.window_get_size().y - 200)		
 		
 		hamburgr = Label.new()
 		hamburgr.text = "🍔"

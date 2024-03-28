@@ -86,7 +86,17 @@ font_size = 17
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vl1nn"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0uomx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_333me"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.490196, 0.490196, 0.490196, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 2.0
+expand_margin_right = 5.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sawwn"]
 
@@ -100,7 +110,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.85098, 0.827451, 0, 1)
+border_color = Color(0, 0.537255, 0.85098, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -112,7 +122,7 @@ expand_margin_bottom = 2.0
 
 [sub_resource type="Theme" id="Theme_1emgu"]
 Button/styles/focus = SubResource("StyleBoxEmpty_vl1nn")
-Button/styles/hover = SubResource("StyleBoxEmpty_0uomx")
+Button/styles/hover = SubResource("StyleBoxFlat_333me")
 Button/styles/normal = SubResource("StyleBoxEmpty_sawwn")
 Button/styles/pressed = SubResource("StyleBoxFlat_huu5a")
 HBoxContainer/constants/separation = 20
@@ -398,8 +408,7 @@ alignment = 1
 [node name="speedup" type="Button" parent="controls/HBoxContainer"]
 process_mode = 3
 layout_mode = 2
-toggle_mode = true
-text = ">>>"
+text = "1x"
 
 [node name="pause" type="Button" parent="controls/HBoxContainer"]
 process_mode = 3
@@ -426,9 +435,7 @@ text = "Exit
 [connection signal="text_submitted" from="description/data/values/speed_value" to="description" method="_on_speed_value_text_submitted"]
 [connection signal="item_selected" from="description/data/values/direct_value" to="description" method="_on_direct_value_item_selected"]
 [connection signal="item_selected" from="description/commands/land" to="description" method="_on_land_item_selected"]
-[connection signal="button_down" from="controls/HBoxContainer/speedup" to="controls" method="_on_pause_button_down"]
-[connection signal="button_up" from="controls/HBoxContainer/speedup" to="controls" method="_on_pause_button_up"]
-[connection signal="toggled" from="controls/HBoxContainer/speedup" to="controls" method="_on_speedup_toggled"]
+[connection signal="pressed" from="controls/HBoxContainer/speedup" to="controls" method="_on_speedup_pressed"]
 [connection signal="button_down" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_down"]
 [connection signal="button_up" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_up"]
 [connection signal="toggled" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_toggled"]
