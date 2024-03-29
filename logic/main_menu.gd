@@ -2,6 +2,10 @@ extends Control
 
 
 
+func _ready():
+	Logger.write_to_log("main_menu", "loaded")
+	Logger.write_to_console("main_menu", "loaded")
+
 # Start the game on "play" click
 func _on_play_pressed():
 	get_tree().change_scene_to_file("res://levels/game_level_kbely.tscn")

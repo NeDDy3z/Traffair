@@ -21,6 +21,9 @@ func _ready():
 		hamburgr.position = Vector2(x,y)
 		
 		add_child(hamburgr)
+		
+		Logger.write_to_log("bonus_menu", "loaded")
+		Logger.write_to_console("bonus_menu", "loaded")
 
 
 # Go back to main menu on button press

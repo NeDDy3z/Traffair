@@ -1,17 +1,28 @@
-[gd_scene load_steps=8 format=3 uid="uid://04k1cknsgau2"]
+[gd_scene load_steps=9 format=3 uid="uid://04k1cknsgau2"]
 
 [ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_db6uu"]
 [ext_resource type="Script" path="res://logic/main_menu_options.gd" id="1_hh8a0"]
 [ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="2_2kxgs"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sp8m"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+
 [sub_resource type="SystemFont" id="SystemFont_68dow"]
 msdf_size = 60
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnrvl"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
 bg_color = Color(1, 1, 1, 0)
 border_width_bottom = 2
 
 [sub_resource type="Theme" id="Theme_bfiil"]
+LineEdit/font_sizes/font_size = 40
+LineEdit/fonts/font = null
+LineEdit/styles/normal = SubResource("StyleBoxFlat_7sp8m")
 OptionButton/fonts/font = SubResource("SystemFont_68dow")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_wnrvl")
 
@@ -61,11 +72,18 @@ text = "RESOLUTION"
 layout_mode = 2
 text = "FULLSCREEN"
 
+[node name="gamma" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "GAMMA"
+
+[node name="separator" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="debug" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "DEBUG"
 
-[node name="separator" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+[node name="separator2" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="back" type="Button" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
@@ -78,6 +96,7 @@ alignment = 0
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
+theme_override_constants/separation = 9
 
 [node name="resolution_value" type="OptionButton" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -102,6 +121,19 @@ popup/item_0/id = 1
 popup/item_1/text = "OFF"
 popup/item_1/id = 0
 
+[node name="gamma_value" type="LineEdit" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "5"
+max_length = 3
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+caret_blink = true
+
+[node name="separator" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
 [node name="debug_value" type="OptionButton" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
@@ -113,3 +145,7 @@ popup/item_1/text = "ON"
 popup/item_1/id = 1
 
 [connection signal="pressed" from="MarginContainer2/HBoxContainer/VBoxContainer/back" to="." method="_on_back_pressed"]
+[connection signal="item_selected" from="MarginContainer2/HBoxContainer/VBoxContainer2/resolution_value" to="." method="_on_resolution_value_item_selected"]
+[connection signal="item_selected" from="MarginContainer2/HBoxContainer/VBoxContainer2/fullscreen_value" to="." method="_on_fullscreen_value_item_selected"]
+[connection signal="text_submitted" from="MarginContainer2/HBoxContainer/VBoxContainer2/gamma_value" to="." method="_on_gamma_value_text_submitted"]
+[connection signal="item_selected" from="MarginContainer2/HBoxContainer/VBoxContainer2/debug_value" to="." method="_on_debug_value_item_selected"]
