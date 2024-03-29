@@ -32,6 +32,9 @@ Label/fonts/font = SubResource("SystemFont_2hn8o")
 [node name="plane_body" type="CharacterBody2D" groups=["plane"]]
 script = ExtResource("1_sl2pc")
 
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
 shape = SubResource("CircleShape2D_646ue")
@@ -87,6 +90,7 @@ offset_top = -17.0
 offset_right = 101.0
 offset_bottom = 16.0
 
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="mouse_entered" from="plane_description/plane_button" to="plane_description" method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="plane_description/plane_button" to="plane_description" method="_on_button_mouse_exited"]
 [connection signal="pressed" from="plane_description/plane_button" to="." method="_on_plane_button_pressed"]

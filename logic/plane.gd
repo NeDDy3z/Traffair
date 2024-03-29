@@ -19,6 +19,7 @@ var states = { # Enum doesnt work here
 
 var direct : String
 var holding : bool
+var heading_rotation
 var new_alt
 var new_hdg
 var new_spd
@@ -87,12 +88,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	# Set heading based on rotation of [Direction] Node
-	heading = Math.rotation_to_deg(int(direction.rotation_degrees))
-	# set rotation based on heading
-	direction.rotation_degrees = Math.deg_to_rotation(heading)
-	
-	# Slowly change the plane altitude/heading/speed
-	slow_update_data()
+	if heading != Math.rotation_to_deg(int(direction.rotation_degrees)):
+		heading = Math.rotation_to_deg(int(direction.rotation_degrees))
 
 
 # Moevement stuff
@@ -131,29 +128,49 @@ func get_plane_data():
 	}
 
 
-# TODO: HEADING UPDATE
-# Slowly transition data altitude/heading/speed into a new values (to feel more realistic)
+# Slowly transition altitude/heading/speed into a new values (increases the realism)
 func slow_update_data():
-	i += 1
-	if i == int(DisplayServer.screen_get_refresh_rate()):
-		i = 0
-		if altitude != new_alt and new_alt != null:
-			if altitude > new_alt:
-				altitude -= 200
-			else:
-				altitude += 200
-		if heading != new_hdg and new_hdg != null:
-			heading = new_hdg 
-			
-		if speed != new_spd and new_spd != null:
-			if speed > new_spd:
-				speed -= 5
-				if speed <= new_spd:
-					speed = new_spd
-			else:
-				speed += 5
-				if speed >= new_spd:
-					speed = new_spd
+	# Slowupdate altitude
+	if new_alt != null and altitude != new_alt:
+		if altitude > new_alt:
+			altitude -= 200
+			if altitude <= new_alt:
+				altitude = new_alt
+				new_alt = null
+		else:
+			altitude += 200
+			if altitude >= new_alt:
+				altitude = new_alt
+				new_alt = null
+	
+	# Slowupdate speed
+	if new_spd != null and speed != new_spd:
+		if speed > new_spd:
+			speed -= 5
+			if speed <= new_spd:
+				speed = new_spd
+				new_spd = null
+		else:
+			speed += 5
+			if speed >= new_spd:
+				speed = new_spd
+				new_spd = null
+	
+	# Slowupdate heading
+	if new_hdg != null and heading != new_hdg:
+		var difference 
+		difference = (new_hdg%360 - heading%360 + 360) % 360
+		
+		if difference <= 180:
+			heading_rotation += 3
+		else:
+			heading_rotation -= 3
+		
+		if difference < 3 or difference == 358:
+			heading_rotation = new_hdg
+		
+		if heading_rotation != 90:
+			direction.rotation_degrees = Math.deg_to_rotation(heading_rotation)
 
 
 # Generate random callsign of plane (for spawning)
@@ -196,7 +213,7 @@ func generate_speed():
 	return spd
 
 
-# Set data of plane
+# Set altitude of Plane
 func set_altitude(value):
 	new_alt = int(value)
 	
@@ -204,15 +221,16 @@ func set_altitude(value):
 	Logger.write_to_console("set_altitude()", "set", value)
 
 
-# Set heading of plane
+# Set heading of Plane
 func set_heading(value):
 	new_hdg = int(value)
+	heading_rotation = heading
 	
 	Logger.write_to_log("set_altitude()", "set", value)
 	Logger.write_to_console("set_altitude()", "set", value)
 
 
-# Set speed of plane
+# Set speed of Plane
 func set_speed(value):
 	new_spd = int(value)
 	
@@ -220,7 +238,7 @@ func set_speed(value):
 	Logger.write_to_console("set_speed()", "set", value)
 
 
-# Set statu of plane
+# Set status of Plane
 func set_status(value):
 	status = states[str(value)]
 	
@@ -228,7 +246,7 @@ func set_status(value):
 	Logger.write_to_console("set_status()", "set", value)
 
 
-# Send plane towards a point
+# Set a point to which Plane flys toward
 func direct_to(point):
 	if point != null:
 		# Set the planes path
@@ -238,12 +256,12 @@ func direct_to(point):
 		direct = point.name.to_upper() 
 		
 		status = states["direct"]
-
+		
 		Logger.write_to_log("direct_to()", "set", direct)
 		Logger.write_to_console("direct_to()", "set", direct) 
 
 
-# Intiate holding pattern
+# Put Plane into holding pattern
 func hold():
 	direct = ""
 	status = states["hold"]
@@ -265,9 +283,12 @@ func cancel_landing():
 	remove_from_group("landing")
 	
 	status = states["fly"]
+	
+	Logger.write_to_log("cancel_landing()", "landing canceled")
+	Logger.write_to_console("cancel_landing()", "landing canceled")
 
 
-# Add new plane tab
+# Create Plane_tab in Game_UI sidebar
 func add_new_plane_tab():
 	var plane_tab 
 	plane_tab = plane_tab_prefab.instantiate()
@@ -292,7 +313,8 @@ func add_new_plane_tab():
 	Logger.write_to_console("plane_tab" + str(name), "added")
 
 
-# Clicked on a new plane, it shows up in the sidebar. If the plane was already contacted, it just selects in the side bar
+# Plane button pressed - If the plane was not previously interacted with, new Plane_tab will appear in Game_UI sidebar
+#                      - Select plane_tab in GAME_UI sidebar when the Plane was interacted with already
 func _on_plane_button_pressed():
 	var plane_tabs 
 	plane_tabs = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer").get_children()
@@ -307,3 +329,9 @@ func _on_plane_button_pressed():
 		add_new_plane_tab()
 		plane_tabs = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer").get_children()
 		plane_tabs[plane_tabs.size()-1].get_child(0).emit_signal("pressed")
+
+
+# Update data every x seconds the timer is set to
+func _on_timer_timeout():
+	slow_update_data()
+

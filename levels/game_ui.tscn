@@ -180,6 +180,9 @@ grow_vertical = 2
 theme = ExtResource("2_7tg65")
 script = ExtResource("3_udi1h")
 
+[node name="Timer" type="Timer" parent="description"]
+autostart = true
+
 [node name="line" type="ColorRect" parent="description"]
 layout_mode = 1
 anchors_preset = -1
@@ -423,6 +426,7 @@ text = "Exit
 "
 
 [connection signal="draw" from="description" to="description" method="_on_draw"]
+[connection signal="timeout" from="description/Timer" to="description" method="_on_timer_timeout"]
 [connection signal="pressed" from="description/close_button" to="description" method="_on_close_button_pressed"]
 [connection signal="focus_entered" from="description/data/values/altitude_value" to="description" method="_on_altitude_value_focus_entered"]
 [connection signal="focus_exited" from="description/data/values/altitude_value" to="description" method="_on_altitude_value_focus_exited"]

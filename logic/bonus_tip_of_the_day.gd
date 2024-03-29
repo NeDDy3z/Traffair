@@ -128,7 +128,7 @@ var tipy = [
 	"\"Vždycky budeš litovat rundy JĂ¤germeistera.\"",
 	"\"Milosrdenství je lepší část spravedlnosti.\"",
 	"\"Být laskavý se vyplatí víc než mít pravdu.\"",
-	"\"To, že tě někdo urazí, ještě neznamená, že máš pravdu.\"",
+	"\"To, že tě někdo urazí, ještě neznamená, že má pravdu.\"",
 	"\"Názory jsou jako prdele, každý má nějaký.\"",
 	"\"Na věku nezáleží, pokud nejste sýr.\"",
 	"\"Na každý složitý problém existuje jasná, jednoduchá a špatná odpověď.\"",

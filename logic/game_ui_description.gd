@@ -53,15 +53,6 @@ func _ready():
 	Logger.write_to_console("game_ui_description", "loaded")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	# Every 2 seconds update data
-	i += 1
-	if i == int(DisplayServer.screen_get_refresh_rate()) * update_repeat_s:
-		i = 0
-		update_data()
-
-
 # Get plane by callsign
 func get_plane():
 	var pl
@@ -259,3 +250,8 @@ func _on_land_item_selected(index):
 	
 	Logger.write_to_log("land on runway", "set", point.name)
 	Logger.write_to_console("land on runway", "set", point.name)
+
+
+# Update data every x seconds the timer is set to
+func _on_timer_timeout():
+	update_data()
