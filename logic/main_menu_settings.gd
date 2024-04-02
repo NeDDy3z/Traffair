@@ -39,28 +39,38 @@ func _ready():
 	
 	load_settings()
 	
-	Logger.write_to_log("options_menu", "loaded")
-	Logger.write_to_console("options_menu", "loaded")
+	Logger.write_to_log(name, "loaded")
+	Logger.write_to_console(name, "loaded")
 
 
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://levels/main_menu.tscn")
-	Logger.write_to_log("options_menu", "open main_menu")
-	Logger.write_to_console("options_menu", "open main_menu")
+	
+	Logger.write_to_log(name, "open main_menu")
+	Logger.write_to_console(name, "open main_menu")
 
 
 func load_settings():
 	read = FileAccess.open(file_path, FileAccess.READ)
 	if read != null:
 		settings_data = read.get_as_text()
-
+		read.close()
+		
+		Logger.write_to_log(name, "load settings")
+		Logger.write_to_console(name, "load settings")
+	else:
+		Logger.write_to_log(name, "failed to load settings")
+		Logger.write_to_console(name, "failed to load settings")
 
 func save_settings(value):
-	var storable_value = JSON.stringify(value)
+	var storable_value = JSON.stringify(value, "\t", false)
 	
 	write = FileAccess.open(file_path, FileAccess.WRITE)
-	write.store_line("storable_value")
+	write.store_line(storable_value)
 	write.close()
+	
+	Logger.write_to_log(name, "save settings")
+	Logger.write_to_console(name, "save settings")
 
 
 func _on_resolution_value_item_selected(index):

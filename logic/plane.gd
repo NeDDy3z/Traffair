@@ -12,19 +12,20 @@ extends CharacterBody2D
 var states = { # Enum doesnt work here
 	"fly" : "Flying through",
 	"direct" : "Directed to NAV point",
-	"land" : "Landing",
-	"hold" : "In holding patter",
-	"error" : "ALT / SPD too high for landing (≥4000ft & ≥150kt)"
+	"landing" : "Landing",
+	"hold" : "In holding pattern",
+	"error" : "ALT / SPD too high for landing (≥6000ft & ≥150kt)"
 }
 
+var point : Object
 var direct : String
-var holding : bool
 var heading_rotation
 var new_alt
 var new_hdg
 var new_spd
-var speed_up = 1
 
+var plane_description : Object
+var game_ui : Object
 var queue : Object
 var direction : Object
 var nav_points : Array
@@ -33,12 +34,9 @@ var target_offset_x
 var target_offset_y
 
 var plane_tab_prefab = load("res://assets/plane_tab.tscn")
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var window_size = DisplayServer.window_get_size()
 var rng = RandomNumberGenerator.new()
-var plane_description : Object
-var game_ui : Object
-var i : int
+var speed_up = 1
 
 
 
@@ -82,7 +80,7 @@ func _ready():
 	
 	Logger.write_to_log("plane"+callsign, "spawn", "plane_count="+str(Global.plane_index))
 	Logger.write_to_console("plane"+callsign, "spawn", "plane_count="+str(Global.plane_index))
-	Logger.write_to_console("-","")	
+	Logger.write_to_console("-","")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -133,12 +131,12 @@ func slow_update_data():
 	# Slowupdate altitude
 	if new_alt != null and altitude != new_alt:
 		if altitude > new_alt:
-			altitude -= 200
+			altitude -= 100
 			if altitude <= new_alt:
 				altitude = new_alt
 				new_alt = null
 		else:
-			altitude += 200
+			altitude += 100
 			if altitude >= new_alt:
 				altitude = new_alt
 				new_alt = null
@@ -162,11 +160,11 @@ func slow_update_data():
 		difference = (new_hdg%360 - heading%360 + 360) % 360
 		
 		if difference <= 180:
-			heading_rotation += 3
+			heading_rotation += 5
 		else:
-			heading_rotation -= 3
+			heading_rotation -= 5
 		
-		if difference < 3 or difference == 358:
+		if difference < 6 or difference == 358:
 			heading_rotation = new_hdg
 		
 		if heading_rotation != 90:
@@ -217,6 +215,7 @@ func generate_speed():
 func set_altitude(value):
 	new_alt = int(value)
 	
+	
 	Logger.write_to_log("set_altitude()", "set", value)
 	Logger.write_to_console("set_altitude()", "set", value)
 
@@ -226,6 +225,7 @@ func set_heading(value):
 	new_hdg = int(value)
 	heading_rotation = heading
 	
+	
 	Logger.write_to_log("set_altitude()", "set", value)
 	Logger.write_to_console("set_altitude()", "set", value)
 
@@ -233,6 +233,7 @@ func set_heading(value):
 # Set speed of Plane
 func set_speed(value):
 	new_spd = int(value)
+	
 	
 	Logger.write_to_log("set_speed()", "set", value)
 	Logger.write_to_console("set_speed()", "set", value)
@@ -242,20 +243,25 @@ func set_speed(value):
 func set_status(value):
 	status = states[str(value)]
 	
+	
 	Logger.write_to_log("set_status()", "set", value)
 	Logger.write_to_console("set_status()", "set", value)
 
 
 # Set a point to which Plane flys toward
-func direct_to(point):
-	if point != null:
-		# Set the planes path
-		direction.look_at(point.position)
-		direction.rotation = global_position.direction_to(point.global_position).angle()
-		# Show in game_ui_description where the plane is going
-		direct = point.name.to_upper() 
+func direct_to(value):
+	if value != null:
+		cancel_landing()
 		
+		# Set the planes direction
+		var angle_rot = rad_to_deg(global_position.direction_to(value.global_position).angle())
+		var angle = Math.rotation_to_deg(angle_rot)
+		set_heading(angle)
+		
+		# Show in game_ui_description where the plane is going
+		direct = value.name.to_upper() 
 		status = states["direct"]
+		
 		
 		Logger.write_to_log("direct_to()", "set", direct)
 		Logger.write_to_console("direct_to()", "set", direct) 
@@ -263,14 +269,11 @@ func direct_to(point):
 
 # Put Plane into holding pattern
 func hold():
+	cancel_landing()
+	point = null
+	
 	direct = ""
 	status = states["hold"]
-	
-	if is_in_group("land"):
-		remove_from_group("land")
-	if is_in_group("landing"):
-		remove_from_group("landing")
-	
 	
 	
 	Logger.write_to_log("hold()", "set holding pattern")
@@ -279,10 +282,13 @@ func hold():
 
 # Cancel landing
 func cancel_landing():
-	remove_from_group("land")
-	remove_from_group("landing")
+	if is_in_group("land"):
+		remove_from_group("land")
+	if is_in_group("landing"):
+		remove_from_group("landing")
+		direct = ""
+		status = states["fly"]
 	
-	status = states["fly"]
 	
 	Logger.write_to_log("cancel_landing()", "landing canceled")
 	Logger.write_to_console("cancel_landing()", "landing canceled")
@@ -334,4 +340,3 @@ func _on_plane_button_pressed():
 # Update data every x seconds the timer is set to
 func _on_timer_timeout():
 	slow_update_data()
-

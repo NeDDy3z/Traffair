@@ -33,6 +33,7 @@ Label/fonts/font = SubResource("SystemFont_2hn8o")
 script = ExtResource("1_sl2pc")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
 autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

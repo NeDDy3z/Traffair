@@ -78,10 +78,8 @@ func update_data():
 			heading_textedit.text = str(data["heading"])
 		if !speed_textedit.has_focus():
 			speed_textedit.text = str(data["speed"])
-		if !direct_to_options.has_focus():
-			direct_to_options.select(get_direct_point(str(data["direct"])))
-		if !land_options.has_focus():
-			land_options.select(get_direct_runway(str(data["direct"])))
+		direct_to_options.select(get_direct_point(str(data["direct"])))
+		land_options.select(get_direct_runway(str(data["direct"])))
 
 # Set the point the plane is going towards 
 func get_direct_point(value):
@@ -135,16 +133,15 @@ func load_runways():
 
 
 # Reset plane data on landing canceled
-func cancel_landing(plane):
+func cancel(plane):
 	if plane.is_in_group("landing"):
 		plane.cancel_landing()
-		plane.set_altitude(8000)
-		plane.set_speed(250)
+		reset_selection()
 
 
-# Update data when description tab is shown
-func _on_draw():
-	update_data()
+func reset_selection():
+	direct_to_options.select(0)
+	land_options.select(0)
 
 
 # Hide window on "close" press
@@ -167,9 +164,6 @@ func _on_altitude_value_text_submitted(new_text):
 	plane = get_plane()
 	plane.set_altitude(new_text)
 	
-	# Reset plane data on landing canceled
-	cancel_landing(plane)
-	
 	Logger.write_to_log("altitude", "set", new_text)
 	Logger.write_to_console("altitude", "set", new_text)
 
@@ -189,8 +183,6 @@ func _on_heading_value_text_submitted(new_text):
 	plane = get_plane()
 	plane.set_heading(new_text)
 	
-	# Reset plane data on landing canceled
-	cancel_landing(plane)
 	
 	Logger.write_to_log("heading", "set", new_text)
 	Logger.write_to_console("heading", "set", new_text)
@@ -211,8 +203,6 @@ func _on_speed_value_text_submitted(new_text):
 	plane = get_plane()
 	plane.set_speed(new_text)
 	
-	# Reset plane data on landing canceled
-	cancel_landing(plane)
 	
 	Logger.write_to_log("speed", "set", new_text)
 	Logger.write_to_console("speed", "set", new_text)
@@ -220,38 +210,53 @@ func _on_speed_value_text_submitted(new_text):
 
 # Direct to selected -> plane gets sent to it
 func _on_direct_value_item_selected(index):
-	var plane
-	var point
-	
-	point = nav_points_list[str(direct_to_options.get_item_text(index))]
-	land_options.select(0)
-	
-	plane = get_plane()
-	plane.direct_to(point)
-	
-	# Reset plane data on landing canceled
-	cancel_landing(plane)
-	
-	Logger.write_to_log("fly towards nav_point", "set", point.name)
-	Logger.write_to_console("fly towards nav_point", "set", point.name)
+	if index != 0:
+		var plane
+		var point
+		
+		point = nav_points_list[str(direct_to_options.get_item_text(index))]
+		land_options.select(0)
+		
+		plane = get_plane()
+		plane.direct_to(point)
+		
+		
+		Logger.write_to_log("fly towards nav_point", "set", point.name)
+		Logger.write_to_console("fly towards nav_point", "set", point.name)
 
 
 # Runway selected -> plane gets sent to it
 func _on_land_item_selected(index):
-	var plane
-	var point
-	
-	point = runways_list[str(land_options.get_item_text(index))]
-	direct_to_options.select(0)
-	
-	plane = get_plane()
-	plane.direct_to(point)
-	plane.add_to_group("land")
-	
-	Logger.write_to_log("land on runway", "set", point.name)
-	Logger.write_to_console("land on runway", "set", point.name)
+	if index != 0:
+		var plane
+		var point
+		
+		point = runways_list[str(land_options.get_item_text(index))]
+		direct_to_options.select(0)
+		
+		plane = get_plane()
+		plane.direct_to(point)
+		plane.add_to_group("land")
+		
+		
+		Logger.write_to_log("land on runway", "set", point.name)
+		Logger.write_to_console("land on runway", "set", point.name)
 
 
-# Update data every x seconds the timer is set to
-func _on_timer_timeout():
+# Update data when description tab is shown
+func _on_draw():
 	update_data()
+
+
+# Update data every second the timer is set to
+func _on_data_timer_timeout():
+	update_data()
+
+
+# Trigger direct to selection every 2 seconds to ensure the plane is directed towards the point
+func _on_direct_timer_timeout():
+	if direct_to_options.get_selected_id() > 0:
+		direct_to_options.emit_signal("item_selected", direct_to_options.get_selected_id())
+	if land_options.get_selected_id() > 0:
+		land_options.emit_signal("item_selected", land_options.get_selected_id())
+		

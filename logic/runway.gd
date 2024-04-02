@@ -8,6 +8,7 @@ var landing : Object
 
 var game_level : Object
 var planes
+var land
 
 
 
@@ -18,6 +19,8 @@ func _ready():
 	landing = $landing
 	game_level = $"../.."
 	planes = get_node("../../planes")
+	
+	land =  get_node("../../game_ui/description/commands/land")
 
 
 # Retireve plane object
@@ -37,8 +40,9 @@ func _on_rw_07_body_entered(body):
 		plane = get_plane(body.get_node("./"))
 		plane_data = plane.get_plane_data()
 		
-		if plane_data["altitude"] <= 4000 && plane_data["speed"] <= 150:
+		if plane_data["altitude"] <= 6000 && plane_data["speed"] <= 150:
 			body.add_to_group("landing")
+			land.select(0)
 			
 			plane.direct_to(landing)
 			plane.set_status("landing")
@@ -56,8 +60,9 @@ func _on_rw_25_body_entered(body):
 		plane = get_plane(body.get_node("./"))
 		plane_data = plane.get_plane_data()
 		
-		if plane_data["altitude"] <= 4000 && plane_data["speed"] <= 150:
+		if plane_data["altitude"] <= 6000 && plane_data["speed"] <= 150:
 			body.add_to_group("landing")
+			land.select(0)
 			
 			plane.direct_to(landing)
 			plane.set_status("landing")

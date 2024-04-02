@@ -14,5 +14,6 @@ func _ready():
 	else:
 		description.visible = false
 	
+	
 	Logger.write_to_log("game_ui", "loaded")
 	Logger.write_to_console("game_ui", "loaded")

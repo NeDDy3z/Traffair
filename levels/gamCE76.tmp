@@ -615,9 +615,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 14.0
+offset_right = 14.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_lock_ = true
 
 [node name="runway_07-25" type="Control" parent="runways"]
 custom_minimum_size = Vector2(500, 6)
@@ -629,7 +630,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -117.0
 offset_top = 134.0
-offset_right = 483.0
+offset_right = 583.0
 offset_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -720,8 +721,23 @@ custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 color = Color(0.337255, 0.337255, 0.337255, 1)
 
+[node name="rw_texture16" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture17" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture18" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
 [node name="landing" type="Area2D" parent="runways/runway_07-25"]
-position = Vector2(250, 3)
+position = Vector2(300, 3)
 
 [node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/landing"]
 offset_top = -3.0
@@ -766,7 +782,7 @@ text = "RW07"
 shape = SubResource("CircleShape2D_n4n2x")
 
 [node name="rw25" type="Area2D" parent="runways/runway_07-25"]
-position = Vector2(600, 3)
+position = Vector2(700, 3)
 
 [node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/rw25"]
 offset_left = -3.0

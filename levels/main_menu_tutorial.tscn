@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://d4niemwvargha"]
+
+[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_o370o"]
+[ext_resource type="Script" path="res://logic/main_menu_tutorial.gd" id="2_2eeja"]
+[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_jmaq4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b4wiy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bmfk0"]
+
+[node name="main_menu_tutorial" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_o370o")
+script = ExtResource("2_2eeja")
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -440.0
+offset_top = -260.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_jmaq4")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 220.0
+offset_bottom = 259.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="goal" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
+text = "THE GOAL"
+alignment = 0
+
+[node name="contact" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
+text = "CONTACT PLANES"
+alignment = 0
+
+[node name="navigate" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
+text = "NAVIGATE PLANES"
+alignment = 0
+
+[node name="practice" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
+text = "BEST PRACTICE"
+alignment = 0
+
+[node name="separator" type="Label" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="back" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_bmfk0")
+text = "BACK TO MAIN MENU
+ "
+alignment = 0
+
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/navigate" to="." method="_on_navigate_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/back" to="." method="_on_back_pressed"]
