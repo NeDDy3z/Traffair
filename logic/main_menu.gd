@@ -15,7 +15,7 @@ func _on_play_pressed():
 
 # Open options on "options" click
 func _on_options_pressed():
-	get_tree().change_scene_to_file("res://levels/main_menu_options.tscn")
+	get_tree().change_scene_to_file("res://levels/main_menu_settings.tscn")
 	Logger.write_to_log("main_menu", "open options")
 	Logger.write_to_console("main_menu", "open options")
 

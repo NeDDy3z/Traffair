@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://04k1cknsgau2"]
 
-[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_db6uu"]
-[ext_resource type="Script" path="res://logic/main_menu_options.gd" id="1_hh8a0"]
-[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="2_2kxgs"]
+[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_qg6q4"]
+[ext_resource type="Script" path="res://logic/main_menu_options.gd" id="2_1d5vl"]
+[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_jwjo4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sp8m"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -35,8 +35,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_db6uu")
-script = ExtResource("1_hh8a0")
+theme = ExtResource("1_qg6q4")
+script = ExtResource("2_1d5vl")
 
 [node name="background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -47,7 +47,7 @@ offset_left = -440.0
 offset_top = -260.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_2kxgs")
+texture = ExtResource("3_jwjo4")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -123,7 +123,7 @@ popup/item_1/id = 0
 
 [node name="gamma_value" type="LineEdit" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-text = "5"
+text = "50"
 max_length = 3
 context_menu_enabled = false
 virtual_keyboard_enabled = false
