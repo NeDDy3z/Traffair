@@ -38,13 +38,15 @@ func _unhandled_input(event):
 			Logger.write_to_console("esc button", "game paused", "ingame")
 
 
-# Exit game to main menu on Exit click
-func _on_exit_pressed():
-	get_tree().paused = false
-	get_tree().change_scene_to_file("res://levels/main_menu.tscn")
-	
-	Logger.write_to_log("exit button", "back to menu", "ingame")
-	Logger.write_to_console("exit button", "back to menu", "ingame")
+# On press change time scale of the game
+func _on_speedup_pressed():
+	if current_position == len(time_scale_stages)-1:
+		current_position = 0
+	else:
+		current_position += 1
+		
+	Engine.time_scale = time_scale_stages[current_position]
+	speedup.text = str(time_scale_stages[current_position]) +"x"
 
 
 # Pause game = "freze"
@@ -55,12 +57,10 @@ func _on_pause_toggled(toggled_on):
 	Logger.write_to_console("pause button", "game paused", "ingame")
 
 
-# On press change time scale of the game
-func _on_speedup_pressed():
-	if current_position == len(time_scale_stages)-1:
-		current_position = 0
-	else:
-		current_position += 1
-		
-	Engine.time_scale = time_scale_stages[current_position]
-	speedup.text = str(time_scale_stages[current_position]) +"x"
+# Exit game to main menu on Exit click
+func _on_exit_pressed():
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://levels/main_menu.tscn")
+	
+	Logger.write_to_log("exit button", "back to menu", "ingame")
+	Logger.write_to_console("exit button", "back to menu", "ingame")

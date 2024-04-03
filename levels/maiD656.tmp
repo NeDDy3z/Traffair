@@ -1,0 +1,188 @@
+[gd_scene load_steps=14 format=3 uid="uid://04k1cknsgau2"]
+
+[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_qg6q4"]
+[ext_resource type="Script" path="res://logic/main_menu_settings.gd" id="2_1d5vl"]
+[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_jwjo4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sp8m"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+
+[sub_resource type="SystemFont" id="SystemFont_68dow"]
+msdf_size = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnrvl"]
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(1, 1, 1, 0)
+border_width_bottom = 2
+expand_margin_top = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imfny"]
+
+[sub_resource type="Theme" id="Theme_bfiil"]
+LineEdit/font_sizes/font_size = 40
+LineEdit/fonts/font = null
+LineEdit/styles/focus = SubResource("StyleBoxFlat_7sp8m")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_7sp8m")
+OptionButton/fonts/font = SubResource("SystemFont_68dow")
+OptionButton/styles/focus = SubResource("StyleBoxFlat_wnrvl")
+OptionButton/styles/hover = SubResource("StyleBoxFlat_imfny")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_wnrvl")
+OptionButton/styles/pressed = SubResource("StyleBoxFlat_wnrvl")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6xq1x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sewa"]
+bg_color = Color(0.8, 0.552941, 0.105882, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2rvrb"]
+bg_color = Color(0.8, 0.552941, 0.105882, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jy1eo"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.407843, 0.407843, 0.407843, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Theme" id="Theme_jq335"]
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_6sewa")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_2rvrb")
+HSlider/styles/slider = SubResource("StyleBoxFlat_jy1eo")
+
+[node name="main_menu_settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qg6q4")
+script = ExtResource("2_1d5vl")
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -440.0
+offset_top = -260.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_jwjo4")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 100.0
+offset_right = 336.0
+offset_bottom = 279.0
+theme = SubResource("Theme_bfiil")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+
+[node name="resolution" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "RESOLUTION"
+
+[node name="window_mode" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "WINDOW MODE"
+
+[node name="brightness" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "BRIGHTNESS"
+
+[node name="separator" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="debug" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "DEBUG"
+
+[node name="separator2" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="back" type="Button" parent="MarginContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6xq1x")
+text = "BACK TO MAIN MENU"
+alignment = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="resolution_value" type="OptionButton" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+
+[node name="window_mode" type="OptionButton" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+selected = 0
+
+[node name="brightness_box" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="brightness_value" type="HSlider" parent="MarginContainer2/HBoxContainer/VBoxContainer2/brightness_box"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource("Theme_jq335")
+min_value = 0.1
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="gamma_value" type="LineEdit" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
+visible = false
+layout_mode = 2
+text = "50"
+max_length = 3
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+caret_blink = true
+
+[node name="separator" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="debug_value" type="OptionButton" parent="MarginContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+item_count = 2
+selected = 0
+popup/item_0/text = "OFF"
+popup/item_0/id = 0
+popup/item_1/text = "ON"
+popup/item_1/id = 1
+
+[connection signal="pressed" from="MarginContainer2/HBoxContainer/VBoxContainer/back" to="." method="_on_back_pressed"]
+[connection signal="item_selected" from="MarginContainer2/HBoxContainer/VBoxContainer2/resolution_value" to="." method="_on_resolution_value_item_selected"]
+[connection signal="item_selected" from="MarginContainer2/HBoxContainer/VBoxContainer2/window_mode" to="." method="_on_window_mode_item_selected"]
+[connection signal="value_changed" from="MarginContainer2/HBoxContainer/VBoxContainer2/brightness_box/brightness_value" to="." method="_on_brightness_value_value_changed"]
+[connection signal="text_submitted" from="MarginContainer2/HBoxContainer/VBoxContainer2/gamma_value" to="." method="_on_gamma_value_text_submitted"]
+[connection signal="item_selected" from="MarginContainer2/HBoxContainer/VBoxContainer2/debug_value" to="." method="_on_debug_value_item_selected"]

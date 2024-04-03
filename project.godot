@@ -21,6 +21,8 @@ config/icon="res://art/logo.png"
 
 Logger="*res://logic/log.gd"
 Global="*res://logic/global.gd"
+BrightnessControl="*res://levels/brightness_control.tscn"
+Settings="*res://logic/settings.gd"
 Math="*res://logic/math.gd"
 
 [debug]

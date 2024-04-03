@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dtljlfpi5hkeh"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dtljlfpi5hkeh"]
 
 [sub_resource type="SystemFont" id="SystemFont_cqyaj"]
 font_names = PackedStringArray("Franklin Gothic")
@@ -21,6 +21,9 @@ expand_margin_left = 30.0
 font_names = PackedStringArray("Franklin Gothic")
 font_weight = 450
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfxhl"]
+bg_color = Color(0.705882, 0.592157, 0.129412, 1)
+
 [resource]
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 Button/colors/font_pressed_color = Color(0.156863, 0.156863, 0.156863, 1)
@@ -32,3 +35,4 @@ Button/styles/pressed = SubResource("StyleBoxFlat_7ltpx")
 Label/colors/font_color = Color(0.87451, 0.87451, 0.87451, 1)
 Label/font_sizes/font_size = 50
 Label/fonts/font = SubResource("SystemFont_rkoug")
+MenuBar/styles/normal = SubResource("StyleBoxFlat_dfxhl")
