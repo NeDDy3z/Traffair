@@ -33,8 +33,8 @@ expand_mode = 1
 layout_mode = 0
 offset_left = 20.0
 offset_top = 100.0
-offset_right = 220.0
-offset_bottom = 279.0
+offset_right = 394.0
+offset_bottom = 340.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -66,14 +66,12 @@ theme_override_font_sizes/font_size = 50
 text = "BONUS CONTENT"
 alignment = 0
 
-[node name="separator" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="credits" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-
-[node name="exit" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.313726, 0.313726, 1)
 theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxEmpty_nq0ww")
-text = "EXIT"
+text = "CREDITS
+"
 alignment = 0
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
@@ -82,16 +80,24 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
-offset_top = -100.0
+offset_top = -157.0
 offset_right = 394.0
-offset_bottom = -43.0
+offset_bottom = -100.0
 grow_vertical = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
 
+[node name="exit" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nq0ww")
+text = "EXIT"
+alignment = 0
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/settings" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/tutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/bonus" to="." method="_on_bonus_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/exit" to="." method="_on_exit_pressed"]

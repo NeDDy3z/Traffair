@@ -14,6 +14,7 @@ config/name="Traffair"
 config/version="0.1"
 run/main_scene="res://levels/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
+run/max_fps=60
 boot_splash/image="res://art/bootscreen.png"
 config/icon="res://art/logo.png"
 
@@ -32,7 +33,7 @@ file_logging/log_path="user://godot_logs/godot.log"
 
 [display]
 
-window/size/viewport_width=2560
-window/size/viewport_height=1440
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/mode=3
 window/size/resizable=false

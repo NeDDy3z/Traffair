@@ -2,9 +2,42 @@ extends Node
 
 
 
+const window_modes = [
+	"Fullscreen",
+	"Fullscreen-Bordless",
+	"Window",
+	"Window-Bordless"
+]
+const resolutions = {
+	"3840 x 2160" : Vector2i(3840,2160),
+	"2880 x 1800" : Vector2i(2880,1800),
+	"2560 x 1440" : Vector2i(2560,1440),
+	"1920 x 1200" : Vector2i(1920,1200),
+	"1920 x 1080" : Vector2i(1920,1080),
+	"1680 x 1050" : Vector2i(1680,1050),
+	"1600 x 900" : Vector2i(1600,900),
+	"1280 x 800" : Vector2i(1280,800),
+	"1280 x 720" : Vector2i(1280,720)
+}
+const vsyncs = [
+	"On",
+	"Off",
+	"Adaptive"
+]
+
+const required_settings_keys = [
+	"window_mode",
+	"resolution",
+	"vsync",
+	"fps",
+	"brightness",
+	"debug"
+]
 const settings_data_default = {
 	"window_mode" : "window",
 	"resolution" : "1920 x 1080",
+	"vsync" : "on",
+	"fps" : 60,
 	"brightness" : 1.0,
 	"debug" : false
 }
@@ -57,10 +90,16 @@ func read_settings():
 	if read != null:
 		# Load data from text into variable
 		settings_data = read.get_as_text()
+		read.close() 
 		
 		# Convert JSON to Dictionary & close
 		settings_data = str_to_var(settings_data)
-		read.close() 
+		
+		validate_dic(settings_data)
+		
+		# Prevent zero value
+		if settings_data["brightness"] == 0:
+			settings_data["brightness"] = 0.1
 		
 		Logger.write_to_log(name, "read settings")
 		Logger.write_to_console(name, "read settings")
@@ -79,7 +118,7 @@ func write_settings(value : Dictionary = settings_data):
 	
 	# Open file in write mode and save settings data
 	write = FileAccess.open(file_path, FileAccess.WRITE)
-	write.store_line(storable_settings)
+	write.store_line(storable_settings.to_lower())
 	write.close()
 	
 	
@@ -90,6 +129,8 @@ func write_settings(value : Dictionary = settings_data):
 func load_settings():
 	set_window_mode(settings_data["window_mode"])
 	set_resolution(settings_data["resolution"])
+	set_vsync(settings_data["vsync"])
+	set_fps(settings_data["fps"])
 	set_brightness(settings_data["brightness"])
 	set_debug(settings_data["debug"])
 	
@@ -97,6 +138,25 @@ func load_settings():
 	Logger.write_to_log(name, "load settings")
 	Logger.write_to_console(name, "load settings")
 
+
+# Validate if dictionary contains all required keys and corresponding data
+func validate_dic(value : Dictionary):
+	var valid = true
+	for key in required_settings_keys:
+		if key not in value:
+			valid = false
+	
+	if valid:
+		Logger.write_to_log(name, "settings valid", valid)
+		Logger.write_to_console(name, "settings valid", valid)
+	else:
+		write_settings(settings_data_default)
+		read_settings()
+		
+		Logger.write_to_log(name, "settings valid", valid)
+		Logger.write_to_console(name, "settings valid", valid)
+		Logger.write_to_log(name, "settings reset")
+		Logger.write_to_console(name, "settings reset")
 
 
 # Set fullscreen
@@ -123,21 +183,49 @@ func set_window_mode(value):
 # Set resolution
 func set_resolution(value):
 	if value is Vector2i:
-		DisplayServer.window_set_size(value) 
+		DisplayServer.window_set_size(value)
 	elif value:
 		var x 
 		var y
 		x = int(value.split(" x ")[0])
 		y = int(value.split(" x ")[1])
-		DisplayServer.window_set_size(Vector2i(x,y)) 
-	
+		DisplayServer.window_set_size(Vector2i(x,y))
+		
 	
 	Logger.write_to_log(name, "resolution set")
 	Logger.write_to_console(name, "resolution set")
 
 
+# Set vsync
+func set_vsync(value):
+	match value.to_lower():
+		"on":
+			DisplayServer.VSYNC_ENABLED
+		"off":
+			DisplayServer.VSYNC_DISABLED
+		"adaptive":
+			DisplayServer.VSYNC_ADAPTIVE
+	
+	
+	Logger.write_to_log(name, "vsync set")
+	Logger.write_to_console(name, "vsync set")
+
+
+# Set fps
+func set_fps(value):
+	Engine.max_fps = value
+	
+	
+	Logger.write_to_log(name, "fps set")
+	Logger.write_to_console(name, "fps set")
+
+
 # Set brightness
 func set_brightness(value):
+	# Prevent zero value
+	if value == 0:
+		value = 0.1
+	
 	# Set brightness of "brightness_control.tsnc"
 	BrightnessControl.environment.adjustment_brightness = value
 	

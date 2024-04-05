@@ -12,8 +12,6 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xljt0"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6xq1x"]
-
 [sub_resource type="SystemFont" id="SystemFont_n5cvh"]
 font_names = PackedStringArray("Franklin Gothic")
 font_italic = true
@@ -21,6 +19,8 @@ font_italic = true
 [sub_resource type="LabelSettings" id="LabelSettings_wvbtf"]
 font = SubResource("SystemFont_n5cvh")
 font_size = 45
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6xq1x"]
 
 [node name="main_menu_bonus" type="Control"]
 layout_mode = 3
@@ -42,13 +42,14 @@ offset_top = -260.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_acw8b")
+expand_mode = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 80.0
-offset_right = 220.0
-offset_bottom = 259.0
+offset_top = 100.0
+offset_right = 495.0
+offset_bottom = 584.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
@@ -118,31 +119,39 @@ script = ExtResource("9_qe58e")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/holiday"]
 
-[node name="separator5" type="Label" parent="MarginContainer2/VBoxContainer"]
+[node name="text" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 720.0
+offset_top = 100.0
+offset_right = -120.0
+offset_bottom = 400.0
+theme_override_font_sizes/font_size = 40
+label_settings = SubResource("LabelSettings_wvbtf")
+autowrap_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -157.0
+offset_right = 394.0
+offset_bottom = -100.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
 layout_mode = 2
 
-[node name="back" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="back" type="Button" parent="MarginContainer3/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6xq1x")
 text = "BACK TO MAIN MENU
- "
+"
 alignment = 0
-
-[node name="text" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.406
-anchor_top = 0.056
-anchor_right = 0.969
-anchor_bottom = 0.264
-offset_left = 0.639893
-offset_top = -0.639999
-offset_right = -0.640137
-offset_bottom = -0.160004
-theme_override_font_sizes/font_size = 40
-label_settings = SubResource("LabelSettings_wvbtf")
-autowrap_mode = 2
 
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/tip_of_the_day" to="MarginContainer2/VBoxContainer/tip_of_the_day" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/riddle" to="MarginContainer2/VBoxContainer/riddle" method="_on_pressed"]
@@ -151,4 +160,4 @@ autowrap_mode = 2
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/letiste_prg" to="MarginContainer2/VBoxContainer/letiste_prg" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/name_day" to="MarginContainer2/VBoxContainer/name_day" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/holiday" to="MarginContainer2/VBoxContainer/holiday" method="_on_pressed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MarginContainer3/VBoxContainer/back" to="." method="_on_back_pressed"]

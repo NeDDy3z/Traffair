@@ -52,7 +52,6 @@ func _ready():
 	plane_description = $plane_description
 	direction = $direction
 	
-	
 	# Randomly place a target point (to which the plane will direct to)
 	if !Global.debug:
 		target_offset_x = rng.randf_range(-500, 500)
@@ -77,6 +76,7 @@ func _ready():
 	# Set ID & node name; and increment it
 	name = "plane_"+callsign
 	Global.plane_index += 1
+	
 	
 	Logger.write_to_log("plane"+callsign, "spawn", "plane_count="+str(Global.plane_index))
 	Logger.write_to_console("plane"+callsign, "spawn", "plane_count="+str(Global.plane_index))
@@ -164,7 +164,7 @@ func slow_update_data():
 		else:
 			heading_rotation -= 5
 		
-		if difference < 6 or difference == 358:
+		if difference < 7 or difference >= 358:
 			heading_rotation = new_hdg
 		
 		if heading_rotation != 90:
@@ -340,3 +340,7 @@ func _on_plane_button_pressed():
 # Update data every x seconds the timer is set to
 func _on_timer_timeout():
 	slow_update_data()
+
+
+func _on_direct_timer_timeout():
+	pass # Replace with function body.

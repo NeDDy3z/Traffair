@@ -12,6 +12,7 @@ func _ready():
 	
 	random_hamburger()
 	
+	
 	Logger.write_to_log(name, "loaded")
 	Logger.write_to_console(name, "loaded")
 
@@ -29,6 +30,7 @@ func random_hamburger():
 		
 		add_child(hamburgr)
 		
+		
 		Logger.write_to_log(name, "random_hamburger()")
 		Logger.write_to_console(name, "random_hamburger(")
 
@@ -36,6 +38,7 @@ func random_hamburger():
 # Go back to main menu on button press
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://levels/main_menu.tscn")
+	
 	
 	Logger.write_to_log(name, "open main_menu")
 	Logger.write_to_console(name, "open main_menu")

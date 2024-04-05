@@ -61,10 +61,11 @@ func _on_rw_25_body_entered(body):
 		plane_data = plane.get_plane_data()
 		
 		if plane_data["altitude"] <= 6000 && plane_data["speed"] <= 150:
-			body.add_to_group("landing")
 			land.select(0)
 			
 			plane.direct_to(landing)
+			body.add_to_group("landing")
+			
 			plane.set_status("landing")
 			plane.set_altitude(0)
 			plane.set_speed(150)

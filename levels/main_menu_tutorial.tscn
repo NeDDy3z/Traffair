@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4niemwvargha"]
+[gd_scene load_steps=8 format=3 uid="uid://d4niemwvargha"]
 
 [ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_o370o"]
 [ext_resource type="Script" path="res://logic/main_menu_tutorial.gd" id="2_2eeja"]
 [ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_jmaq4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b4wiy"]
+
+[sub_resource type="SystemFont" id="SystemFont_sq2fo"]
+font_names = PackedStringArray("Franklin Gothic")
+
+[sub_resource type="Theme" id="Theme_4jvor"]
+Label/font_sizes/font_size = 33
+Label/fonts/font = SubResource("SystemFont_sq2fo")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bmfk0"]
 
@@ -28,55 +35,89 @@ offset_top = -260.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_jmaq4")
+expand_mode = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 80.0
-offset_right = 220.0
-offset_bottom = 259.0
+offset_top = 100.0
+offset_right = 432.0
+offset_bottom = 340.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
 
-[node name="goal" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="game" type="Button" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
-text = "THE GOAL"
+text = "GAME"
 alignment = 0
 
-[node name="contact" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="basics" type="Button" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
-text = "CONTACT PLANES"
+text = "BASICS
+"
 alignment = 0
 
-[node name="navigate" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="tips" type="Button" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
-text = "NAVIGATE PLANES"
+text = "TECHNIQUE & TIPS"
 alignment = 0
 
-[node name="practice" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="controls" type="Button" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
-text = "BEST PRACTICE"
+text = "CONTROLS & UI"
 alignment = 0
 
-[node name="separator" type="Label" parent="MarginContainer2/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 520.0
+offset_top = 100.0
+offset_right = -100.0
+offset_bottom = 830.0
+theme = SubResource("Theme_4jvor")
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "- Planes naturally take time to turn, slow or speed up and change their altitude, keep that in mind. 
+- Navigate planes towards direction points, or set them a custom heading, altitude & speed.
+- To land a plane navigate it to a landing point RWxx (eg. RW07,RW25,...), once it passes it, the plane begin a descent and land.
+- It is better to navigate the plane to face the runway far sooner before you navigate it to landing point.
+- If there are too many planes at once, you can put plane into a holding pattern.\","
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="back" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -157.0
+offset_right = 394.0
+offset_bottom = -100.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
+layout_mode = 2
+
+[node name="back" type="Button" parent="MarginContainer3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_bmfk0")
 text = "BACK TO MAIN MENU
- "
+"
 alignment = 0
 
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/navigate" to="." method="_on_navigate_pressed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MarginContainer3/back" to="." method="_on_back_pressed"]
