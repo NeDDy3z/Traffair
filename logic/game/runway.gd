@@ -7,9 +7,10 @@ var runway_1 : Object
 var landing : Object
 
 var game_level : Object
-var planes
-var land
-var game_ui
+var planes : Object
+var game_ui : Object
+var land : Object
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -18,8 +19,8 @@ func _ready():
 	runway_1 = $rw25
 	landing = $landing
 	game_level = $"../.."
+
 	planes = get_node("../../planes")
-	
 	game_ui = get_node("../../game_ui")
 	land = game_ui.get_node("description/commands/land")
 	

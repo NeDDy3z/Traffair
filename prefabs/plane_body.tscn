@@ -35,11 +35,6 @@ Label/fonts/font = SubResource("SystemFont_2hn8o")
 
 [node name="plane_body" type="CharacterBody2D" groups=["plane"]]
 script = ExtResource("1_agcie")
-callsign = null
-altitude = null
-heading = null
-speed = null
-status = null
 
 [node name="Area2D" type="Area2D" parent="."]
 

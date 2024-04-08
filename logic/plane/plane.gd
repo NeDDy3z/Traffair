@@ -333,32 +333,6 @@ func hide_and_freeze():
 	Logger.write_to_console(name, "hide_and_freeze()", direct) 
 
 
-# Create Plane_tab in Game_UI sidebar
-func add_new_plane_tab():
-	var plane_tab 
-	plane_tab = plane_tab_prefab.instantiate()
-	plane_tab.name = "plane_tab"+str(name)
-	
-	var plane_values = [
-		plane_tab.get_node("Button/callsign"),
-		plane_tab.get_node("Button/data_hboxcontainer/values_vboxcontainer/heading_value"),
-		plane_tab.get_node("Button/data_hboxcontainer/values_vboxcontainer/altitude_value"),
-		plane_tab.get_node("Button/data_hboxcontainer/values_vboxcontainer/speed_value")
-	]
-	
-	# Set data of plane to tab
-	plane_values[0].text = str(callsign)
-	plane_values[1].text = str(int(heading))
-	plane_values[2].text = str(altitude)
-	plane_values[3].text = str(speed)
-	
-	# Add tab
-	queue.add_child(plane_tab, true)
-	
-	
-	Logger.write_to_log("plane_tab" + str(name), "added")
-	Logger.write_to_console("plane_tab" + str(name), "added")
-
 
 # Plane button pressed - If the plane was not previously interacted with, new Plane_tab will appear in Game_UI sidebar
 #                      - Select plane_tab in GAME_UI sidebar when the Plane was interacted with already
@@ -373,7 +347,7 @@ func _on_plane_button_pressed():
 			pt.get_child(0).emit_signal("pressed")
 			contains = true
 	if !contains:
-		add_new_plane_tab()
+		game_ui.add_plane_tab(get_node("."))
 		plane_tabs = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer").get_children()
 		plane_tabs[plane_tabs.size()-1].get_child(0).emit_signal("pressed")
 

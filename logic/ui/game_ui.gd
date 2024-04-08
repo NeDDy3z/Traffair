@@ -42,17 +42,17 @@ func add_plane_tab(value):
 	plane_tab = plane_tab_prefab.instantiate()
 	plane_tab.name = "plane_tab"+str(plane_values["callsign"])
 	plane_tab_items = {
-		"callsign" : $Button/callsign,
-		"altitude" : $Button/data_hboxcontainer/values_vboxcontainer/altitude_value,
-		"heading" : $Button/data_hboxcontainer/values_vboxcontainer/heading_value,
-		"speed" : $Button/data_hboxcontainer/values_vboxcontainer/speed_value,
+		"callsign" : plane_tab.get_node("Button/callsign"),
+		"altitude" : plane_tab.get_node("Button/data_hboxcontainer/values_vboxcontainer/altitude_value"),
+		"heading" : plane_tab.get_node("Button/data_hboxcontainer/values_vboxcontainer/heading_value"),
+		"speed" : plane_tab.get_node("Button/data_hboxcontainer/values_vboxcontainer/speed_value")
 	}
 	
 	# Set data of plane to tab
-	plane_tab_items[0].text = str(plane_values["callsign"])
-	plane_tab_items[1].text = str(int(plane_values["heading"]))
-	plane_tab_items[2].text = str(plane_values["altitude"])
-	plane_tab_items[3].text = str(plane_values["speed"])
+	plane_tab_items["callsign"].text = str(plane_values["callsign"])
+	plane_tab_items["altitude"].text = str(plane_values["altitude"])
+	plane_tab_items["heading"].text = str(int(plane_values["heading"]))
+	plane_tab_items["speed"].text = str(plane_values["speed"])
 	
 	# Add tab
 	add_child(plane_tab, true)

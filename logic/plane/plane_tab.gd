@@ -2,27 +2,29 @@ extends Control
 
 
 
-var id = name
-var callsign_label : Object
-var altitude_label : Object
-var heading_label : Object
-var speed_label : Object
+var callsign : Label
+var altitude : Label
+var heading : Label
+var speed : Label
 
-var planes
-var labels
-var description
+var planes : Object
+var description : Object
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	callsign = $Button/callsign
+	altitude = $Button/data_hboxcontainer/values_vboxcontainer/altitude_value
+	heading = $Button/data_hboxcontainer/values_vboxcontainer/heading_value
+	speed = $Button/data_hboxcontainer/values_vboxcontainer/speed_value
 	planes = get_node("../../../../../planes")
-	description = get_node("../../../../").get_node("description")
+	description = get_node("../../../../description")
+	
+	
+	Logger.write_to_log(name, "loaded")
+	Logger.write_to_console(name, "loaded")
 
-	callsign_label = $Button/callsign
-	altitude_label = $Button/data_hboxcontainer/values_vboxcontainer/altitude_value
-	heading_label = $Button/data_hboxcontainer/values_vboxcontainer/heading_value
-	speed_label = $Button/data_hboxcontainer/values_vboxcontainer/speed_value
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,7 +42,7 @@ func get_plane():
 	pl = planes.get_children()
 	var exists
 	for p in pl:
-		if p.name.contains(callsign_label.text):
+		if p.name.contains(callsign.text):
 			exists = true
 			return p
 	
@@ -52,19 +54,19 @@ func get_plane():
 
 # Set data of plane to tab
 func update_data(u_callsign, u_altitude, u_heading, u_speed):	
-	callsign_label.text = str(u_callsign)
-	altitude_label.text = str(int(u_altitude))
-	heading_label.text = str(int(u_heading))
-	speed_label.text = str(int(u_speed))
+	callsign.text = str(u_callsign)
+	altitude.text = str(int(u_altitude))
+	heading.text = str(int(u_heading))
+	speed.text = str(int(u_speed))
 	
 	# Suffixes
-	altitude_label.text += " ft"
-	heading_label.text += "°"
-	speed_label.text += " kt"
+	altitude.text += " ft"
+	heading.text += "°"
+	speed.text += " kt"
 
 
 # Show description tab
 func _on_button_pressed():
 	description.visible = true
-	description.callsign_reference(callsign_label)
+	description.callsign_reference(callsign)
 	description.emit_signal("draw")
