@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Traffair"
 config/version="0.1"
-run/main_scene="res://levels/main_menu.tscn"
+run/main_scene="res://levels/main_menu/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=60
 boot_splash/image="res://art/bootscreen.png"
@@ -24,6 +24,7 @@ Logger="*res://logic/log.gd"
 Global="*res://logic/global.gd"
 BrightnessControl="*res://levels/brightness_control.tscn"
 Settings="*res://logic/settings.gd"
+Sound="*res://logic/sound.gd"
 Math="*res://logic/math.gd"
 
 [debug]

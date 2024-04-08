@@ -1,0 +1,103 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5ls15rnmqsac"]
+
+[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_eh1b6"]
+[ext_resource type="Script" path="res://logic/main_menu/main_menu.gd" id="2_vi843"]
+[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_8sbor"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nq0ww"]
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_eh1b6")
+script = ExtResource("2_vi843")
+metadata/_edit_use_anchors_ = true
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -440.0
+offset_top = -260.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_8sbor")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 100.0
+offset_right = 394.0
+offset_bottom = 340.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nq0ww")
+text = "PLAY"
+alignment = 0
+
+[node name="settings" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nq0ww")
+text = "SETTINGS"
+alignment = 0
+
+[node name="tutorial" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nq0ww")
+text = "TUTORIAL"
+alignment = 0
+
+[node name="bonus" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "BONUS CONTENT"
+alignment = 0
+
+[node name="credits" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.313726, 0.313726, 0.313726, 1)
+theme_override_font_sizes/font_size = 50
+text = "CREDITS
+"
+alignment = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -157.0
+offset_right = 394.0
+offset_bottom = -100.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="exit" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nq0ww")
+text = "EXIT"
+alignment = 0
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/settings" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/bonus" to="." method="_on_bonus_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/exit" to="." method="_on_exit_pressed"]

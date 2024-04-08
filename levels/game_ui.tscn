@@ -1,14 +1,15 @@
 [gd_scene load_steps=26 format=3 uid="uid://conakjasj0jik"]
 
-[ext_resource type="Script" path="res://logic/game_ui.gd" id="1_pyp86"]
+[ext_resource type="Script" path="res://logic/ui/game_ui.gd" id="1_pyp86"]
 [ext_resource type="Theme" uid="uid://ndkkiukjrq7m" path="res://art/themes/styles/plane_tab.tres" id="2_7tg65"]
-[ext_resource type="Script" path="res://logic/game_ui_description.gd" id="3_udi1h"]
+[ext_resource type="Script" path="res://logic/ui/game_ui_description.gd" id="3_udi1h"]
 [ext_resource type="Theme" uid="uid://1lbim2u8mpy3" path="res://art/themes/plane_description_buttons.tres" id="4_4ar2h"]
-[ext_resource type="Script" path="res://logic/game_ui_controls.gd" id="5_ednpf"]
+[ext_resource type="Script" path="res://logic/ui/game_ui_controls.gd" id="5_ednpf"]
 
 [sub_resource type="SystemFont" id="SystemFont_lmnue"]
 font_names = PackedStringArray("Lucida Console")
 font_weight = 975
+subpixel_positioning = 0
 msdf_size = 53
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l2nxh"]
@@ -78,6 +79,7 @@ OptionButton/styles/pressed = SubResource("StyleBoxFlat_ymj5g")
 [sub_resource type="SystemFont" id="SystemFont_3f4en"]
 font_names = PackedStringArray("Franklin Gothic")
 font_italic = true
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_5m6un"]
 line_spacing = -2.0
@@ -168,8 +170,54 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="counter" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_right = 240.0
+offset_bottom = 50.0
+grow_horizontal = 0
+
+[node name="background" type="ColorRect" parent="counter"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.02
+anchor_right = 0.788591
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_right = 50.7383
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.117647, 0.129412, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="counter" type="Label" parent="counter"]
+layout_mode = 1
+offset_left = -5.0
+offset_right = 100.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 30
+text = "✈️0"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
+[node name="timer" type="Label" parent="counter"]
+layout_mode = 1
+offset_left = 105.0
+offset_right = 225.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 30
+text = "00:00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
 [node name="description" type="Control" parent="."]
-visible = false
+process_priority = 1
 layout_mode = 1
 anchor_top = 0.963
 anchor_bottom = 0.963
@@ -428,51 +476,7 @@ layout_mode = 2
 text = "Exit
 "
 
-[node name="counter" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_right = 240.0
-offset_bottom = 50.0
-grow_horizontal = 0
-
-[node name="background" type="ColorRect" parent="counter"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.02
-anchor_right = 0.788591
-anchor_bottom = 1.0
-offset_top = -1.0
-offset_right = 50.7383
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.105882, 0.117647, 0.129412, 1)
-metadata/_edit_use_anchors_ = true
-
-[node name="counter" type="Label" parent="counter"]
-layout_mode = 1
-offset_left = -5.0
-offset_right = 100.0
-offset_bottom = 50.0
-theme_override_font_sizes/font_size = 30
-text = "✈️0"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-uppercase = true
-
-[node name="timer" type="Label" parent="counter"]
-layout_mode = 1
-offset_left = 105.0
-offset_right = 225.0
-offset_bottom = 50.0
-theme_override_font_sizes/font_size = 30
-text = "00:00:00"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-uppercase = true
+[node name="game_time" type="Timer" parent="."]
 
 [connection signal="draw" from="description" to="description" method="_on_draw"]
 [connection signal="timeout" from="description/data_timer" to="description" method="_on_data_timer_timeout"]
@@ -489,8 +493,9 @@ uppercase = true
 [connection signal="text_submitted" from="description/data/values/speed_value" to="description" method="_on_speed_value_text_submitted"]
 [connection signal="item_selected" from="description/data/values/direct_value" to="description" method="_on_direct_value_item_selected"]
 [connection signal="item_selected" from="description/commands/land" to="description" method="_on_land_item_selected"]
-[connection signal="pressed" from="controls/HBoxContainer/speedup" to="controls" method="_on_speedup_pressed"]
+[connection signal="gui_input" from="controls/HBoxContainer/speedup" to="controls" method="_on_speedup_gui_input"]
 [connection signal="button_down" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_down"]
 [connection signal="button_up" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_up"]
 [connection signal="toggled" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_toggled"]
 [connection signal="pressed" from="controls/HBoxContainer/exit" to="controls" method="_on_exit_pressed"]
+[connection signal="timeout" from="game_time" to="." method="_on_elapsed_time_timeout"]

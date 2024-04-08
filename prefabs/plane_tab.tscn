@@ -1,0 +1,121 @@
+[gd_scene load_steps=12 format=3 uid="uid://cb2uw48ykj7r0"]
+
+[ext_resource type="Script" path="res://logic/plane/plane_tab.gd" id="1_pwbs1"]
+[ext_resource type="Theme" uid="uid://1lbim2u8mpy3" path="res://art/themes/plane_description_buttons.tres" id="2_v3pb4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_12qim"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tdgo7"]
+bg_color = Color(0.380392, 0.380392, 0.380392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1vps"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipo3q"]
+bg_color = Color(0.219608, 0.219608, 0.219608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="SystemFont" id="SystemFont_0bmbm"]
+font_names = PackedStringArray("Franklin Gothic")
+font_weight = 100
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_paglu"]
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/styles/focus = SubResource("StyleBoxEmpty_12qim")
+Button/styles/hover = SubResource("StyleBoxFlat_tdgo7")
+Button/styles/normal = SubResource("StyleBoxFlat_s1vps")
+Button/styles/pressed = SubResource("StyleBoxFlat_ipo3q")
+Label/font_sizes/font_size = 25
+Label/fonts/font = SubResource("SystemFont_0bmbm")
+
+[sub_resource type="Theme" id="Theme_mhrhy"]
+HBoxContainer/constants/separation = 8
+
+[sub_resource type="Theme" id="Theme_huher"]
+VBoxContainer/constants/separation = -2
+
+[sub_resource type="Theme" id="Theme_tiwi8"]
+VBoxContainer/constants/separation = -2
+
+[node name="plane_tab" type="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(390, 110)
+layout_mode = 3
+anchors_preset = 0
+theme = SubResource("Theme_paglu")
+script = ExtResource("1_pwbs1")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 18.0
+offset_right = 380.0
+offset_bottom = 108.0
+theme = ExtResource("2_v3pb4")
+keep_pressed_outside = true
+
+[node name="callsign" type="Label" parent="Button"]
+layout_mode = 1
+offset_left = 15.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 40
+text = "XYZ-1234"
+vertical_alignment = 1
+autowrap_mode = 3
+uppercase = true
+
+[node name="data_hboxcontainer" type="HBoxContainer" parent="Button"]
+layout_mode = 0
+offset_left = 201.0
+offset_top = 4.0
+offset_right = 354.0
+offset_bottom = 87.0
+theme = SubResource("Theme_mhrhy")
+
+[node name="labels_vboxcontainer" type="VBoxContainer" parent="Button/data_hboxcontainer"]
+layout_mode = 2
+theme = SubResource("Theme_huher")
+
+[node name="altitude" type="Label" parent="Button/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+text = "ALT"
+
+[node name="heading" type="Label" parent="Button/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+text = "HDG"
+
+[node name="speed" type="Label" parent="Button/data_hboxcontainer/labels_vboxcontainer"]
+layout_mode = 2
+text = "SPD"
+
+[node name="values_vboxcontainer" type="VBoxContainer" parent="Button/data_hboxcontainer"]
+layout_mode = 2
+theme = SubResource("Theme_tiwi8")
+
+[node name="altitude_value" type="Label" parent="Button/data_hboxcontainer/values_vboxcontainer"]
+layout_mode = 2
+text = "000 °"
+
+[node name="heading_value" type="Label" parent="Button/data_hboxcontainer/values_vboxcontainer"]
+layout_mode = 2
+text = "00000 ft"
+
+[node name="speed_value" type="Label" parent="Button/data_hboxcontainer/values_vboxcontainer"]
+layout_mode = 2
+text = "000 kt"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

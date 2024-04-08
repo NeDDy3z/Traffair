@@ -2,8 +2,13 @@ extends Node
 
 
 
+func _ready():
+	Logger.write_to_console(name, "loaded")
+	Logger.write_to_log(name, "loaded")
+
+
 # Convert Godot Engine rotation value (-180,-90,0,90,180) to degrees (0,360)
-func rotation_to_deg(value):
+func rot_to_deg(value):
 	if value != null:
 		var angle
 		angle = int(value)
@@ -19,7 +24,7 @@ func rotation_to_deg(value):
 
 
 # Convert degrees (0,360) to Godot Engine rotation value (-180,-90,0,90,180)
-func deg_to_rotation(value):
+func deg_to_rot(value):
 	if value != null:
 		var angle
 		angle = int(value)

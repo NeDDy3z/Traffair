@@ -1,0 +1,818 @@
+[gd_scene load_steps=13 format=3 uid="uid://c3tc2r475ktvi"]
+
+[ext_resource type="Script" path="res://logic/game/game_level_kbely.gd" id="1_t7q06"]
+[ext_resource type="Texture2D" uid="uid://bysa5xagdjwkf" path="res://art/trg.png" id="2_nbimq"]
+[ext_resource type="Script" path="res://logic/game/runway.gd" id="3_7hgey"]
+[ext_resource type="PackedScene" uid="uid://sfinjguu5eqh" path="res://prefabs/plane_body.tscn" id="4_6gf1c"]
+[ext_resource type="Script" path="res://logic/plane/target_point.gd" id="5_b7lj8"]
+[ext_resource type="PackedScene" uid="uid://conakjasj0jik" path="res://levels/game_ui.tscn" id="6_5d8kg"]
+
+[sub_resource type="Theme" id="Theme_qqgfg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p8w2h"]
+load_path = "res://.godot/imported/background_prague.png-be0a5d7a77959a95ee4845751539da75.ctex"
+
+[sub_resource type="Theme" id="Theme_1wl17"]
+Label/colors/font_color = Color(0.505882, 0.254902, 1, 1)
+Label/font_sizes/font_size = 16
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0uyc2"]
+size = Vector2(83.4702, 16.2475)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n4n2x"]
+radius = 4.27193
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nwtwp"]
+
+[node name="game_level_kbely" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t7q06")
+plane_spawn_chance = 50
+plane_spawn_delay_in_s = 20.0
+
+[node name="background" type="ColorRect" parent="."]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_qqgfg")
+color = Color(0.0509804, 0.0588235, 0.0666667, 1)
+metadata/_edit_lock_ = true
+
+[node name="background_img" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 242.0
+offset_right = 480.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CompressedTexture2D_p8w2h")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="nav_points" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.996
+anchor_bottom = 1.0
+offset_right = 10.2397
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_1wl17")
+metadata/_edit_lock_ = true
+
+[node name="agi" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -363.64
+offset_top = 117.0
+offset_right = -363.64
+offset_bottom = 117.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/agi"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 30.0
+offset_bottom = 25.0
+text = "AGI
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/agi"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="bubu" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -327.0
+offset_top = 268.0
+offset_right = -327.0
+offset_bottom = 268.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/bubu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 47.0
+offset_bottom = 25.0
+text = "BUBU
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/bubu"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="bravo" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -107.64
+offset_top = 239.0
+offset_right = -107.64
+offset_bottom = 239.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/bravo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.083
+anchor_bottom = -0.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 56.0
+offset_bottom = 25.0
+text = "BRAVO"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/bravo"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="dnipr" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -265.64
+offset_top = -127.0
+offset_right = -265.64
+offset_bottom = -127.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/dnipr"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 52.0
+offset_bottom = 25.0
+text = "DNIPR"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/dnipr"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="egwu" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 354.0
+offset_top = 195.0
+offset_right = 354.0
+offset_bottom = 195.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/egwu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 50.0
+offset_bottom = 25.0
+text = "EGWU
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/egwu"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="elo" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 668.0
+offset_top = 125.0
+offset_right = 668.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/elo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 33.0
+offset_bottom = 25.0
+text = "ELO
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/elo"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="klo" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -415.0
+offset_top = -408.0
+offset_right = -415.0
+offset_bottom = -408.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/klo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 34.0
+offset_bottom = 25.0
+text = "KLO"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/klo"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="leopa" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 92.0
+offset_top = 144.0
+offset_right = 92.0
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/leopa"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 53.0
+offset_bottom = 25.0
+text = "LEOPA"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/leopa"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="mauri" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 386.0
+offset_top = -174.0
+offset_right = 386.0
+offset_bottom = -174.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/mauri"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 55.0
+offset_bottom = 25.0
+text = "MAURI
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/mauri"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="ondr" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 215.0
+offset_top = 354.0
+offset_right = 215.0
+offset_bottom = 354.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/ondr"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 50.0
+offset_bottom = 25.0
+text = "ONDR
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/ondr"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="rvo" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 133.0
+offset_top = -412.0
+offset_right = 133.0
+offset_bottom = -412.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/rvo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 35.0
+offset_bottom = 25.0
+text = "RVO"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/rvo"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="hvo-n" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 453.0
+offset_top = -463.0
+offset_right = 453.0
+offset_bottom = -463.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/hvo-n"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 55.0
+offset_bottom = 25.0
+text = "HVO-N"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/hvo-n"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="lyd" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 678.0
+offset_top = 371.0
+offset_right = 678.0
+offset_bottom = 371.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/lyd"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 32.0
+offset_bottom = 25.0
+text = "LYD"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/lyd"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="zaro" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 771.0
+offset_top = -103.0
+offset_right = 771.0
+offset_bottom = -103.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/zaro"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 45.0
+offset_bottom = 25.0
+text = "ZARO"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/zaro"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="zet" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = -298.0
+offset_right = -94.0
+offset_bottom = -298.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/zet"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 30.0
+offset_bottom = 25.0
+text = "ZET
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/zet"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="zf2" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 659.0
+offset_top = -323.0
+offset_right = 659.0
+offset_bottom = -323.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/zf2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 29.0
+offset_bottom = 25.0
+text = "ZF2
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/zf2"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="zfw" type="Control" parent="nav_points"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 63.0
+offset_top = -156.0
+offset_right = 63.0
+offset_bottom = -156.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nav_label" type="Label" parent="nav_points/zfw"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = -0.083
+anchor_right = 0.9
+anchor_bottom = 1.083
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 35.0
+offset_bottom = 25.0
+text = "ZFW"
+
+[node name="Sprite2D" type="Sprite2D" parent="nav_points/zfw"]
+position = Vector2(-10, 5)
+scale = Vector2(0.03125, 0.0312499)
+texture = ExtResource("2_nbimq")
+
+[node name="runways" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="runway_07-25" type="Control" parent="runways"]
+custom_minimum_size = Vector2(500, 6)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = 156.0
+offset_right = 412.0
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.349066
+script = ExtResource("3_7hgey")
+
+[node name="path" type="HBoxContainer" parent="runways/runway_07-25"]
+layout_mode = 1
+anchors_preset = -1
+offset_top = 2.0
+offset_right = 500.0
+offset_bottom = 4.0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="rw_texture" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture2" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture3" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture4" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture5" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture6" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture7" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture8" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture9" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture10" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture11" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="rw_texture12" type="ColorRect" parent="runways/runway_07-25/path"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+color = Color(0.337255, 0.337255, 0.337255, 1)
+
+[node name="landing" type="Area2D" parent="runways/runway_07-25"]
+position = Vector2(200, 3)
+
+[node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/landing"]
+offset_top = -3.0
+offset_right = 100.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="runway_label" type="Label" parent="runways/runway_07-25/landing"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0002
+offset_top = -43.0
+offset_right = 78.0002
+offset_bottom = -20.0
+rotation = 0.349066
+text = "KBELY"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="runways/runway_07-25/landing"]
+position = Vector2(50.454, 0.242065)
+shape = SubResource("RectangleShape2D_0uyc2")
+
+[node name="rw07" type="Area2D" parent="runways/runway_07-25"]
+position = Vector2(0, 3)
+
+[node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/rw07"]
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 3.0
+
+[node name="Label" type="Label" parent="runways/runway_07-25/rw07"]
+offset_left = -4.0
+offset_right = 51.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 20
+text = "RW07"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="runways/runway_07-25/rw07"]
+shape = SubResource("CircleShape2D_n4n2x")
+
+[node name="rw25" type="Area2D" parent="runways/runway_07-25"]
+position = Vector2(500, 3)
+
+[node name="ColorRect" type="ColorRect" parent="runways/runway_07-25/rw25"]
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 3.0
+
+[node name="Label" type="Label" parent="runways/runway_07-25/rw25"]
+offset_left = -50.0
+offset_right = 5.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 20
+text = "RW25"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="runways/runway_07-25/rw25"]
+shape = SubResource("CircleShape2D_n4n2x")
+
+[node name="runways" type="Node2D" parent="runways/runway_07-25"]
+
+[node name="planes" type="Node2D" parent="."]
+
+[node name="plane_body" parent="planes" instance=ExtResource("4_6gf1c")]
+position = Vector2(845, 479)
+callsign = ""
+altitude = 0
+heading = 0
+speed = 0
+status = ""
+
+[node name="plane_body2" parent="planes" instance=ExtResource("4_6gf1c")]
+position = Vector2(844, 384)
+callsign = ""
+altitude = 0
+heading = 0
+speed = 0
+status = ""
+
+[node name="target_point" type="Node2D" parent="."]
+position = Vector2(960, 540)
+script = ExtResource("5_b7lj8")
+
+[node name="debug_sprite" type="Sprite2D" parent="target_point"]
+position = Vector2(1.90735e-05, 1.14441e-05)
+scale = Vector2(9.99995, 10.909)
+texture = SubResource("CanvasTexture_nwtwp")
+
+[node name="game_ui" parent="." instance=ExtResource("6_5d8kg")]
+layout_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="spawner" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
+[connection signal="tree_exited" from="runways" to="." method="_on_runways_tree_exited"]
+[connection signal="tree_exiting" from="runways" to="." method="_on_runways_tree_exiting"]
+[connection signal="body_entered" from="runways/runway_07-25/landing" to="runways/runway_07-25" method="_on_landing_body_entered"]
+[connection signal="body_entered" from="runways/runway_07-25/rw07" to="runways/runway_07-25" method="_on_rw_07_body_entered"]
+[connection signal="body_entered" from="runways/runway_07-25/rw25" to="runways/runway_07-25" method="_on_rw_25_body_entered"]
+[connection signal="timeout" from="spawner" to="." method="_on_spawner_timeout"]

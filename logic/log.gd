@@ -30,7 +30,7 @@ func _ready():
 
 
 # Write into file log
-func write_to_log(object, action, message = ""):
+func write_to_log(object, action = "", message = ""):
 	var time
 	time = Time.get_time_string_from_system()
 	
@@ -66,7 +66,7 @@ func write_to_log(object, action, message = ""):
 
 
 # Write into console log
-func write_to_console(object, action, message = ""):
+func write_to_console(object, action = "", message = ""):
 	var time
 	time = Time.get_time_string_from_system()
 	
