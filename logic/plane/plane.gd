@@ -29,9 +29,11 @@ var new_spd
 # Plane related Objects
 var plane_description : Object
 var videoplayer : VideoStreamPlayer
-var direct_timer : Object
 var data_timer : Object
+var direct_timer : Object
+var hold_timer : Object
 var plane_tab_prefab : Object
+var plane_explosion_prefab : Object
 
 # Map Nodes
 var nav_points : Array
@@ -50,7 +52,6 @@ var speed_up = 1
 
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Load plane related nodes into variables
@@ -59,7 +60,10 @@ func _ready():
 	videoplayer = $VideoStreamPlayer
 	direct_timer = $direct_timer
 	data_timer = $data_timer
+	hold_timer = $hold_timer
 	plane_tab_prefab = load("res://prefabs/plane_tab.tscn")
+	plane_explosion_prefab = load("res://prefabs/plane_explosion.tscn")
+	
 	nav_points = get_node("../../nav_points").get_children()
 	target_point = get_node("../../target_point")
 	game_ui = get_node("../../game_ui")
@@ -70,15 +74,12 @@ func _ready():
 	data_timer.start()
 	
 	# Randomly place a target point to which the plane will direct to (only used for spawning)
-	if (altitude == null
+	if ((heading == null 
+			or heading == 0)
 			and !Global.debug):
-		target_offset_x = rng.randf_range(-500, 500)
-		target_offset_y = rng.randf_range(-500, 500)
-		var new_target_pos_x 
-		var new_target_pos_y
-		new_target_pos_x = target_point.position.x + target_offset_x
-		new_target_pos_y = target_point.position.y + target_offset_y
-		target_point.position = Vector2(new_target_pos_x, new_target_pos_y)
+		target_offset_x = rng.randf_range(500+300, 1000+300)
+		target_offset_y = rng.randf_range(300, 800)
+		target_point.position = Vector2(target_offset_x, target_offset_y)
 		
 		# Direction & rotation of the plane (go towards target point)
 		direction.look_at(target_point.position)
@@ -91,16 +92,17 @@ func _ready():
 	callsign = generate_callsign()
 	status = states["fly"]
 	
-	if (altitude == null
-			or altitude == 15000):
+	if (altitude == null 
+			or altitude == 0):
 		altitude = generate_altitude()
-	if (speed == null
-			or speed == 150):
+	if (speed == null 
+			or speed == 0):
 		speed = generate_speed()
 	
 	# Set ID & node name; and increment it
 	name = "plane_"+callsign
 	Global.plane_index += 1
+	
 	
 	
 	Logger.write_to_console(name, "spawn", "plane_count="+str(Global.plane_index))
@@ -145,7 +147,8 @@ func _physics_process(_delta):
 
 # Getter to retrieve a plane data
 func get_plane_data():
-	return {
+	var data
+	data = {
 		"callsign" : callsign, 
 		"altitude" : altitude, 
 		"heading" : heading, 
@@ -153,6 +156,8 @@ func get_plane_data():
 		"status" : status,
 		"direct" : direct
 	}
+	
+	return data
 
 
 # Slowly transition altitude/heading/speed into a new values (increases the realism)
@@ -161,12 +166,12 @@ func slow_update_data():
 	if (new_alt != null 
 			and altitude != new_alt):
 		if altitude > new_alt:
-			altitude -= 100
+			altitude -= 25
 			if altitude <= new_alt:
 				altitude = new_alt
 				new_alt = null
 		else:
-			altitude += 100
+			altitude += 25
 			if altitude >= new_alt:
 				altitude = new_alt
 				new_alt = null
@@ -175,12 +180,12 @@ func slow_update_data():
 	if (new_spd != null 
 			and speed != new_spd):
 		if speed > new_spd:
-			speed -= 5
+			speed -= 2
 			if speed <= new_spd:
 				speed = new_spd
 				new_spd = null
 		else:
-			speed += 5
+			speed += 2
 			if speed >= new_spd:
 				speed = new_spd
 				new_spd = null
@@ -192,11 +197,11 @@ func slow_update_data():
 		difference = (new_hdg%360 - heading%360 + 360) % 360
 		
 		if difference <= 180:
-			heading_rotation += 5
+			heading_rotation += 2
 		else:
-			heading_rotation -= 5
+			heading_rotation -= 2
 		
-		if (difference < 7 
+		if (difference < 4
 				or difference >= 358):
 			heading_rotation = new_hdg
 		
@@ -310,6 +315,8 @@ func hold():
 	cancel_landing()
 	status = states["hold"]
 	
+	set_heading(Math.rot_to_deg(direction.rotation_degrees * -1))
+	print("holdssssssssssssssss")
 	
 	Logger.write_to_log(name, "hold()")
 	Logger.write_to_console(name, "hold()")
@@ -342,7 +349,6 @@ func hide_and_freeze():
 	Logger.write_to_console(name, "hide_and_freeze()", direct) 
 
 
-
 # Plane button pressed - If the plane was not previously interacted with, new Plane_tab will appear in Game_UI sidebar
 #                      - Select plane_tab in GAME_UI sidebar when the Plane was interacted with already
 func _on_plane_button_pressed():
@@ -356,27 +362,26 @@ func _on_plane_button_pressed():
 			pt.get_child(0).emit_signal("pressed")
 			contains = true
 	if !contains:
-		game_ui.add_plane_tab(get_node("."))
+		game_ui.add_plane_tab(self)
 		plane_tabs = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer").get_children()
 		plane_tabs[plane_tabs.size()-1].get_child(0).emit_signal("pressed")
 
 
 # Collision
 func _on_area_2d_body_entered(body):
-	if (body.is_in_group("plane")
+	if (body.is_in_group("plane") 
 			and name != body.name
-			and altitude - body.altitude <= 200
-			or altitude - body.altitude >= -200):
+			and (altitude - body.altitude <= 150
+			or altitude - body.altitude >= -150)):
+		
+		var explosion
+		
+		explosion = plane_explosion_prefab.instantiate()
+		explosion.position = position
+		
+		get_parent().add_child(explosion)
+		
 		hide_and_freeze()
-		
-		videoplayer.play()
-		Sound.play_explosion()
-		game_ui.counter_deduct()
-		
-		# Wait 2 seconds to play the explosion video
-		await get_tree().create_timer(1.5).timeout
-		
-		body.queue_free()
 		queue_free()
 		
 		
@@ -393,3 +398,7 @@ func _on_timer_timeout():
 # Send plane towards point every x seconds (so it turns to it at all times)
 func _on_direct_timer_timeout():
 	direct_to(point)
+
+# Turn 180° every x seconds
+func _on_hold_timer_timeout():
+	hold()

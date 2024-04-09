@@ -57,7 +57,7 @@ func set_text_label(json):
 
 
 # On finished api request call set_text_label()
-func _on_http_request_request_completed(result, response_code, headers, body):
+func _on_http_request_request_completed(_result, _response_code, _headers, body):
 	var data = JSON.parse_string(body.get_string_from_utf8())
 	set_text_label(data)
 	

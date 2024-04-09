@@ -31,7 +31,8 @@ const required_settings_keys = [
 	"vsync",
 	"fps",
 	"brightness",
-	"debug"
+	"debug",
+	"logging"
 ]
 const settings_data_default = {
 	"window_mode" : "window",
@@ -39,7 +40,8 @@ const settings_data_default = {
 	"vsync" : "on",
 	"fps" : 60,
 	"brightness" : 1.0,
-	"debug" : false
+	"debug" : false,
+	"logging" : true
 }
 var settings_data
 
@@ -85,7 +87,6 @@ func create_settings():
 # Load settings from file
 func read_settings():
 	# Open file in read mode
-	var read 
 	read = FileAccess.open(file_path, FileAccess.READ)
 	if read != null:
 		# Load data from text into variable
@@ -133,6 +134,7 @@ func load_settings():
 	set_fps(settings_data["fps"])
 	set_brightness(settings_data["brightness"])
 	set_debug(settings_data["debug"])
+	set_logging(settings_data["logging"])
 	
 	
 	Logger.write_to_log(name, "load settings")
@@ -192,23 +194,23 @@ func set_resolution(value):
 		DisplayServer.window_set_size(Vector2i(x,y))
 		
 	
-	Logger.write_to_log(name, "resolution set")
-	Logger.write_to_console(name, "resolution set")
+	Logger.write_to_log(name, "resolution set", value)
+	Logger.write_to_console(name, "resolution set", value)
 
 
 # Set vsync
 func set_vsync(value):
 	match value.to_lower():
 		"on":
-			DisplayServer.VSYNC_ENABLED
+			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 		"off":
-			DisplayServer.VSYNC_DISABLED
+			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 		"adaptive":
-			DisplayServer.VSYNC_ADAPTIVE
+			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ADAPTIVE)
 	
 	
-	Logger.write_to_log(name, "vsync set")
-	Logger.write_to_console(name, "vsync set")
+	Logger.write_to_log(name, "vsync set", value)
+	Logger.write_to_console(name, "vsync set", value)
 
 
 # Set fps
@@ -216,8 +218,8 @@ func set_fps(value):
 	Engine.max_fps = value
 	
 	
-	Logger.write_to_log(name, "fps set")
-	Logger.write_to_console(name, "fps set")
+	Logger.write_to_log(name, "fps set", value)
+	Logger.write_to_console(name, "fps set", value)
 
 
 # Set brightness
@@ -230,8 +232,8 @@ func set_brightness(value):
 	BrightnessControl.environment.adjustment_brightness = value
 	
 	
-	Logger.write_to_log(name, "brightness set")
-	Logger.write_to_console(name, "brightness set")
+	Logger.write_to_log(name, "brightness set", value)
+	Logger.write_to_console(name, "brightness set", value)
 
 
 # Set debug
@@ -240,5 +242,31 @@ func set_debug(value):
 	Global.debug = value
 	
 	
-	Logger.write_to_log(name, "debug set")
-	Logger.write_to_console(name, "debug set")
+	Logger.write_to_log(name, "debug set", value)
+	Logger.write_to_console(name, "debug set", value)
+
+
+# Set logging
+func set_logging(value):
+	Logger.write_to_log(name, "logging set", value)
+	Logger.write_to_console(name, "logging set", value)
+	
+	
+	Global.logging = value
+	# Formatting reversed because the logger will stop working after setting it to false
+
+
+# Get window size
+func get_resolution():
+	var res
+	var x
+	var y
+	
+	res = settings_data["resolution"]
+	x = res[0]
+	y = res[1]
+	
+	Logger.write_to_log(name, "resolution get", x+","+y)
+	Logger.write_to_console(name, "resolution get", x+","+y)
+	
+	return Vector2(x,y)

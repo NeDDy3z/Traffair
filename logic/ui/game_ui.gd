@@ -55,11 +55,11 @@ func add_plane_tab(value):
 	plane_tab_items["speed"].text = str(plane_values["speed"])
 	
 	# Add tab
-	add_child(plane_tab, true)
+	queue.add_child(plane_tab, true)
 	
 	
-	Logger.write_to_log("plane_tab" + str(name), "added")
-	Logger.write_to_console("plane_tab" + str(name), "added")
+	Logger.write_to_log("plane_tab"+plane_values["callsign"], "added")
+	Logger.write_to_console("plane_tab"+plane_values["callsign"], "added")
 
 
 func counter_add(value : int = 1):

@@ -2,13 +2,14 @@ extends Control
 
 
 
-var resolution : Object
-var window_mode : Object
-var vsync : Object
-var fps : Object
-var brightness : Object
-var brightness_label : Object
-var debug : Object
+var resolution : OptionButton
+var window_mode : OptionButton
+var vsync : OptionButton
+var fps : LineEdit
+var brightness : HSlider
+var brightness_label : Label
+var debug : OptionButton
+var logging : OptionButton
 
 var main_menu : String
 
@@ -23,6 +24,7 @@ func _ready():
 	brightness = $MarginContainer/HBoxContainer/VBoxContainer2/brightness_box/brightness_value
 	brightness_label = $MarginContainer/HBoxContainer/VBoxContainer2/brightness_box/brightness_value/brightness_value_label
 	debug = $MarginContainer/HBoxContainer/VBoxContainer2/debug_value
+	logging = $MarginContainer/HBoxContainer/VBoxContainer2/logging_value
 	
 	main_menu = "res://levels/main_menu/main_menu.tscn"
 	
@@ -67,6 +69,11 @@ func display_settings():
 		debug.select(0)
 	else:
 		debug.select(1)
+	
+	if Settings.settings_data["logging"]:
+		logging.select(0)
+	else:
+		logging.select(1)
 	
 	
 	# In fullscreen disable resolution selection
@@ -221,9 +228,30 @@ func _on_debug_value_item_selected(index):
 	Logger.write_to_console(name, "debug option changed")
 
 
+func _on_logging_value_item_selected(index):
+	# Load debug value into variable
+	var item_text = logging.get_item_text(index)
+	
+	# Check if value is on/off, on = true, off = false
+	if item_text.to_lower() == "on":
+		Settings.settings_data["logging"] = true
+	else:
+		Settings.settings_data["logging"] = false
+	
+	# Set debug
+	Settings.set_logging(Settings.settings_data["logging"])
+	
+	# Save new settings
+	Settings.write_settings()
+	
+	
+	Logger.write_to_log(name, "debug option changed")
+	Logger.write_to_console(name, "debug option changed")
+
+
 # Return to main_menu
 func _on_back_pressed():
-	get_tree().change_scene_to_file("res://levels/main_menu.tscn")
+	get_tree().change_scene_to_file(main_menu)
 	
 	
 	Logger.write_to_log(name, "open main_menu")

@@ -11,8 +11,8 @@ var planes
 var target_point
 var spawner
 
-var rng = RandomNumberGenerator.new()
-var window_size = DisplayServer.window_get_size()
+var rng : RandomNumberGenerator
+var window_size : Vector2
 
 
 
@@ -21,8 +21,9 @@ func _ready():
 	planes = $planes
 	target_point = $target_point
 	spawner = $spawner
+	rng = RandomNumberGenerator.new()
+	window_size = size
 	
-	target_point.visible = false
 	spawner.wait_time = plane_spawn_delay_in_s
 	spawner.start()
 	
@@ -40,7 +41,6 @@ func spawn_plane():
 		plane.position = Vector2(1200, 900)
 	else:
 		plane.position = random_spawn_position()
-	
 	planes.add_child(plane)
 
 
@@ -48,19 +48,23 @@ func spawn_plane():
 func random_spawn_position():
 	var x : int
 	var y : int
-	x = rng.randi_range(-100, window_size.x + 100)
-	
-	if (x >= 0 
+	x = rng.randi_range(200, window_size.x + 100)
+	if (x >= 300 
 			and x <= window_size.x):
 		if rng.randi()%2 == 1:
 			y = window_size.y
 		else:
-			y = -100
+			y = -10
+	else:
+		y = rng.randi_range(0, window_size.y)
+	
 	if (x == null 
 			and y == null):
 		x = 500
 		y = 500
+	
 	var out = Vector2(x,y)
+	
 	return out
 
 
@@ -68,6 +72,7 @@ func random_spawn_position():
 func _on_spawner_timeout():
 	var random
 	random = rng.randi_range(1, 100)
+	
 	if random < plane_spawn_chance:
 		spawn_plane()
 		

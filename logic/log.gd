@@ -31,66 +31,72 @@ func _ready():
 
 # Write into file log
 func write_to_log(object, action = "", message = ""):
-	var time
-	time = Time.get_time_string_from_system()
-	
-	object = str(object)
-	action = str(action)
-	message = str(message)
-	
-	var out : String 
-	out = ""
-	if object == "":
-		out += " [ object_??"
-	else:
-		out += " [ "+ object
-	
-	if action == "":
-		out += " ] "
-	else:
-		out += " - "+ action +" ] " 
-	
-	if message == "":
-		out += ""
-	else:
-		out += " : "+ message
-	
-	# Open file - store data into variable - write old data + new data into file
-	log_read = FileAccess.open(file_path, FileAccess.READ)
-	if log_read != null:
-		temp_data = log_read.get_as_text()
+	if (Global.logging 
+			and !(Global.log_antispam 
+					and action == "direct_to()")):
+		var time
+		time = Time.get_time_string_from_system()
 		
-	log_write = FileAccess.open(file_path, FileAccess.WRITE_READ)
-	log_write.store_line(temp_data + str(time) +" "+ str(out))
-	log_write.close()
+		object = str(object)
+		action = str(action)
+		message = str(message)
+		
+		var out : String 
+		out = ""
+		if object == "":
+			out += " [ object_??"
+		else:
+			out += " [ "+ object
+		
+		if action == "":
+			out += " ] "
+		else:
+			out += " - "+ action +" ] " 
+		
+		if message == "":
+			out += ""
+		else:
+			out += " : "+ message
+		
+		# Open file - store data into variable - write old data + new data into file
+		log_read = FileAccess.open(file_path, FileAccess.READ)
+		if log_read != null:
+			temp_data = log_read.get_as_text()
+			
+		log_write = FileAccess.open(file_path, FileAccess.WRITE_READ)
+		log_write.store_line(temp_data + str(time) +" "+ str(out))
+		log_write.close()
 
 
 # Write into console log
 func write_to_console(object, action = "", message = ""):
-	var time
-	time = Time.get_time_string_from_system()
-	
-	object = str(object)
-	action = str(action)
-	message = str(message)
-	
-	var out
-	out = time 
-	
-	# Its like this bcs of the project requirements
-	if object == "":
-		out += " [ object_??"
-	else:
-		out += " [ "+ object
-	
-	if action == "":
-		out += " ] "
-	else:
-		out += " - "+ action +" ] " 
+	if (Global.logging 
+			and !(Global.log_antispam 
+					and action == "direct_to()")):
+		var time
+		time = Time.get_time_string_from_system()
 		
-	if message == "":
-		out += ""
-	else:
-		out += " : "+ message
-	
-	print(out)
+		object = str(object)
+		action = str(action)
+		message = str(message)
+		
+		var out
+		out = time 
+		
+		# Its like this bcs of the project requirements
+		if object == "":
+			out += " [ object_??"
+		else:
+			out += " [ "+ object
+		
+		if action == "":
+			out += " ] "
+		else:
+			out += " - "+ action +" ] " 
+			
+		if message == "":
+			out += ""
+		else:
+			out += " : "+ message
+		
+		print(out)

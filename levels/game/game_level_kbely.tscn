@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://c3tc2r475ktvi"]
+[gd_scene load_steps=12 format=3 uid="uid://c3tc2r475ktvi"]
 
 [ext_resource type="Script" path="res://logic/game/game_level_kbely.gd" id="1_t7q06"]
 [ext_resource type="Texture2D" uid="uid://bysa5xagdjwkf" path="res://art/trg.png" id="2_nbimq"]
 [ext_resource type="Script" path="res://logic/game/runway.gd" id="3_7hgey"]
-[ext_resource type="PackedScene" uid="uid://sfinjguu5eqh" path="res://prefabs/plane_body.tscn" id="4_6gf1c"]
 [ext_resource type="Script" path="res://logic/plane/target_point.gd" id="5_b7lj8"]
 [ext_resource type="PackedScene" uid="uid://conakjasj0jik" path="res://levels/game_ui.tscn" id="6_5d8kg"]
 
@@ -32,8 +31,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_t7q06")
-plane_spawn_chance = 50
-plane_spawn_delay_in_s = 20.0
+plane_spawn_chance = 100
+plane_spawn_delay_in_s = 5.0
 
 [node name="background" type="ColorRect" parent="."]
 layout_direction = 1
@@ -776,19 +775,8 @@ shape = SubResource("CircleShape2D_n4n2x")
 
 [node name="planes" type="Node2D" parent="."]
 
-[node name="plane_body" parent="planes" instance=ExtResource("4_6gf1c")]
-position = Vector2(845, 479)
-altitude = 30000
-speed = 150
-
-[node name="plane_body2" parent="planes" instance=ExtResource("4_6gf1c")]
-position = Vector2(844, 447)
-altitude = 30000
-heading = 180
-speed = 150
-
 [node name="target_point" type="Node2D" parent="."]
-position = Vector2(960, 540)
+position = Vector2(1075, 551)
 script = ExtResource("5_b7lj8")
 
 [node name="debug_sprite" type="Sprite2D" parent="target_point"]
@@ -803,8 +791,6 @@ metadata/_edit_lock_ = true
 [node name="spawner" type="Timer" parent="."]
 wait_time = 5.0
 
-[connection signal="ready" from="." to="." method="_on_ready"]
-[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="tree_exited" from="runways" to="." method="_on_runways_tree_exited"]
 [connection signal="tree_exiting" from="runways" to="." method="_on_runways_tree_exiting"]
 [connection signal="body_entered" from="runways/runway_07-25/landing" to="runways/runway_07-25" method="_on_landing_body_entered"]

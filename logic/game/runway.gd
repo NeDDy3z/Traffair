@@ -56,6 +56,9 @@ func _on_rw_07_body_entered(body):
 			plane.set_altitude(0)
 			plane.set_speed(150)
 			
+			game_ui.description.disable_input(plane)
+			
+			
 			Logger.write_to_log(name, "RW07 - plane land", plane.name)
 			Logger.write_to_console(name, "RW07 - plane land", plane.name)
 		else:
@@ -82,6 +85,9 @@ func _on_rw_25_body_entered(body):
 			plane.set_status("landing")
 			plane.set_altitude(0)
 			plane.set_speed(150)
+			
+			game_ui.description.disable_input(plane)
+			
 			
 			Logger.write_to_log(name, "RW25 - plane land", plane.name)
 			Logger.write_to_console(name, "RW25 - plane land", plane.name)

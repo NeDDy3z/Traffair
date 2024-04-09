@@ -493,6 +493,7 @@ text = "Exit
 [connection signal="text_submitted" from="description/data/values/speed_value" to="description" method="_on_speed_value_text_submitted"]
 [connection signal="item_selected" from="description/data/values/direct_value" to="description" method="_on_direct_value_item_selected"]
 [connection signal="item_selected" from="description/commands/land" to="description" method="_on_land_item_selected"]
+[connection signal="toggled" from="description/commands/hold" to="description" method="_on_hold_toggled"]
 [connection signal="gui_input" from="controls/HBoxContainer/speedup" to="controls" method="_on_speedup_gui_input"]
 [connection signal="button_down" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_down"]
 [connection signal="button_up" from="controls/HBoxContainer/pause" to="controls" method="_on_pause_button_up"]
