@@ -12,7 +12,6 @@ var time_scale_stages = [
 
 var speedup : Object
 var pause : Object
-
 var main_menu : String
 
 
@@ -45,8 +44,8 @@ func speed_forwards():
 	speedup.text = str(time_scale_stages[current_position]) +"x"
 	
 	
-	Logger.write_to_log(name, "game spedup",)
-	Logger.write_to_console(name, "game spedup")
+	Logger.write_to_log(name, "game spedup", time_scale_stages[current_position])
+	Logger.write_to_console(name, "game spedup", time_scale_stages[current_position])
 
 
 # Go thru speeds backwards
@@ -60,33 +59,38 @@ func speed_backwards():
 	speedup.text = str(time_scale_stages[current_position]) +"x"
 	
 	
-	Logger.write_to_log(name, "game spedup",)
-	Logger.write_to_console(name, "game spedup")
+	Logger.write_to_log(name, "game spedup", time_scale_stages[current_position])
+	Logger.write_to_console(name, "game spedup", time_scale_stages[current_position])
 
 
 # Read input from user
 func _unhandled_input(event):
-	if event is InputEventKey:
-		if event.pressed:
-			if event.keycode == KEY_ESCAPE:
+	if (event is InputEventKey
+			and event.pressed):
+		match event.keycode:
+			KEY_ESCAPE:
 				pause.set_pressed(!get_tree().paused)
 				
 				Logger.write_to_log(name, "game paused - ESC", "ingame")
 				Logger.write_to_console(name, "game paused - ESC", "ingame")
-			
-			if event.keycode == KEY_RIGHT: # On right arrow cycle right
+		 	
+			KEY_RIGHT: # On right arrow cycle right
 				speed_forwards()
-			if event.keycode == KEY_LEFT: # On left arrow cycle left
+			
+			KEY_LEFT: # On left arrow cycle left
 				speed_backwards()
 
 
 # Speedup input - left/right mouse click
 func _on_speedup_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == 1: # On left mouse click
-			speed_forwards()
-		elif event.pressed and event.button_index == 2: # On right mouse click
-			speed_backwards()
+	if (event is InputEventMouseButton
+			and event.pressed):
+		match event.button_index:
+			1: # On left mouse click
+				speed_forwards()
+			
+			2: # On right mouse click
+				speed_backwards()
 
 
 # Pause game - "freeze"

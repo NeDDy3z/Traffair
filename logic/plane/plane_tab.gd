@@ -39,8 +39,10 @@ func _process(_delta):
 # Get plane by callsign
 func get_plane():
 	var pl
-	pl = planes.get_children()
 	var exists
+	
+	pl = planes.get_children()
+
 	for p in pl:
 		if p.name.contains(callsign.text):
 			exists = true

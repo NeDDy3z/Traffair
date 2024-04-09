@@ -11,7 +11,7 @@ var credits : String
 
 
 func _ready():
-	game_level = "res://levels/main_menu/game_level_kbely.tscn"
+	game_level = "res://levels/game/game_level_kbely.tscn"
 	settings = "res://levels/main_menu/main_menu_settings.tscn"
 	tutorial = "res://levels/main_menu/main_menu_tutorial.tscn"
 	bonus = "res://levels/main_menu/main_menu_bonus.tscn"
@@ -72,5 +72,3 @@ func _on_exit_pressed():
 	
 	
 	get_tree().quit()
-
-

@@ -13,8 +13,11 @@ var text_label
 func _ready():
 	HTTP_req = $HTTPRequest
 	text_label = $"../../../text"
-	
 	api_link = "https://api.open-meteo.com/v1/forecast?latitude=50.088&longitude=14.4208&current=temperature_2m,apparent_temperature,precipitation&forecast_days=1"
+	
+	
+	Logger.write_to_log(name, "loaded")
+	Logger.write_to_console(name, "loaded")
 
 
 # Set text of the label
@@ -35,6 +38,10 @@ func set_text_label(json):
 	else:
 		out = "API Error"
 	text_label.text = out
+	
+	
+	Logger.write_to_log(name, "set_text_label()", out)
+	Logger.write_to_console(name, "set_text_label()", out)
 
 
 
@@ -51,5 +58,8 @@ func _on_http_request_request_completed(result, response_code, headers, body):
 func _on_pressed():
 	HTTP_req.request_completed.connect(_on_http_request_request_completed)
 	HTTP_req.request(api_link)
-	
 	text_label.text = "Loading..."
+	
+	
+	Logger.write_to_log(name, "httprequest")
+	Logger.write_to_console(name, "httprequest")

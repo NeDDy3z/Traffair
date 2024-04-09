@@ -292,19 +292,26 @@ var tipy = [
 	"\"Není nad oběd od babičky.\""
 ]
 
-var text_label
-var rng = RandomNumberGenerator.new()
+var text_label : Label
+var rng : RandomNumberGenerator
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	text_label = $"../../../text"
+	rng = RandomNumberGenerator.new()
+	
+	
+	Logger.write_to_log(name, "loaded")
+	Logger.write_to_console(name, "loaded")
 
 
 # On"\"tip_dne" button click, show tip
 func _on_pressed():
 	text_label.text = tipy[rng.randi_range(0, len(tipy)-1)]
+	
+	
 	Logger.write_to_log(name, "show tip", text_label.text)
 	Logger.write_to_console(name, "show tip", text_label.text)
 

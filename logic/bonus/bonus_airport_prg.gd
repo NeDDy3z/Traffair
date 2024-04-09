@@ -7,9 +7,8 @@ var airport_icao : String
 
 var api_link : String
 var api_key : String
-
-var HTTP_req
-var text_label
+var HTTP_req : HTTPRequest
+var text_label : Label
 var headers 
 
 
@@ -17,7 +16,7 @@ var headers
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	HTTP_req = $HTTPRequest
-	text_label = $"../../../text"
+	text_label = $"../../../text_label"
 	
 	airport_name = "ruzyne"
 	airport_icao = "lkpr"
@@ -25,9 +24,13 @@ func _ready():
 	api_link = "https://api.api-ninjas.com/v1/airports?name="+ airport_name +"&icao="+ airport_icao
 	api_key = "hR1LjzS5Mqz+5L4x20wTJw==KzbXcGzzS6qKysoJ"
 	headers = ['X-Api-Key: '+str(api_key)]
+	
+	
+	Logger.write_to_log(name, "loaded")
+	Logger.write_to_console(name, "loaded")
 
 
-# Set text of the label
+# Set text_label of the label
 func set_text_label(json):
 	var out
 	if json != null:
@@ -46,7 +49,11 @@ func set_text_label(json):
 		out += " ft"
 	else:
 		out = "API Error"
-	text_label.text = out
+	text_label.text_label = out
+	
+	
+	Logger.write_to_log(name, "set_text_label()", out)
+	Logger.write_to_console(name, "set_text_label()", out)
 
 
 # On finished api request call set_text_label()
@@ -63,4 +70,8 @@ func _on_pressed():
 	HTTP_req.request_completed.connect(_on_http_request_request_completed)
 	HTTP_req.request(api_link, headers)
 	
-	text_label.text = "Loading..."
+	text_label.text_label = "Loading..."
+	
+	
+	Logger.write_to_log(name, "httprequest")
+	Logger.write_to_console(name, "httprequest")

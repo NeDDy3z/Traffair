@@ -2,7 +2,7 @@ extends Node2D
 
 
 
-var sprite
+var sprite : Sprite2D
 
 
 
@@ -10,7 +10,12 @@ var sprite
 func _ready():
 	sprite = $debug_sprite
 	
-	if Global.debug:
-		sprite.visible = true
-	else:
-		sprite.visible = false
+	match Global.debug:
+		true:
+			sprite.visible = true
+		false:
+			sprite.visible = false
+	
+	
+	Logger.write_to_console(name, "loaded")
+	Logger.write_to_log(name, "loaded")

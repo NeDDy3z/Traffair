@@ -29,7 +29,8 @@ func deg_to_rot(value):
 		var angle
 		angle = int(value)
 		
-		if angle <= 360 && angle >= 270:
+		if (angle <= 360 
+				and angle >= 270):
 			angle -= 360
 		angle -= 90
 		

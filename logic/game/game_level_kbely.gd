@@ -49,14 +49,17 @@ func random_spawn_position():
 	var x : int
 	var y : int
 	x = rng.randi_range(-100, window_size.x + 100)
-	if x >= 0 and x <= window_size.x:
+	
+	if (x >= 0 
+			and x <= window_size.x):
 		if rng.randi()%2 == 1:
 			y = window_size.y
 		else:
 			y = -100
-	if x == null && y == null:
-		x = 0
-		y = 0
+	if (x == null 
+			and y == null):
+		x = 500
+		y = 500
 	var out = Vector2(x,y)
 	return out
 

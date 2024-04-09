@@ -20,6 +20,10 @@ func _ready():
 		"heading" : $VBoxContainer/HBoxContainer/heading,
 		"altitude" : $VBoxContainer/HBoxContainer/altitude
 	}
+	
+	
+	Logger.write_to_console(name, "loaded")
+	Logger.write_to_log(name, "loaded")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

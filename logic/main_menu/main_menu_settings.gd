@@ -107,8 +107,10 @@ func _on_window_mode_item_selected(index):
 	Settings.set_resolution(Settings.settings_data["resolution"])
 	
 	# In fullscreen disable resolution because it doesnt do a thing
-	if win == Settings.window_modes[0] or win == Settings.window_modes[1]:
+	if (win == Settings.window_modes[0] 
+			or win == Settings.window_modes[1]):
 		resolution.disabled = true
+		
 		# Select screen size of the display
 		var screen_size
 		screen_size = DisplayServer.screen_get_size()
@@ -160,7 +162,9 @@ func _on_vsync_value_item_selected(index):
 
 
 func _on_fps_value_text_submitted(new_text):
-	if int(new_text) < 30 or int(new_text) > 999:
+	new_text = int(new_text)
+	if (new_text < 30 
+			or new_text > 999):
 		new_text = str(Settings.settings_data["fps"])
 		fps.text = new_text
 	

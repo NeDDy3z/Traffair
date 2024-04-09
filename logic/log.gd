@@ -42,14 +42,14 @@ func write_to_log(object, action = "", message = ""):
 	out = ""
 	if object == "":
 		out += " [ object_??"
-	elif object == "-":
-		out += " [ "
 	else:
 		out += " [ "+ object
+	
 	if action == "":
 		out += " ] "
 	else:
 		out += " - "+ action +" ] " 
+	
 	if message == "":
 		out += ""
 	else:
@@ -80,14 +80,14 @@ func write_to_console(object, action = "", message = ""):
 	# Its like this bcs of the project requirements
 	if object == "":
 		out += " [ object_??"
-	elif object == "-":
-		out += " [ "
 	else:
 		out += " [ "+ object
+	
 	if action == "":
 		out += " ] "
 	else:
 		out += " - "+ action +" ] " 
+		
 	if message == "":
 		out += ""
 	else:

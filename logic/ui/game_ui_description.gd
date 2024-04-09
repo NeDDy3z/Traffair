@@ -167,9 +167,9 @@ func _on_altitude_value_text_submitted(new_text):
 	
 	if new_text < 0:
 		new_text * -1
-	if new_text > altitude_max:
+	elif new_text > altitude_max:
 		new_text = altitude_max
-	if new_text < altitude_min:
+	elif new_text < altitude_min:
 		new_text = altitude_min
 	
 	altitude_textedit.text = str(new_text)

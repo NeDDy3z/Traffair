@@ -70,16 +70,15 @@ func _ready():
 	data_timer.start()
 	
 	# Randomly place a target point to which the plane will direct to (only used for spawning)
-	if altitude == null:
-		if !Global.debug:
-			target_offset_x = rng.randf_range(-500, 500)
-			target_offset_y = rng.randf_range(-500, 500)
-			var new_target_pos_x 
-			var new_target_pos_y
-			new_target_pos_x = target_point.position.x + target_offset_x
-			new_target_pos_y = target_point.position.y + target_offset_y
-			
-			target_point.position = Vector2(new_target_pos_x, new_target_pos_y)
+	if (altitude == null
+			and !Global.debug):
+		target_offset_x = rng.randf_range(-500, 500)
+		target_offset_y = rng.randf_range(-500, 500)
+		var new_target_pos_x 
+		var new_target_pos_y
+		new_target_pos_x = target_point.position.x + target_offset_x
+		new_target_pos_y = target_point.position.y + target_offset_y
+		target_point.position = Vector2(new_target_pos_x, new_target_pos_y)
 		
 		# Direction & rotation of the plane (go towards target point)
 		direction.look_at(target_point.position)
@@ -92,9 +91,11 @@ func _ready():
 	callsign = generate_callsign()
 	status = states["fly"]
 	
-	if altitude == null:
+	if (altitude == null
+			or altitude == 15000):
 		altitude = generate_altitude()
-	if speed == null:
+	if (speed == null
+			or speed == 150):
 		speed = generate_speed()
 	
 	# Set ID & node name; and increment it
@@ -117,17 +118,21 @@ func _process(_delta):
 # Moevement stuff
 func _physics_process(_delta):
 	# Destroy if out of the screen
-	if position.x > window_size.x + 150 or position.x < -150:
+	if (position.x > window_size.x + 150 
+			or position.x < -150):
 		queue_free()
-	if position.y > window_size.y + 150 or position.y < -150:
+	if (position.y > window_size.y + 150 
+			or position.y < -150):
 		queue_free()
 	
 	# Go faster if outside of the screen
-	if position.x < window_size.x and position.x > 400:
+	if (position.x < window_size.x 
+			and position.x > 400):
 		speed_up = 1
 	else:
 		speed_up = 10
-	if position.y < window_size.y and position.y > 0:
+	if (position.y < window_size.y 
+			and position.y > 0):
 		speed_up = 1
 	else:
 		speed_up = 10
@@ -153,7 +158,8 @@ func get_plane_data():
 # Slowly transition altitude/heading/speed into a new values (increases the realism)
 func slow_update_data():
 	# Slowupdate altitude
-	if new_alt != null and altitude != new_alt:
+	if (new_alt != null 
+			and altitude != new_alt):
 		if altitude > new_alt:
 			altitude -= 100
 			if altitude <= new_alt:
@@ -166,7 +172,8 @@ func slow_update_data():
 				new_alt = null
 	
 	# Slowupdate speed
-	if new_spd != null and speed != new_spd:
+	if (new_spd != null 
+			and speed != new_spd):
 		if speed > new_spd:
 			speed -= 5
 			if speed <= new_spd:
@@ -179,7 +186,8 @@ func slow_update_data():
 				new_spd = null
 	
 	# Slowupdate heading
-	if new_hdg != null and heading != new_hdg:
+	if (new_hdg != null 
+			and heading != new_hdg):
 		var difference 
 		difference = (new_hdg%360 - heading%360 + 360) % 360
 		
@@ -188,7 +196,8 @@ func slow_update_data():
 		else:
 			heading_rotation -= 5
 		
-		if difference < 7 or difference >= 358:
+		if (difference < 7 
+				or difference >= 358):
 			heading_rotation = new_hdg
 		
 		if heading_rotation != 90:
@@ -354,8 +363,10 @@ func _on_plane_button_pressed():
 
 # Collision
 func _on_area_2d_body_entered(body):
-	if body.is_in_group("plane") and name != body.name \
-	and altitude == body.altitude:
+	if (body.is_in_group("plane")
+			and name != body.name
+			and altitude - body.altitude <= 200
+			or altitude - body.altitude >= -200):
 		hide_and_freeze()
 		
 		videoplayer.play()

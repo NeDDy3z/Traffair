@@ -20,6 +20,7 @@ func _ready():
 	
 	#background_player.play()
 	
+	
 	Logger.write_to_log(name, "loaded")
 	Logger.write_to_console(name, "loaded")
 

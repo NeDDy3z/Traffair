@@ -778,19 +778,14 @@ shape = SubResource("CircleShape2D_n4n2x")
 
 [node name="plane_body" parent="planes" instance=ExtResource("4_6gf1c")]
 position = Vector2(845, 479)
-callsign = ""
-altitude = 0
-heading = 0
-speed = 0
-status = ""
+altitude = 30000
+speed = 150
 
 [node name="plane_body2" parent="planes" instance=ExtResource("4_6gf1c")]
-position = Vector2(844, 384)
-callsign = ""
-altitude = 0
-heading = 0
-speed = 0
-status = ""
+position = Vector2(844, 447)
+altitude = 30000
+heading = 180
+speed = 150
 
 [node name="target_point" type="Node2D" parent="."]
 position = Vector2(960, 540)
