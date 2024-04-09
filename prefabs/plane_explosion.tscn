@@ -16,6 +16,7 @@ script = ExtResource("1_qx07q")
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_direction = 1
+layout_mode = 0
 offset_right = 60.0
 offset_bottom = 60.0
 audio_track = 2
