@@ -38,6 +38,8 @@ OptionButton/styles/hover = SubResource("StyleBoxFlat_imfny")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_wnrvl")
 OptionButton/styles/pressed = SubResource("StyleBoxFlat_wnrvl")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6xq1x"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sewa"]
 bg_color = Color(0.8, 0.552941, 0.105882, 1)
 corner_radius_top_left = 5
@@ -67,8 +69,6 @@ corner_radius_bottom_left = 5
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_6sewa")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_2rvrb")
 HSlider/styles/slider = SubResource("StyleBoxFlat_jy1eo")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6xq1x"]
 
 [node name="main_menu_settings" type="Control"]
 layout_mode = 3
@@ -128,6 +128,27 @@ layout_mode = 2
 text = "BRIGHTNESS"
 
 [node name="separator" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="sound" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "SOUND"
+
+[node name="music" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "MUSIC"
+
+[node name="separator2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="keybinds" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6xq1x")
+text = "KEYBINDS"
+alignment = 0
+
+[node name="separator3" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="debug" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
@@ -197,6 +218,59 @@ vertical_alignment = 1
 [node name="separator" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
+[node name="sound_box" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="sound_value" type="HSlider" parent="MarginContainer/HBoxContainer/VBoxContainer2/sound_box"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_jq335")
+value = 100.0
+
+[node name="sound_value_label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2/sound_box/sound_value"]
+layout_mode = 2
+anchor_left = 1.047
+anchor_right = 1.047
+anchor_bottom = 1.0
+offset_left = 0.0439911
+offset_right = 50.044
+theme_override_font_sizes/font_size = 30
+text = "100
+"
+vertical_alignment = 1
+
+[node name="music_box" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="music_value" type="HSlider" parent="MarginContainer/HBoxContainer/VBoxContainer2/music_box"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_jq335")
+value = 100.0
+
+[node name="music_value_label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2/music_box/music_value"]
+layout_mode = 2
+anchor_left = 1.047
+anchor_right = 1.047
+anchor_bottom = 1.0
+offset_left = 0.0439911
+offset_right = 50.044
+theme_override_font_sizes/font_size = 30
+text = "100
+"
+vertical_alignment = 1
+
+[node name="separator2" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
 [node name="debug_value" type="OptionButton" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
@@ -238,6 +312,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_6xq1x")
 text = "BACK TO MAIN MENU"
 alignment = 0
 
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/keybinds" to="." method="_on_keybinds_pressed"]
 [connection signal="item_selected" from="MarginContainer/HBoxContainer/VBoxContainer2/window_mode" to="." method="_on_window_mode_item_selected"]
 [connection signal="item_selected" from="MarginContainer/HBoxContainer/VBoxContainer2/resolution_value" to="." method="_on_resolution_value_item_selected"]
 [connection signal="item_selected" from="MarginContainer/HBoxContainer/VBoxContainer2/vsync_value" to="." method="_on_vsync_value_item_selected"]

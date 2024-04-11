@@ -128,13 +128,13 @@ func _physics_process(_delta):
 		queue_free()
 	
 	# Go faster if outside of the screen
-	if (position.x < window_size.x 
-			and position.x > 400):
+	if (position.x < window_size.x + 20
+			and position.x > 380):
 		speed_up = 1
 	else:
 		speed_up = 10
-	if (position.y < window_size.y 
-			and position.y > 0):
+	if (position.y < window_size.y + 10
+			and position.y > -10):
 		speed_up = 1
 	else:
 		speed_up = 10
@@ -375,14 +375,13 @@ func _on_area_2d_body_entered(body):
 			or altitude - body.altitude >= -150)):
 		
 		var explosion
-		
 		explosion = plane_explosion_prefab.instantiate()
 		explosion.position = position
-		
 		get_parent().add_child(explosion)
 		
 		hide_and_freeze()
 		queue_free()
+		body.queue_free()
 		
 		
 		Logger.write_to_log(name, "collision with another aircraft", body.name)

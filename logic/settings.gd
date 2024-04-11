@@ -31,6 +31,8 @@ const required_settings_keys = [
 	"vsync",
 	"fps",
 	"brightness",
+	"sound",
+	"music",
 	"debug",
 	"logging"
 ]
@@ -40,6 +42,8 @@ const settings_data_default = {
 	"vsync" : "on",
 	"fps" : 60,
 	"brightness" : 1.0,
+	"sound" : 100,
+	"music" : 100,
 	"debug" : false,
 	"logging" : true
 }
@@ -234,6 +238,16 @@ func set_brightness(value):
 	
 	Logger.write_to_log(name, "brightness set", value)
 	Logger.write_to_console(name, "brightness set", value)
+
+
+# Set sound level
+func set_sound(value):
+	pass
+
+
+# Set music level
+func set_music(value):
+	pass
 
 
 # Set debug

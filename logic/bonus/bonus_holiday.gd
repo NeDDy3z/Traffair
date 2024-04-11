@@ -37,7 +37,8 @@ func set_text_label(json):
 	var holidays : bool
 	holidays = false
 	
-	if json != null:
+	if (json != null 
+			and not json.has("error")):
 		for item in json:
 			if item["date"] == str(Time.get_date_string_from_system()):
 				out = "Name: "
@@ -45,7 +46,7 @@ func set_text_label(json):
 				out += "\nType: "
 				out += item["type"].to_lower().capitalize()
 				holidays = true
-		if !holidays:
+		if not holidays:
 			text_label.text = "Today's not a holiday"
 	else:
 		out = "API Error"
@@ -58,11 +59,12 @@ func set_text_label(json):
 
 # On finished api request call set_text_label()
 func _on_http_request_request_completed(_result, _response_code, _headers, body):
-	var data = JSON.parse_string(body.get_string_from_utf8())
-	set_text_label(data)
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	set_text_label(json)
 	
-	Logger.write_to_log(name, "pulled data from api")
-	Logger.write_to_console(name, "pulled data from api")
+	
+	Logger.write_to_log(name, "pulled data from api", json)
+	Logger.write_to_console(name, "pulled data from api", json)
 
 
 # On button press initiate api request

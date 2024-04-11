@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bfq7e61xiaygd"]
+[gd_scene load_steps=17 format=3 uid="uid://bfq7e61xiaygd"]
 
 [ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_kcd48"]
 [ext_resource type="Script" path="res://logic/main_menu/main_menu_bonus.gd" id="2_ckixn"]
@@ -7,8 +7,19 @@
 [ext_resource type="Script" path="res://logic/bonus/bonus_weather_prg.gd" id="5_83t73"]
 [ext_resource type="Script" path="res://logic/bonus/bonus_riddle.gd" id="5_fn8ew"]
 [ext_resource type="Script" path="res://logic/bonus/bonus_name_day.gd" id="6_0nu32"]
+[ext_resource type="Script" path="res://logic/bonus/bonus_dad_joke.gd" id="6_j6uid"]
 [ext_resource type="Script" path="res://logic/bonus/bonus_airport_prg.gd" id="6_u7327"]
 [ext_resource type="Script" path="res://logic/bonus/bonus_holiday.gd" id="9_qe58e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ft7ce"]
+bg_color = Color(0, 0.682353, 0.713726, 0)
+border_width_bottom = 2
+
+[sub_resource type="Theme" id="Theme_2gcah"]
+LineEdit/colors/font_color = Color(0.878431, 0.878431, 0.878431, 1)
+LineEdit/font_sizes/font_size = 40
+LineEdit/styles/focus = SubResource("StyleBoxFlat_ft7ce")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_ft7ce")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xljt0"]
 
@@ -50,6 +61,7 @@ offset_left = 20.0
 offset_top = 100.0
 offset_right = 495.0
 offset_bottom = 584.0
+theme = SubResource("Theme_2gcah")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
@@ -72,6 +84,16 @@ script = ExtResource("5_fn8ew")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/riddle"]
 
+[node name="dad_joke" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
+text = "DAD JOKE"
+alignment = 0
+script = ExtResource("6_j6uid")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/dad_joke"]
+
 [node name="separator3" type="Label" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
 
@@ -85,16 +107,23 @@ script = ExtResource("5_83t73")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/weather_prg"]
 
-[node name="letiste_prg" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="airport" type="Button" parent="MarginContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
-text = "PRAGUE AIRPORT
-"
+text = "AIRPORT BY ICAO:"
 alignment = 0
 script = ExtResource("6_u7327")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/letiste_prg"]
+[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/HBoxContainer/airport"]
+
+[node name="icao" type="LineEdit" parent="MarginContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+placeholder_text = "LKPR"
 
 [node name="separator4" type="Label" parent="MarginContainer2/VBoxContainer"]
 layout_mode = 2
@@ -155,9 +184,10 @@ alignment = 0
 
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/tip_of_the_day" to="MarginContainer2/VBoxContainer/tip_of_the_day" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/riddle" to="MarginContainer2/VBoxContainer/riddle" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/dad_joke" to="MarginContainer2/VBoxContainer/dad_joke" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/weather_prg" to="MarginContainer2/VBoxContainer/weather_prg" method="_on_pressed"]
 [connection signal="request_completed" from="MarginContainer2/VBoxContainer/weather_prg/HTTPRequest" to="MarginContainer2/VBoxContainer/weather_prg" method="_on_http_request_request_completed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/letiste_prg" to="MarginContainer2/VBoxContainer/letiste_prg" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/HBoxContainer/airport" to="MarginContainer2/VBoxContainer/HBoxContainer/airport" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/name_day" to="MarginContainer2/VBoxContainer/name_day" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer2/VBoxContainer/holiday" to="MarginContainer2/VBoxContainer/holiday" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer3/VBoxContainer/back" to="." method="_on_back_pressed"]

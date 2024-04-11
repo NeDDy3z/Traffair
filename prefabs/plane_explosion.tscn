@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://dc14agtnragv2"]
+[gd_scene load_steps=2 format=3 uid="uid://dc14agtnragv2"]
 
-[ext_resource type="VideoStream" path="res://art/plane/explosion.ogv" id="1_i4rg5"]
 [ext_resource type="Script" path="res://logic/plane/plane_explosion.gd" id="1_qx07q"]
 
 [node name="PlaneExplosion" type="Control"]
@@ -13,12 +12,3 @@ offset_bottom = -1020.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qx07q")
-
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
-layout_direction = 1
-layout_mode = 0
-offset_right = 60.0
-offset_bottom = 60.0
-audio_track = 2
-stream = ExtResource("1_i4rg5")
-expand = true

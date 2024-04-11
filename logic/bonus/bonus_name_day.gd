@@ -15,6 +15,7 @@ func _ready():
 	HTTP_req = $HTTPRequest
 	text_label = $"../../../text"
 	api_link = "https://svatky.adresa.info/txt"
+	
 	date = Time.get_date_string_from_system()
 	
 	
@@ -23,14 +24,15 @@ func _ready():
 
 
 # Set text of the label
-func set_text_label(data):
+func set_text_label(json):
 	var out
-	if data != null:
+	if (json != null 
+			and not json.has("error")):
 		out = "Date: "
 		out += date
 		
 		out += "\nName: "
-		out += str(data.split(";")[1])
+		out += str(json.split(";")[1])
 	else:
 		out = "API Error"
 	text_label.text = out
@@ -42,12 +44,12 @@ func set_text_label(data):
 
 # On finished api request call set_text_label()
 func _on_http_request_request_completed(_result, _response_code, _headers, body):
-	var data = body.get_string_from_utf8()
-	set_text_label(data)
+	var json = JSON.parse_string(body.get_string_from_utf8())
+	set_text_label(json)
 	
 	
-	Logger.write_to_log(name, "pulled data from api", data)
-	Logger.write_to_console(name, "pulled data from api", data)
+	Logger.write_to_log(name, "pulled data from api", json)
+	Logger.write_to_console(name, "pulled data from api", json)
 
 
 # On button press initiate api request

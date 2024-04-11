@@ -33,7 +33,7 @@ var i : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	process_mode = Node.PROCESS_MODE_ALWAYS # The script will work even tho the game is Frozen ("let it go..")
+	process_mode = Node.PROCESS_MODE_ALWAYS # The script will work even when the game is Frozen ("let it go..")
 	
 	callsign_label = $callsign
 	altitude_lineedit = $data/values/altitude_value
@@ -76,11 +76,11 @@ func update_data():
 		callsign_label.text = str(data["callsign"])
 		status_label.text = str(data["status"])
 		
-		if !altitude_lineedit.has_focus():
+		if not altitude_lineedit.has_focus():
 			altitude_lineedit.text = str(data["altitude"])
-		if !heading_lineedit.has_focus():
+		if not heading_lineedit.has_focus():
 			heading_lineedit.text = str(data["heading"])
-		if !speed_lineedit.has_focus():
+		if not speed_lineedit.has_focus():
 			speed_lineedit.text = str(data["speed"])
 		direct_to_options.select(get_direct_point(str(data["direct"])))
 		land_options.select(get_direct_runway(str(data["direct"])))

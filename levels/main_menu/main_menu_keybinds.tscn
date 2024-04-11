@@ -1,0 +1,116 @@
+[gd_scene load_steps=11 format=3 uid="uid://b1unk560uphe"]
+
+[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_e2kmn"]
+[ext_resource type="Script" path="res://logic/main_menu/main_menu_settings.gd" id="2_uo821"]
+[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_751xu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sp8m"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+
+[sub_resource type="SystemFont" id="SystemFont_68dow"]
+subpixel_positioning = 0
+msdf_size = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xge78"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+expand_margin_top = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnrvl"]
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(1, 1, 1, 0)
+border_width_bottom = 2
+expand_margin_top = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imfny"]
+
+[sub_resource type="Theme" id="Theme_bfiil"]
+LineEdit/font_sizes/font_size = 40
+LineEdit/fonts/font = null
+LineEdit/styles/focus = SubResource("StyleBoxFlat_7sp8m")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_7sp8m")
+OptionButton/fonts/font = SubResource("SystemFont_68dow")
+OptionButton/styles/disabled = SubResource("StyleBoxFlat_xge78")
+OptionButton/styles/focus = SubResource("StyleBoxFlat_wnrvl")
+OptionButton/styles/hover = SubResource("StyleBoxFlat_imfny")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_wnrvl")
+OptionButton/styles/pressed = SubResource("StyleBoxFlat_wnrvl")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6xq1x"]
+
+[node name="main_menu_settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_e2kmn")
+script = ExtResource("2_uo821")
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -440.0
+offset_top = -260.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_751xu")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 100.0
+offset_right = 593.0
+offset_bottom = 523.0
+theme = SubResource("Theme_bfiil")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="window_mode" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "WINDOW MODE"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="window_mode" type="OptionButton" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+allow_reselect = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -157.0
+offset_right = 394.0
+offset_bottom = -100.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="back" type="Button" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6xq1x")
+text = "BACK TO MAIN MENU"
+alignment = 0
+
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/VBoxContainer2/window_mode" to="." method="_on_window_mode_item_selected"]
+[connection signal="pressed" from="MarginContainer2/VBoxContainer/back" to="." method="_on_back_pressed"]

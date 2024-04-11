@@ -31,7 +31,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_t7q06")
-plane_spawn_chance = 100
+plane_spawn_chance = 60
 plane_spawn_delay_in_s = 5.0
 
 [node name="background" type="ColorRect" parent="."]

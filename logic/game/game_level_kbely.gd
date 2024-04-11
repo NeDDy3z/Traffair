@@ -56,7 +56,7 @@ func random_spawn_position():
 		else:
 			y = -10
 	else:
-		y = rng.randi_range(0, window_size.y)
+		y = rng.randi_range(10, window_size.y-10)
 	
 	if (x == null 
 			and y == null):
