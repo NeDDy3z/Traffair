@@ -28,7 +28,6 @@ var new_spd
 
 # Plane related Objects
 var plane_description : Object
-var videoplayer : VideoStreamPlayer
 var data_timer : Object
 var direct_timer : Object
 var hold_timer : Object
@@ -57,7 +56,6 @@ func _ready():
 	# Load plane related nodes into variables
 	plane_description = $plane_description
 	direction = $direction
-	videoplayer = $VideoStreamPlayer
 	direct_timer = $direct_timer
 	data_timer = $data_timer
 	hold_timer = $hold_timer
@@ -120,11 +118,11 @@ func _process(_delta):
 # Moevement stuff
 func _physics_process(_delta):
 	# Destroy if out of the screen
-	if (position.x > window_size.x + 150 
-			or position.x < -150):
+	if (position.x > window_size.x + 500
+			or position.x < -500):
 		queue_free()
-	if (position.y > window_size.y + 150 
-			or position.y < -150):
+	if (position.y > window_size.y + 500
+			or position.y < -500):
 		queue_free()
 	
 	# Go faster if outside of the screen

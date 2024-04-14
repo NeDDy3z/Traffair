@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://boytaudx1hu8o"]
 
-[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_6tf6x"]
+[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://resources/themes/styles/main_menu.tres" id="1_6tf6x"]
 [ext_resource type="Script" path="res://logic/main_menu/main_menu_credits.gd" id="2_fjwnn"]
-[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_ybrae"]
+[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://resources/textures/levels/mainmenu.png" id="3_ybrae"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7ebs"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -56,7 +56,7 @@ grow_vertical = 2
 texture = ExtResource("3_ybrae")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="info_container" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -72,18 +72,18 @@ grow_vertical = 2
 theme = SubResource("Theme_aviyc")
 alignment = 1
 
-[node name="project" type="Label" parent="VBoxContainer"]
+[node name="project" type="Label" parent="info_container"]
 layout_mode = 2
 text = "Final school project for the subjects PV (Programming) at SPŠE Ječná"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="separator" type="Label" parent="VBoxContainer"]
+[node name="separator" type="Label" parent="info_container"]
 layout_mode = 2
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="godot" type="Button" parent="VBoxContainer"]
+[node name="godot" type="Button" parent="info_container"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
@@ -93,13 +93,13 @@ theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 50
 text = "Godot Engine 4.2.1"
 
-[node name="erik" type="Button" parent="VBoxContainer"]
+[node name="erik" type="Button" parent="info_container"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Erik Vaněk
 "
 
-[node name="MarginContainer3" type="MarginContainer" parent="."]
+[node name="back_to_main_menu_container" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -110,10 +110,7 @@ offset_right = 394.0
 offset_bottom = -100.0
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
-layout_mode = 2
-
-[node name="back" type="Button" parent="MarginContainer3"]
+[node name="back" type="Button" parent="back_to_main_menu_container"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_bmfk0")
@@ -134,7 +131,7 @@ offset_top = -75.0
 offset_right = 768.0
 offset_bottom = 275.0
 
-[connection signal="pressed" from="VBoxContainer/godot" to="." method="_on_godot_pressed"]
-[connection signal="gui_input" from="VBoxContainer/erik" to="." method="_on_erik_gui_input"]
-[connection signal="pressed" from="VBoxContainer/erik" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="MarginContainer3/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="info_container/godot" to="." method="_on_godot_pressed"]
+[connection signal="gui_input" from="info_container/erik" to="." method="_on_erik_gui_input"]
+[connection signal="pressed" from="info_container/erik" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="back_to_main_menu_container/back" to="." method="_on_back_pressed"]

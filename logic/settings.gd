@@ -15,9 +15,7 @@ const resolutions = {
 	"1920 x 1200" : Vector2i(1920,1200),
 	"1920 x 1080" : Vector2i(1920,1080),
 	"1680 x 1050" : Vector2i(1680,1050),
-	"1600 x 900" : Vector2i(1600,900),
-	"1280 x 800" : Vector2i(1280,800),
-	"1280 x 720" : Vector2i(1280,720)
+	"1600 x 900" : Vector2i(1600,900)
 }
 const vsyncs = [
 	"On",
@@ -31,7 +29,7 @@ const required_settings_keys = [
 	"vsync",
 	"fps",
 	"brightness",
-	"sound",
+	"sfx",
 	"music",
 	"debug",
 	"logging"
@@ -42,8 +40,8 @@ const settings_data_default = {
 	"vsync" : "on",
 	"fps" : 60,
 	"brightness" : 1.0,
-	"sound" : 100,
-	"music" : 100,
+	"sfx" : 50,
+	"music" : 50,
 	"debug" : false,
 	"logging" : true
 }
@@ -241,13 +239,33 @@ func set_brightness(value):
 
 
 # Set sound level
-func set_sound(value):
-	pass
+func set_sfx(value):
+	var sfx 
+	var db
+	
+	sfx = AudioServer.get_bus_index("SFX")
+	db = linear_to_db(value) # Convert <0-100> to <-80,-0>
+	
+	AudioServer.set_bus_volume_db(sfx, db)
+	
+	
+	Logger.write_to_log(name, "sfx volume set", value)
+	Logger.write_to_console(name, "sfx volume set", value)
 
 
 # Set music level
 func set_music(value):
-	pass
+	var music
+	var db
+	
+	music = AudioServer.get_bus_index("Music")
+	db = linear_to_db(value) # Convert <0-100> to <-80,-0>
+	
+	AudioServer.set_bus_volume_db(music, db)
+	
+	
+	Logger.write_to_log(name, "music volume set", value)
+	Logger.write_to_console(name, "music volume set", value)
 
 
 # Set debug

@@ -20,24 +20,20 @@ func _ready():
 	videoplayer.expand = true
 	videoplayer.size = Vector2(60, 60)
 	videoplayer.position = Vector2(-30,-30)
+	audioplayer.bus = &"SFX"
 	
 	add_child(videoplayer)
 	add_child(audioplayer)
 	
 	play_effect()
 	
+	# Destroy self after playing the video
+	await videoplayer.finished
+	queue_free()
+	
 	
 	Logger.write_to_log(name, "loaded")
 	Logger.write_to_console(name, "loaded")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-# Destroy node when it finished playing
-func _process(delta):
-	if videoplayer.finished:
-		#queue_free()
-		pass
-
 
 
 # Play video and sound effect

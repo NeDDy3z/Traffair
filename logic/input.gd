@@ -12,8 +12,24 @@ func _process(delta):
 
 # Read input from user
 func _unhandled_input(event):
-	if (event is InputEventKey
+	if (event is InputEvent
 			and event.pressed):
-		match event.keycode:
-			KEY_LEFT: # On left arrow cycle left
-				pass
+		
+		# Match(switch) doesnt work
+		if event.is_action_pressed("game_pause"):
+			print("sexpppppppp")
+		elif event.is_action_pressed("speedup_forward"):
+			pass
+		elif event.is_action_pressed("speedup_backward"):
+			pass
+		elif event.is_action_pressed("plane_altitude"):
+			pass
+		elif event.is_action_pressed("plane_heading"):
+			pass
+		elif event.is_action_pressed("plane_speed"):
+			pass
+		elif event.is_action_pressed("plane_land"):
+			pass
+		elif event.is_action_pressed("plane_hold"):
+			pass
+		

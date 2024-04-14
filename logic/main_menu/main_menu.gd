@@ -2,7 +2,7 @@ extends Control
 
 
 
-var game_level : String
+var level_selection : Object
 var settings : String
 var tutorial : String
 var bonus : String
@@ -11,7 +11,7 @@ var credits : String
 
 
 func _ready():
-	game_level = "res://levels/game/game_level_kbely.tscn"
+	level_selection = $level_selection
 	settings = "res://levels/main_menu/main_menu_settings.tscn"
 	tutorial = "res://levels/main_menu/main_menu_tutorial.tscn"
 	bonus = "res://levels/main_menu/main_menu_bonus.tscn"
@@ -21,9 +21,10 @@ func _ready():
 	Logger.write_to_log(name, "loaded")
 	Logger.write_to_console(name, "loaded")
 
+
 # Start the game on "play" click
 func _on_play_pressed():
-	get_tree().change_scene_to_file(game_level)
+	level_selection.visible = true
 	
 	
 	Logger.write_to_log(name, "play pressed")

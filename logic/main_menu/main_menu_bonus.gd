@@ -26,7 +26,7 @@ func random_hamburger():
 	if rng.randi_range(1, 20) == 1:
 		var hamburgr
 		var x = rng.randi_range(200, DisplayServer.window_get_size().x - 200)
-		var y = rng.randi_range(200, DisplayServer.window_get_size().y - 200)		
+		var y = rng.randi_range(200, DisplayServer.window_get_size().y - 200)
 		
 		hamburgr = Label.new()
 		hamburgr.text = "🍔"

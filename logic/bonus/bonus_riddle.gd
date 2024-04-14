@@ -1,68 +1,238 @@
-extends Button
+extends Control
 
+const riddles = [
+	"Question: A cool treet that we can eat in summer add in new riddles raabia\n\nAnswer: icecream",
+	"Question: Justin summers owns a vacation house in the south. It has a v shaped roof and has minor damaging in the left side. Abnormally the prevailing winds come from the west during winter here. Knowing this, determine whether a roosters egg would fall east or north off of the roof of this house if it was on the point of the roof.\n\nAnswer: roosters dont lay eggs...",
+	"Question: When an aeroplane crashed into the sea, where does it come out?\n\nAnswer: it came out in the newspaper",
+	"Question: I am seen in the water  If seen in the sky,  I am in the rainbow,  A jay's feather,  And lapis lazuli.\n\nAnswer: Blue",
+	"Question: A doctor walked into the store and said hello son. The boy looked at the doctor but did not say hello father. Why is this?\n\nAnswer: The doctor was the boy's mother.",
+	"Question: WHAT CAN NEVER BE CHANGED?\n\nAnswer: Your Birthday",
+	"Question: Can you Geuss my name?\n\nAnswer: Rumplestilskin",
+	"Question: There were 4 men on a boat. the boat sank and not a singel man got wet, what happened?\n\nAnswer: All the men were married!",
+	"Question: It has a bed but never sleeps it has a bank that doesnt hold money what am I?\n\nAnswer: A river",
+	"Question: Two people are playing Chess. They play five games. They both win three games. With out any ties, draws, or surrenders, how is this possible?\n\nAnswer: They are playing with different people.",
+	"Question: If boiling water is poured into a thick drinking glass as well as a very thin wine glass, of the two, which is more likely to crack?\n\nAnswer: The thick glass is more likely to crack since glass is a poor conductor of heat. In a thin glass, the heat passes more quickly from the glass into the surrounding air, causing the glass to expand equally. When hot water is poured into a thick glass, the inner surface expands, but the outer surface does not. It is this extreme stress on the glass that causes it to crack.",
+	"Question: John,Sam,tobby and mark live in a house one day John and Sam go out when they come back homes they find mark dead on the floor with water and glass around him why didt John and Sam call teh police?\n\nAnswer: Tobby was a cat and Mark wan a gold fish",
+	"Question: There is a guy wearing all black... everything on him is black nothing on him is not black! There are no lights on in the stores and no reflecters in the roead and no moon or stars in the sky! A guy was driving down the street and turns around the guy. How did he know the black man was there?\n\nAnswer: It was day time",
+	"Question: If there were 91 copycats in a room and 1 got out how many copycats would there b left in the room?\n\nAnswer: 0! they all COPY each other!!!!",
+	"Question: What has 4 eyes and cant see\n\nAnswer: Mississippi",
+	"Question: My life is often a volume of grief, your help is needed to turn a new leaf. Stiff is my spine and my body is pale, but I'm always ready to tell a tale. What am I?\n\nAnswer: Sadly, I am a Book.",
+	"Question: To cross the water I'm the way, For water I'm above: I touch it not and, truth to say, I neither swim nor move. What am I?\n\nAnswer: I am a bridge, to help you cross.",
+	"Question: Imagine you are in a steel box. The floor, the walls, and the ceiling is all steel. There is nothing in the box and the walls are closing in on you. How do you get out?\n\nAnswer: Stop imagining.",
+	"Question: What weighe more... A pound of feathers or a pound of gold?\n\nAnswer: A pound of feathers... Gold is measured in a different measuring system & a pound of gold is only 14 oz. a pound of feathers is 16 oz.",
+	"Question: Romeo andd Juliet are found dead lying on the floor in a puddle of water next to some broken glass the only one home is the cat twinke.what happend and how did they die????\n\nAnswer: The cat knocked the fish tank over.(romeo and juliet are fish if u dident get the hint dumbasses)",
+	"Question: What fruit has its seeds on the outside?\n\nAnswer: A strawberry!",
+	"Question: Why did silly billy dream of him in space\n\nAnswer: because he needed some space",
+	"Question: The man who makes it, sells it.  The man who buys it, uses it.  The man who uses it, dosen't know he's using it. What is it??\n\nAnswer: A coffin",
+	"Question: A sheik announced that a race would decide which of his two sons would inherit all his wealth. The sons were to ride their camels to a certain distant city. The son whose camel reached the city last would be given all the sheik's wealth.  The two sons set out on the journey. After severals days of aimless wandering, they met and agreed to seek the advice of a wiseman. After listening to the wiseman's advice, the two sons rode the camels as quickly as possible to the designated city.  What was it that the wiseman told the two sons? They did not agree to split the wealth, and their father's decree would be followed.\n\nAnswer: The wiseman told the sons to switch camels.",
+	"Question: Derrek's mother had some money, a quarter, a nickle and a penny. She had three kids, quarterless, nicholas, and what was the last one's name?\n\nAnswer: Derrek",
+	"Question: The man who made it, doesn't want it. The man who bought it, doesn't need it. The man who is using it, doesn't know it. What am I?\n\nAnswer: A coffin.",
+	"Question: How many species of each animal did mozes take with him on the ark??\n\nAnswer: none it wasent mozes it was noah!!",
+	"Question: The following sentence is false. The preceding sentence is true. Are these sentences true or false?\n\nAnswer: Neither, it's a paradox. If the first is true, then the second must be false, which makes the first false? it doesn't work.",
+	"Question: Why did the chicken cross the road?\n\nAnswer: Because it was the turkey's day off.",
+	"Question: A butcher is five feet tall, eleven inchese. What does he weigh?\n\nAnswer: Meat. Had i ask how much he weigth, then thats a different story.",
+	"Question: I get light in night dark in day, wet when sunny and dry when rain. If you touch me you can't feel me but if you don't you can feel me. You use me twice a day. Who am I?\n\nAnswer: Shadow",
+	"Question: You don't want me, although I keep coming back. You make me, but then get rid of me like that. What am I?\n\nAnswer: Garbage",
+	"Question: What crawls on 4 legs in the morning, 2 in the afternoon, and 3 in the eavining\n\nAnswer: A human, 4 legs(a baby crawling) 2 legs, and 3 (a elderley man walking with a cane)",
+	"Question: A mother has three sick children. She has a 24-ounce bottle of medicine and needs to give each child eight ounces of the medicine. She is unable to get to the store and has only three clean containers, which measure 5, 11 and 13 ounces. The electricity is out and she has no way of heating water to wash the containers and doesn't want to spread germs. How can she divide the medicine to give each child an equal portion without having any two children drink from the same container?\n\nAnswer: Fill the 5 oz. and 11 oz. Containers from the 24 oz. container. This leaves 8 oz. in the 24 oz. bottle. Next empty the 11 oz. bottle by pouring the contents into the 13 oz. bottle. Fill the 13 oz. bottle from the 5 oz. container (with 2 oz.) and put the remaining 3 oz. in the 11 oz. bottle. This leaves the 5 oz. container empty. Now pour 5 oz. from the 13 oz. bottle into the 5 oz. bottle leaving 8 oz. in the 13 oz. bottle. Finally pour the 5 oz. bottle contents into the 11 oz. bottle giving 8 oz. in this container.",
+	"Question: I have eyes but im blind and I have skin but I no blood. I was once alive but now I'm not. What am I?\n\nAnswer: A potato",
+	"Question: What is the longest word in the english language?\n\nAnswer: Language. Its the longest word in \"the english language\"!",
+	"Question: How far can you run into a desert?\n\nAnswer: Half ways the other half your running out",
+	"Question: If I fall off the highest building I won't break, but if I go into water I do break. What am I?\n\nAnswer: A tissue",
+	"Question: There was a man who kept on commiting crimes. He is taken into to court for the third time. The Judge says we have traced back the comments you made in previous courts and we have found out you have bben lying. Your sentance will be to be hung by the neck until dead... However if you can write down a true statement on a pice of paper on the day of your execution then your sentace will only be 10 years injailed. so it came to the day when the man was going to be hung and he wrote down a statement. The Judge read the statemant and realeased the suspect with no charge. What did he write on the paper (Read through a few times and you might understad more)\n\nAnswer: He wrote I WILL BE HUNG because it's a false statement so he will be hung but if the hang him it will become true and they cant put him in jail because the statement was false!!!",
+	"Question: If you want to get from one side of a 100ft long and a 100ft deep canyon to the other side and all you have is a 12ft ladder and a endless supply of rope how do you get to the other side.\n\nAnswer: Fill the canyon with the rope and walk a cross.",
+	"Question: In a cabin in the mountains, a group of people lie dead. The doors and windows are locked, and there is no way into the cabin. The people died suddenly and did not kill themselves or each other. They were not poisoned, gassed or suffocated. How did they die?\n\nAnswer: They are in the cabin of a crashed airplane.",
+	"Question: I am the beginning of the end, and the end of time and space. I am essential to creation, and I surround every place. What am I?\n\nAnswer: The letter e. End, timE, spacE, Every placE",
+	"Question: I look at u, u look at me,i raise my right,u raise ur left.what am i?\n\nAnswer: A mirra",
+	"Question: These are the days that people will be taken up into a special place. What place is this??\n\nAnswer: Heaven with are real father",
+	"Question: What side of the cake is left?\n\nAnswer: The side that is not eaten",
+	"Question: What has six legs but olny walks with 4?\n\nAnswer: A horse and his rider!",
+	"Question: I watch you all the time, but you cant see me. I've never been spoted, but the world knows I'm there. I've sent people to death and had people kill over me, but nobody has ever talked to me. Who am I?\n\nAnswer: God",
+	"Question: My first is in you, but not in shoe. My second is in over but not in under. My third is in ugly, but not in soggy. My fourth is in round, but not in grind. My fifth is in salad, but not in potatoe. My sixth is in fever, but not in friday. My seventh is in fallen, but not in death. My last is in flat, but not in rat. So, you think you're good at puzzles, trust me, after this, you won't know yourself as much as you thought you did!\n\nAnswer: Yourself!",
+	"Question: If a cork and a bottle cost $2.10 and the bottle costs $2.00 more than the stopper, then what does the stopper cost?\n\nAnswer: Five Cents. Bottle: $2.05.",
+	"Question: A tripp with no fall from a five sided space or a small golden ball from a magical place... what am I?\n\nAnswer: not sure I need help finding it our",
+	"Question: Why do most people play baseball in the night?\n\nAnswer: beacause the bats are slleping in the day and awake in the night.",
+	"Question: In this race I will never lose, no matter the shape of your running shoes. Run all day, run all night, i promise still i will outlast your fight. I need no rest, no water no food, i am sure i would like, im not being rude. So stop now, while you;re ahead. The only time you'll beat me, is when you're dead. What am I?\n\nAnswer: Time.",
+	"Question: Who sits at the computer at 4:30 in the morning looking at riddles,butbut cant get any of the answers?\n\nAnswer: Mikey and Andrea (cool people)",
+	"Question: A man is found dead in a room. he hung him self. the room has a 10 foot celing the man is 6 ft tall the only other thing in the room besideds a man and a rope is a puddle of ice. how did he manage to hang himself?\n\nAnswer: The puddle of water was from an ice cube. he stood on the ice cube tide the rope to the celing put it around his neak and then waited for the ice to melt.",
+	"Question: There are two sons and two fathers, they all go fishing and got one fish but when the got home they only had two fish how is this possible???\n\nAnswer: It was a Grandfather, a Father, and a son.",
+	"Question: You go into the woods to get it. Then you sit down to find it. Then you go home because you couldn't find it.\n\nAnswer: Splinter",
+	"Question: A man was found murdered on Sunday morning. His wife immediately called the police. The police questioned the wife and staff and got these alibis: The Wife said she was sleeping. The Cook was cooking breakfast. The Gardener was picking vegetables. The Maid was getting the mail. The Butler was cleaning the closet The police instantly arrested the murderer. Who did it and how did they know?\n\nAnswer: It was the Maid. She said she was getting the mail. There is no mail on Sunday!  (next day air and email doesn't count)",
+	"Question: If you eat something that you can find outside and you won't die from it. what is it?\n\nAnswer: The answer is a snowflake",
+	"Question: What number is always at the end of a telophone number.\n\nAnswer: One because one is the word spelled with from the last three letters in telophone.",
+	"Question: I sail the seas for money  As I attack anothers ship  Then I take the spoils of the battle  The enemy is in my grip  What am I?\n\nAnswer: A pirate",
+	"Question: Two boxers are in a boxing match (regular boxing, not kick boxing). The fight is scheduled for 12 rounds but ends after 6 rounds, after one boxer knocks out the other boxer. Yet no man throws a punch. How is this possible?\n\nAnswer: They are female boxers.",
+	"Question: A roller coaster goes down 208 feet down at 77 degrees to 45 feet then levels off at 29 feet. how fast was the coaster going?\n\nAnswer: if u figure a coaster at 200 feet 90 degrees goes 83 mph u can figure that 77 degress is 74 and 8 feet more would make it 76. so the answer is 76 mph.",
+	"Question: What part of a bird Is not in the sky? Can go in the water Yet always stays dry?\n\nAnswer: The Shadow",
+	"Question: Some will use me, while others will not, some have remembered, while others have forgot. For profit or gain, I'm used expertly, I can't be picked off the ground or tossed into the sea. Only gained from patience and time, can you unravel my rhyme?\n\nAnswer: You can't fix stupid Answer: I'm Knowledge",
+	"Question: You are usually a failing student and you finally got a tutor. He is a very smart student and finally exam day comes up. Before that though, you said \"You a the best tutor ever! I never get a bad grade anymore! Awesome!\" .  When you get your test back, you see something like a G. What was your real grade?\n\nAnswer: C- (C minus)",
+	"Question: A box without hinges, key, or lid Yet golden treasure inside is hid What is it?\n\nAnswer: An egg",
+	"Question: It is ssaid that in this establishment a handshake and 25,000 bucks turned a group of wild \"horses\"loose on a field,give me its name.\n\nAnswer: i dont know",
+	"Question: Why did 6 was afraid of 7 ?\n\nAnswer: because 7,8,9 thats why 6 was afraid 7 . you get it . i get it .do you ? if u dont i will say it again for you. it is ok. BYEEEEEEEEE SEE YA . LUV YOU AS A FRIEND!!!!!!!!!!",
+	"Question: I'm here, Then I'm there, Touch me if you dare. Some places I've gone, Go up in flames. I've also been called,  By many names. So if I come a zap zap zap, Your life might end in a snapetty, snap snap. What could I be?\n\nAnswer: Lightning.",
+	"Question: Jimmy had 10 goldfish altogether.One was a carnivore fish. he fed them with food. Jimmy put 100 pelts of food in the tank so that every fish would eat 10 pelts.One day, he put 100 pelts in, 1 fish had eaten 20 pelts of food, but all the fish still all got they're daily meal, and Jimmy still put 100 pelts in the tank. How could this be?\n\nAnswer: Ok, The answer might be a little confusing. So, after Jimmy puts 100 pelts in the tank, all the fish get their share with 10 pelts each. After 1 fish ate 10 pelts, the carnivore ate that fish when he already ate 10 pelts, so he ate 10 pelts, and a fish which ate 10 more pelts. (10+10=20)",
+	"Question: I go really fast down and up but never stop what am i\n\nAnswer: i am a subway bus",
+	"Question: Four children, Rob, Danny, Martha and Bent, had a race across the yard. Danny was as many places behind Martha as Bent was ahead of Rob. Martha was not first and Rob was not second. Who was first, second, third and fourth?\n\nAnswer: First - Bent Second - Martha Third - Rob Fourth - Danny",
+	"Question: What is greater than god, more evil than the devil, poor people have it, rich people need it, and if you eat it you will die?\n\nAnswer: nothing.....nothing is greater than god, nothing is more evil than the devil, poor people have nothing, rich people need nothing, and if you eat nothing you will die.",
+	"Question: George walked for thirty minutes in the pouring rain without getting a single hair on his head wet. He didn't have a hat or an umbrella and his coat had no hood. How did he do that?\n\nAnswer: He was bald",
+	"Question: What state is surrounded by the most water?  --------------------------------------------------------------------------------\n\nAnswer: Answer:",
+	"Question: It's at the beginning of every end, and the end of time and space. It's the beginning of everything, and completes this riddle What is it?\n\nAnswer: The letter \"E\"",
+	"Question: You are at a fork in the road and you are trying to figure out the road that will take you back to town. There are twins standing on either side of the fork. One always lies, and one always tells the truth. BUT YOU DON'T KNOW WHICH ONE IS WHICH!!! The twins are nice enough to allow you to ask them one (ONE) question. What is the question that you will ask, that will take you to town?\n\nAnswer: You ask either twin this question: If I were to ask you what road your twin would say I should take, what would be your answer? Then you take the opposite road they say. Simple, right?",
+	"Question: A man is at a construction site and has two cars and no one is with him and he doesn't have a phone how does he bring both cars home with him?\n\nAnswer: One of the cars was a towe truck",
+	"Question: I have billions of eyes, but I live in darkness. I have millions of ears, but have only four looms. I have no muscle and has two hemispheres. What am I?\n\nAnswer: A brain",
+	"Question: What weighs more a pound of bricks or a pound of feathers??\n\nAnswer: They are both the same weight, a pound",
+	"Question: There was a one story house. The house was blue, the beds were blue, the people were blue, the walls were blue, the dressers were blue, the closets were blue, the doors were blue, the T.Vs were blue, the pens were blue, the pencils were blue, the staplers were blue, the computers were blue, the phones were blue, the CDs were blue, the pets were blue, the carpet was blue, the tile was blue, the books were blue, the papers were blue, the chairs were blue, and the pillows were blue. What color were the stairs?\n\nAnswer: If you are thinking blue, then you are wrong, because it was a one story house.",
+	"Question: how many bricks does it take to complete a building made of bricks?\n\nAnswer: One (complete)",
+	"Question: I eat as you turn me, my blade cutting wood,  when I am full, empty me you should.  What am I?\n\nAnswer: A sharpener.",
+	"Question: A mile from end to end, Yet as close to you as a friend. A precious commodity, freely given. Seen on the dead and on the living. Found on the rich, poor, short and tall, But shared among children most of all.\n\nAnswer: A simple smile.",
+	"Question: A guy on a horse rode in to town on friday.He stayed three day days and left the town on friday!How is this possible?\n\nAnswer: The horses name was friday!",
+	"Question: Where could you find a mean eating fish?\n\nAnswer: At a resteront",
+	"Question: How do you drop and egg five feet without it breaking?\n\nAnswer: You stand on a six feet tall ladder",
+	"Question: I am tall,sometimes short.I die when it is hot.I am useful.Who am I ????????\n\nAnswer: A candle.",
+	"Question: Which is the best ship of the world?\n\nAnswer: friendship",
+	"Question: One day little boy named John went over to his parents and said that he wanted to shoot people and blow them up. His parents were really proud of his career choice. keep in mind that his parents were not very violent people.\n\nAnswer: John wanted to be a photographer",
+	"Question: An Arab sheikh is old and must will his fortune to one of his two sons. He makes a proposition. His two sons will ride their camels in a race, and whichever camel crosses the finish line last will win the fortune for its owner. During the race, the two brothers wander aimlessly for days, neither willing to cross the finish line. In desperation, they ask a wise man for advice. He tells them something; then the brothers leap onto the camels and charge toward the finish line. What did the wise man say?\n\nAnswer: The wise man told them to switch the camels",
+	"Question: Feed me food and I live, Feed me water and I die. What am I?\n\nAnswer: I am a fire",
+	"Question: I turn polar bears white  and I will make you cry.  I make guys have to pee  and girls comb their hair.  I make celebrities look stupid  and normal people look like celebrities.  I turn pancakes brown  and make your champane bubble.  If you sqeeze me, I'll pop.  If you look at me, you'll pop.  Can you guess the riddle?\n\nAnswer: Answer:",
+	"Question: What is the most important thing in your life at the moment and then becomes worthless as dirt\n\nAnswer: A riddle",
+	"Question: As your ideas grow I shrink. what am I?\n\nAnswer: A pencil",
+	"Question: Mary is decorating. she paints the floor yellow, the walls red and the ceiling blue. what colour has she painted the stairs?\n\nAnswer: She lives in a bungalow.",
+	"Question: What sucks up everything but never lets it come out Mysteryouse but in playen view Dark and haisy but yet so far above you Never makeing any noise but yet so full of poise you never see it but yet you do in text books and picturs video games and stories it is tolttaly in playen view maby even in magazines it never ever ends but if thats so just were douse it begin some say in the milky way becouse it is delishuse to look at\n\nAnswer: A black hole",
+	"Question: A man who collects rare coins goes into a shop and sees a coin with a roman emperor on one side, and it's dated 2bc. The man buys the coin for quite alot of money and leaves the shop feeling happy. Is this a good deal on him?\n\nAnswer: No. Because when the coin was made they wouldn't have known it was bc as christ had not been born yet.",
+	"Question: WHAT IS LIGHTER THAN A FEATHER BUT THE STRONGEST MAN CAN'T HOLD IT FOR LONG.\n\nAnswer: HE CAN'T HOLD HIS BREATH .[AIR]",
+	"Question: A person drives pass a street and becomes glad, while the person on the street gets mad. If the person who drove stopped on the street, that person would have been sad; while the person of the street would have been glad.\n\nAnswer: Answer:",
+	"Question: What is your name? What is the color of the sky?What is the opposite of down?\n\nAnswer: (your name) blew up.",
+	"Question: You will kill me,but you will cry.\n\nAnswer: Onion.",
+	"Question: Little Nanny Etticoat, in a white petticoat, and a red nose; the longer she stands, the shorter she grows. What is she?\n\nAnswer: She is a candle.",
+	"Question: Has rubber on the bottom, string like snakes, has a toung that moves, but not by its self. what am i?\n\nAnswer: A SHOE!!",
+	"Question: You walk into a pitch black room with one match. there is a candle, kerosene lamp, and an over heater, which one do you light first?\n\nAnswer: The match.",
+	"Question: If ya mum was a super hero whu wud she save u or da world?\n\nAnswer: da world of course ur so dum u think she is just save u ur not worth it",
+	"Question: THERE A 42 PUPILS AND 45 HIGHSCHOOL PUPILS AND 1 THEACHER HOW CAN THE THEACHER THEACH ALL PUPILS\n\nAnswer: THEACH THE PUPILS",
+	"Question: A cat sleeps beside a dog.  the dog does not  sniff, bark or bite.  Why does the dog  not case the cat away?\n\nAnswer: They are cousins",
+	"Question: A man is in a room the room has no door no window no nothing to escape but a mirror how did he get out?\n\nAnswer: The man looked in the mirror sees saw took the saw broke the window in half 2 halfs make a whole and climbed out the whole",
+	"Question: I ALWAYS GO UP NEVER DOWN AND I WILL NEVER STOP GOING UP WHAT AM I?\n\nAnswer: YOUR AGE",
+	"Question: I GO UP AND DOWN.... BUT NEVER MOVE. WHO AM I?\n\nAnswer: STAIRS",
+	"Question: Ten Men's Strength, Ten Men's Length, Ten Men can't break it, Yet a young boy walks off with it\n\nAnswer: A rope",
+	"Question: their was a bug walking down the lane and a person also was walking not so far away from the bug.Why did the bug die????\n\nAnswer: The person walked on him and he went SQUISH bye bye bug",
+	"Question: A man wants a tattoo. he goes into the shop, and sees two tattoo artists. He looks at the back of the first one and see's a really squigly and badly done tattoo. He goes to the second and sees a really clean, well-done tattoo. he goes to the first to get his tattoo. Why?\n\nAnswer: Since it was on their back, the other tattoo artist must have done the other's tattoo.",
+	"Question: What is weightless, and colorless..but when put into a barrel the barrel weighs less. what am i?\n\nAnswer: A hole",
+	"Question: My life can be measured in hours, I serve by being devoured. Thin, I am quick Fat, I am slow Wind is my foe.\n\nAnswer: I am a candle.",
+	"Question: What is as scary has a ghost,and as small as a bottle of nail polish?\n\nAnswer: Your big toe",
+	"Question: What nut has no shell?\n\nAnswer: A doughnut",
+	"Question: A book costs Â£1 plus half its price.how much does the book cost?\n\nAnswer: Â£2,the word tryin 2 catch u out is \"plus\"",
+	"Question: You are evacuating from a hurricane threatened city. You drive by the corner of a street. An old injured lady, your best friend (who has saved your life 3 times), and the woman of your dreams are standing there. You only have room for you and someone else in your car. How do you save all of them?\n\nAnswer: You give the car to your best friend. He takes the lady to the hospital in your car. You wait with the woman of your dreams until your friend comes back in his van which can carry 5 people. Then you leave before the hurrican comes.",
+	"Question: The beginning of eternity, the end of time and space; the beginning of every end, and the end of every place. What am I?\n\nAnswer: The letter \"E\". The beginning of Eternity, the end of timE and spacE; the beginning of every End, and the end of every placE.",
+	"Question: What happen when a lion roars 3 times?\n\nAnswer: find the answer",
+	"Question: Why did the pupils eat their homework?\n\nAnswer: Because their teacher said it was a piece of cake!",
+	"Question: Foward I am heavy, but backward I am not. What am I?\n\nAnswer: The word Ton.",
+	"Question: Did you here about the travel agent that got sick at the airport?\n\nAnswer: They Said it was TERMINAL!",
+	"Question: What is bought by the yard and worn by the foot?\n\nAnswer: Carpet.",
+	"Question: I am a rock band,all of the members are dead,one was assinanted,what is the name.\n\nAnswer: Mount Rushmore,mte.rushmore",
+	"Question: A man lives in a big building. He works on the 50th floor but works on the 1st. Everyday he takes the elavator to the 1st floor but when going back takes it to the 25th and walks the rest of the way up. Why?\n\nAnswer: He is a midget and can't reach the 50th button.",
+	"Question: A man travels to a town on friday stays for 2 nights and travels back on friday,How can this be??\n\nAnswer: He was travelling on a horse called friday.",
+	"Question: Many different types of my last seven letters can be found in newspapers, magazines, & journals. Physicists have built devices to get me moving very fast. What am I?\n\nAnswer: Particles!",
+	"Question: There was a man walking down the street and it was pouring out. He had no umbrella, no hat, or nothing to take cover. How didn't his hair get wet?\n\nAnswer: He was bald",
+	"Question: A man walks up to you and says - \"everything I say to you is a lie.\" Is he telling you the truth or is he lying?\n\nAnswer:  He's lying. Even though he's lying when he says \"everything\" he says is a lie, some of the things he says can be a lie, and this is one of them.",
+	"Question: There's a BIG 6'7\" butcher with BIG!! Black BOOTS, LONG black RUBBER GLOVES and THICK LONG HAIR what does he weight?????\n\nAnswer: Hes a butcher he weights meat!!!!!!",
+	"Question: I have two rings. I move by request. If the mixture is not right, I just sit at rest. What am I?\n\nAnswer: I am a Piston.",
+	"Question: One man take one day to dig a hole,how long will it take him to dig half a hole?\n\nAnswer: There's no half of hole",
+	"Question: Wow dum dum too\n\nAnswer: Answer:",
+	"Question: I have a hundred legs, But cannot stand. I have a long neck, But no head. I cannot see, and I'm neat and tidy, As can be. What am I?\n\nAnswer: I am a broom.",
+	"Question: A lady was responsible for hundreds of deaths but was never charged. How is this?\n\nAnswer: The lady was Madam Guillotine.",
+	"Question: A very pretty thing am I, fluttering in the pale-blue sky. Delicate, fragile on the wing, indeed I am a pretty thing. What am I?\n\nAnswer: A Butterfly, delicate and unique.",
+	"Question: A man is laying in a field with a pack laying near him and a pin in his hand... how did he die?\n\nAnswer: The pack was his parachute that wouldn't work.",
+	"Question: Forwards I'm heavy, but backwards I'm not. What am I?\n\nAnswer: .. I'm a TON! HA!",
+	"Question: What's a porcupine, gushes out love and has a deep layer of surprise?\n\nAnswer: A Berry",
+	"Question: WHY DID THE COOKER THROW THE BUTTER THROUGH THE WINDOW?\n\nAnswer: WHY HE JUSS WANTED TO SEE THE BUTTERFLY...",
+	"Question: If you have three oranges and you take away two, how many will you have?\n\nAnswer: The answer is 2 two you take 2.... (you have 2)",
+	"Question: What is ugly has a internet and think they are smart?\n\nAnswer: Y O U",
+	"Question: Nothing is there but it is there.what it is?\n\nAnswer: its nothing but you!!!!!!!!!!!!",
+	"Question: What is spelled wrong in the dictionary?\n\nAnswer: Wrong, because W-R-O-N-G is wrong.",
+	"Question: What is that you see all the time when you log in to riddles?\n\nAnswer: YOU ARE AWSOME!",
+	"Question: Where did the bee landed when he sat?\n\nAnswer: On his bee-hind",
+	"Question: IM LONG AND AT MY POINT I HAVE HAIRS AND I GO IN AND OUT UR MOUTH....AND I PUT WHITE IN UR MOUTH...WAT AM I?????\n\nAnswer: A TOOTH BRUSH",
+	"Question: WHAT DID THE BIRD SAY AT THE SALE.\n\nAnswer: CHEAP!CHEAP!",
+	"Question: There is a 2 story house on my street. I went in to take a look. EVERYTHING was BLUE, the person was blue, the couch was blue. Rember we have a one story house. What color are the stairs?\n\nAnswer: There are no stairs, its a one story house rember?",
+	"Question: A woman returns home from shopping and is horrified to find that her husband is dead and on the diningroom table. As she continues on into the house she finds that there is also a broken vase on the table and her cat is covered in ashes. Explain what happened with one more bit of information: her husband has been dead for eight years.\n\nAnswer: Her husband had been cremated and put in a vase. The cat knocked over the vase.",
+	"Question: Draw four rectangles on a piece of paper. Put nine x's in the four rectangles so that there is an uneven number of x's in each rectangle.\n\nAnswer: Draw one large rectangle. Then draw the three smaller rectangles within the large rectangle. Place three x's in each small rectangle. There will be nine x's in the large rectangle.",
+	"Question: A guy met two masked men were were they from\n\nAnswer: heaven",
+	"Question: How do you stop a blonde tank?\n\nAnswer: Shoot the people pushing it",
+	"Question: If a rooster lays an egg on the top of a steeple,which way will the egg roll down?\n\nAnswer: Haha,you were probably thinking,\"Roosters dont lay eggs\"but I said IF a rooster lays an egg.",
+	"Question: A guy lives on the 20th floor of his apartment. eveery day he takes the elevator.he goes to 8 and walks the rest of the way. why is this so?\n\nAnswer: because he is to short to reach the button for 20.",
+	"Question: A certain crime is punishable if attempted but not punishable if committed. What is it?\n\nAnswer: Suicide.",
+	"Question: White bird, featherless, flyin' out o' paradise, flyin' over sea and land, dyin' in my hand. What is it?\n\nAnswer: A snowflake!",
+	"Question: I have more than 2 legs, but no arms or body. Alot of stuff is placed upon me. I am used often, and for many purposes. What am I?\n\nAnswer: A table.",
+	"Question: What animal probably likes doors?\n\nAnswer: A dormouse!",
+	"Question: A father and a son went on a car trip they got in a serious car wreck. the fater died and the son was seriously hurt they rushed him to the hospitle and they called for a surgen quick a surgen came and said i cant operate on this boy hes my son.how is that\n\nAnswer: it was his mother!!!!!!!two parents people",
+	"Question: I herald the darkness which descends on all creatures;  You will know my approach by moans and wracked features.  I visit the hippo, hyena, and horse, But never go near snails and spiders, of course.  I would circle the glove, leaping one to the other, Should all the world's people ever clasp hands together. What am I?\n\nAnswer: I am a Yawn.",
+	"Question: If you take a shower and you get out clean and u use a clean towel how come when you use it, you have to put the towel in the landry, well i'll tell you the answer.\n\nAnswer: Well i dont know but what i do know is my fav color is the rainbow",
+	"Question: Mary's father has five children. They are Nana, Nene, Nini, and Nono. What is the fifth childs name?\n\nAnswer: Mary",
+	"Question: There is a man who had a normal life and was sick of it. One day he was siting around at his house and he yelled out 'WHY! CANT I BE FAMOUS!' and POOF! there's the devil! He says 'i can make you the most famous man in the world and all you have to do is sell me your soul'. Ofcourse the man agreed and the Devil made him famous. Well a few days later the man is sick of his new life and wants his old life back. So he yells for the devil and the devil poofs in again. 'What do you want!?' and the man says, 'I want my old life back!!' so the devil said. 'Fine!, if you can tell me the one thing i cant do i'll give back your soul and your old life, but! i have to tell you, i can be anywhere do anything and be anything i want. so the man thinks and then leans in and wispers in the devils ear and with a heavy sigh the devil snaps his fingers and the man has his old life back.  What did he say the devil cant do?\n\nAnswer: Nothing",
+	"Question: A woman married 3 men. they never got devoriced ,they didn't die and she didn't die.it is also illegal to get married with more than one person at one time.how is it possible for her to marrie them?\n\nAnswer: She was the the person that married the three men because she was the pastor of the church",
+	"Question: With thieves I consort, With the vilest, in short, I'm quite at ease in depravity; Yet all divines use me, And savants can't lose me, For I am the center of gravity\n\nAnswer: The letter 'v'",
+	"Question: How is it possible  to always find what your looking for  in the last place you look\n\nAnswer: If you find what your are looking for then you would stop looking so it would be in the last place you look",
+	"Question: It can not be seen, cannot be felt, Cannot be heard, cannot be felt, It lies behind stars and under hills, And empty holes it fills/ It comes first and follows after, Ends lify, kills laughter.\n\nAnswer: Darkness",
+	"Question: What is there more of the less you see?\n\nAnswer: darkness",
+	"Question: 12 pears hanging high, 12 knights riding by, if Each Knight takes a pear, how many pears were left hanging there?\n\nAnswer: 11 pears. Take another look at the text. Each Knight was capitalized, therefore Each was one of the knight's names, and only Each took a pear.",
+	"Question: 12 little figures in a circle,round No legs but 2 hands And a special sounf WWHAT AM I?\n\nAnswer: A TICK TOCK CLOCK",
+	"Question: I never was, yet always will be. I am never seen, yet always come. I can carry nothing, yet hold much for some.\n\nAnswer: Tomorrow",
+	"Question: A pregnant overweight woman, Santa Claus, and Mr. Luther King Jr. have a race. Who wins?\n\nAnswer: The woman. Santa does not exist and Mr. Luther King Jr. is dead.",
+	"Question: I AM OF SAME COLOR IN AND OUT. FOUND IN EVERY COUNTRY. EVERY ONE HAS ONE OR 100 GUESS WHAT I AM??\n\nAnswer: T-SHIRT",
+	"Question: What goes up and sometimes comes down\n\nAnswer: How tall you are",
+	"Question: One day there was a train with only two passengers,one on each side, the train went pass a cave and ONE of the man's face got dirty. However it was the man with the clean face who washed his face, why?\n\nAnswer: The man with the clean face saw the dirty face on the other man and assumed that his face was dirty too, but the man with the dirty face saw the clean face, so he didn't wash it.",
+	"Question: What did the meat say to the hamburger?\n\nAnswer: Nice to meat you",
+	"Question: A gleaming beach, Scorching hot, Gone at night, Back at day. Goldie locks, And beautiful sunflowers. What am i?\n\nAnswer: Yellow",
+	"Question: I am at the beginning of everything, at the end of time and space, the beginning of every end, and at the end of every place. What am I?\n\nAnswer: The letter \"e\"",
+	"Question: What comes first and follows after, ends life, kills laughter?\n\nAnswer: darkness",
+	"Question: You are standing in front of a room with one lightbulb inside of it. You cannot see if it is on or off. Outside the room there are 3 switches in the off positions. You may turn the switches any way you want to. You stop turning the switches, enter the room and know which switch controls the lightbulb. How?\n\nAnswer: You turn 2 switches \"on\" and leave 1 switch \"off\" and wait about a minute. Then enter the room, but just before you enter, turn one switch from \"on\" to \"off\". Once in the room, feel the lightbulb - if it is warm, but off, it has to be the last switch you turned off. If it is on, it has to be the switch left on. If it is cold and is off, it has to be the switch you left in the off position.",
+	"Question: What is as light as a feather can be seen by the naked eye and if you put it in a barrel it will make it lighter what is it\n\nAnswer: A whole",
+	"Question: What is lighter than air, floats on water and a thousand men can't pick up?\n\nAnswer: A Bubble",
+	"Question: How do you get from here to Egypt in five minutes?\n\nAnswer: There is no possible answer.",
+	"Question: It stands on one leg with its heart in its head. What is it?\n\nAnswer: Cabbage.",
+	"Question: What is the difference between a teacher and a train\n\nAnswer: The teacher says spit that gum out and the train says choo choo",
+	"Question: You are running through a forrest and a lion is 5 seconds behind you. You know that there are 2 tribes in this forrest; one tribe always tells the truth; the other group always lies and they are all cannibals. You come to a fork in the road and one person from the two tribes is standing there. You have time to ask one question, what question would you ask?\n\nAnswer: You would ask, \"Which way should I go?\" Because then they would both point to the way you should go. The bad person would lie and say to go the other way, and the good person would tell you to go their way.",
+	"Question: I am something when you make me, I hold your knowledge, I have the answer, I am as you make me I am this of which I have just said,  what am I?\n\nAnswer: ~A riddle~",
+	"Question: What question can you never anwser yes to.\n\nAnswer: Are you alseep yet",
+	"Question: WHAT IS GREATER THAN GOD, MORE EVIL THAN THE DEVIL, THE RICH NEED IT, THE POOR HAVE IT, AND IF YOU EAT IT YOU'LL DIE???\n\nAnswer: NOTHING!!!!!!",
+	"Question: What am I?\n\nAnswer: I am a cool riddle!",
+	"Question: A guy is in his car and he gets sniped with a sniper. but there is no bullets in his windshield or windows. How is this possible?\n\nAnswer: he was in a convertible!",
+	"Question: What is it that is deaf, dumb and blind and always tells the truth?\n\nAnswer: A Mirror.",
+	"Question: This is going to make you so MAD! There are three words in the English language that end in \"gry\". ONE is angry and the other is hungry. EveryONE knows what the third ONE means and what it stands for. EveryONE uses them everyday, and if you listened very carefully, I've given you the third word. What is it? _______gry?\n\nAnswer: Don't know?? I'm asking you because it is killing my brain??!!",
+	"Question: Which candle burns longer a blue candle or a green candle?\n\nAnswer: Neither candle burns longer.  All candles, when burning, become shorter.",
+	"Question: While on my way to St. Ives, I saw a man with 7 wives. Each wife had 7 sacks. Each sack had 7 cats. Each cat had 7 kittens. Kitten, cats, sacks, wives, How many were going to St. Ives?\n\nAnswer: Just one, me.",
+	"Question: A box without hinges,key or lid yet golden tresures inside is hid what am i?????????\n\nAnswer: An egg",
+	"Question: How could the cowboy travel on friday then sleep two days then travel back home on friday.\n\nAnswer: If the horse was named friday",
+	"Question: A father and 2 sons go to a store. when they leave, the metal detector goes off. both sons run off, but neither of them made the detector go off. Why did they run off?\n\nAnswer: Michael jackson was in the store.",
+	"Question: OK,SO A GUY GOES IN A LIGHTHOUSE,DOWN THE BASEMENT,TURNS ON THE LIGHT,LOOKS OUT THE WINDOWAND KILLS HIMSELF,WHY DID HE KILL HIMSELF?\n\nAnswer: SINCE IT IS IN A LIGHTHOUSE AND HE TURNS ON THE LIGHT,THERE HAPPENS A SHIPWRECK,SO SOON THE NOW SOULS ARE OUTSIDE,MAD SO HE KILLS HIMSELF.",
+	"Question: WHEN IS A LION NOT A LION.\n\nAnswer: WHEN ITS A SEA LION!",
+	"Question: A man travels to a town on friday stays for 2 nights and travels back on friday,How can this be??\n\nAnswer: He was travelling on a horse called friday.",
+	"Question: Some will use me, while others will not, some have remembered, while others have forgot. For profit or gain, I'm used expertly, I can't be picked off the ground or tossed into the sea. Only gained from patience and time, can you unravel my rhyme?\n\nAnswer: You can't fix stupid Answer: I'm Knowledge",
+	"Question: No legs have I to dance, No lungs have I to breathe, No life have I to live or die And yet I do all three. What am I?\n\nAnswer: I am Fire.",
+	"Question: Your stuck in a house. How do you get out?\n\nAnswer: You can't get out considering your stuck in it.",
+	"Question: What can you catch but you cant throw??????????\n\nAnswer: A cold",
+	"Question: We are two teenage metal heads, we laugh a lot, and we like \"Metalica\" and \"ACDC.\" Who are we?\n\nAnswer: Beavis and Butthead",
+	"Question: I have a keyboard A mouse a monitor  It can have internet. I can move from town to town What am I?\n\nAnswer: A laptop",
+	"Question: You can't see me. You can only see me when I'm dusty. I'm not a ghost. What am I?\n\nAnswer: AIR",
+	"Question: A man was going to buy a $5000 car, but he didn't pay a penny for the car, how is this possible?\n\nAnswer: It's not free He didn't pay a penny, he payed $5000 for the car!",
+	"Question: What common English verb becomes its own past tense by rearranging its letters?\n\nAnswer: Eat and Ate.",
+	"Question: I have freedom from hate,  but not from lies.  I'm usually seen through clouded eyes.  I come unexpected,  though you wait for me all your life.  I can't be brought yet some people try.  What am i?\n\nAnswer: I am true love.",
+	"Question: What is bright as the sun,  but cold as the earth. worn by women of value and worth. What am i?\n\nAnswer: Gold"
+]
 
-
-var api_link : String
-var api_key : String
-
-var HTTP_req : HTTPRequest
-var text_label : Label
-var headers 
+var text_label
+var rng = RandomNumberGenerator.new()
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	HTTP_req = $HTTPRequest
 	text_label = $"../../../text"
-	
-	api_link = "https://api.api-ninjas.com/v1/riddles"
-	api_key = "hR1LjzS5Mqz+5L4x20wTJw==KzbXcGzzS6qKysoJ"
-	headers = ['X-Api-Key: '+str(api_key)]
-	
-	
-	Logger.write_to_log(name, "loaded")
-	Logger.write_to_console(name, "loaded")
 
 
-# Set text of the label
-func set_text_label(json):
-	var out
-	if (json != null 
-			and not json.has("error")):
-		out = "Title:\n"
-		out += str(json[0]["title"])
-		
-		out += "\n\nQuestion:\n"
-		out += str(json[0]["question"])
-		
-		out += "\n\nAnswer:\n"
-		out += str(json[0]["answer"])
-	else:
-		out = "API Error"
-	text_label.text = out
-	
-	
-	Logger.write_to_log(name, "set_text_label()", out)
-	Logger.write_to_console(name, "set_text_label()", out)
-
-
-# On finished api request call set_text_label()
-func _on_http_request_request_completed(_result, _response_code, _headers, body):
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	set_text_label(json)
-	
-	
-	Logger.write_to_log(name, "pulled data from api", json)
-	Logger.write_to_console(name, "pulled data from api", json)
-
-
-# On button press initiate api request
+# On "tip_dne" button click, show tip
 func _on_pressed():
-	HTTP_req.request_completed.connect(_on_http_request_request_completed)
-	HTTP_req.request(api_link, headers)
-	text_label.text = "Loading..."
+	text_label.text = riddles[rng.randi_range(0, len(riddles)-1)]
 	
 	
-	Logger.write_to_log(name, "httprequest")
-	Logger.write_to_console(name, "httprequest")
+	Logger.write_to_log(name,"'show riddle", text_label.text)
+	Logger.write_to_console(name,"'show riddle", text_label.text)

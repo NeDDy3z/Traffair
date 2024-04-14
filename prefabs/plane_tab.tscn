@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://cb2uw48ykj7r0"]
 
 [ext_resource type="Script" path="res://logic/plane/plane_tab.gd" id="1_pwbs1"]
-[ext_resource type="Theme" uid="uid://1lbim2u8mpy3" path="res://art/themes/plane_description_buttons.tres" id="2_v3pb4"]
+[ext_resource type="Theme" uid="uid://1lbim2u8mpy3" path="res://resources/themes/plane_description_buttons.tres" id="2_v3pb4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_12qim"]
 

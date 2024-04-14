@@ -1,11 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://bfq7e61xiaygd"]
+[gd_scene load_steps=18 format=3 uid="uid://bfq7e61xiaygd"]
 
-[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_kcd48"]
+[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://resources/themes/styles/main_menu.tres" id="1_kcd48"]
 [ext_resource type="Script" path="res://logic/main_menu/main_menu_bonus.gd" id="2_ckixn"]
-[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_acw8b"]
-[ext_resource type="Script" path="res://logic/bonus/bonus_tip_of_the_day.gd" id="4_bfooa"]
+[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://resources/textures/levels/mainmenu.png" id="3_acw8b"]
+[ext_resource type="Script" path="res://logic/bonus/bonus_advice.gd" id="4_bfooa"]
 [ext_resource type="Script" path="res://logic/bonus/bonus_weather_prg.gd" id="5_83t73"]
 [ext_resource type="Script" path="res://logic/bonus/bonus_riddle.gd" id="5_fn8ew"]
+[ext_resource type="Script" path="res://logic/bonus/bonus_fact.gd" id="5_jljd8"]
 [ext_resource type="Script" path="res://logic/bonus/bonus_name_day.gd" id="6_0nu32"]
 [ext_resource type="Script" path="res://logic/bonus/bonus_dad_joke.gd" id="6_j6uid"]
 [ext_resource type="Script" path="res://logic/bonus/bonus_airport_prg.gd" id="6_u7327"]
@@ -55,7 +56,7 @@ grow_vertical = 2
 texture = ExtResource("3_acw8b")
 expand_mode = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
+[node name="options_container" type="MarginContainer" parent="."]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 100.0
@@ -63,18 +64,28 @@ offset_right = 495.0
 offset_bottom = 584.0
 theme = SubResource("Theme_2gcah")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="options_container"]
 layout_mode = 2
 
-[node name="tip_of_the_day" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="advice" type="Button" parent="options_container/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
-text = "TIP OF THE DAY"
+text = "ADVICE"
 alignment = 0
 script = ExtResource("4_bfooa")
 
-[node name="riddle" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="fact" type="Button" parent="options_container/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
+text = "FACT"
+alignment = 0
+script = ExtResource("5_jljd8")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="options_container/VBoxContainer/fact"]
+
+[node name="riddle" type="Button" parent="options_container/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
@@ -82,9 +93,9 @@ text = "RIDDLE"
 alignment = 0
 script = ExtResource("5_fn8ew")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/riddle"]
+[node name="HTTPRequest" type="HTTPRequest" parent="options_container/VBoxContainer/riddle"]
 
-[node name="dad_joke" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="dad_joke" type="Button" parent="options_container/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
@@ -92,12 +103,12 @@ text = "DAD JOKE"
 alignment = 0
 script = ExtResource("6_j6uid")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/dad_joke"]
+[node name="HTTPRequest" type="HTTPRequest" parent="options_container/VBoxContainer/dad_joke"]
 
-[node name="separator3" type="Label" parent="MarginContainer2/VBoxContainer"]
+[node name="separator3" type="Label" parent="options_container/VBoxContainer"]
 layout_mode = 2
 
-[node name="weather_prg" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="weather_prg" type="Button" parent="options_container/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
@@ -105,13 +116,13 @@ text = "WEATHER IN PRAGUE"
 alignment = 0
 script = ExtResource("5_83t73")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/weather_prg"]
+[node name="HTTPRequest" type="HTTPRequest" parent="options_container/VBoxContainer/weather_prg"]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="options_container/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="airport" type="Button" parent="MarginContainer2/VBoxContainer/HBoxContainer"]
+[node name="airport" type="Button" parent="options_container/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
@@ -119,16 +130,16 @@ text = "AIRPORT BY ICAO:"
 alignment = 0
 script = ExtResource("6_u7327")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/HBoxContainer/airport"]
+[node name="HTTPRequest" type="HTTPRequest" parent="options_container/VBoxContainer/HBoxContainer/airport"]
 
-[node name="icao" type="LineEdit" parent="MarginContainer2/VBoxContainer/HBoxContainer"]
+[node name="icao" type="LineEdit" parent="options_container/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 placeholder_text = "LKPR"
 
-[node name="separator4" type="Label" parent="MarginContainer2/VBoxContainer"]
+[node name="separator4" type="Label" parent="options_container/VBoxContainer"]
 layout_mode = 2
 
-[node name="name_day" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="name_day" type="Button" parent="options_container/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
@@ -136,9 +147,9 @@ text = "TODAY'S NAME DAY"
 alignment = 0
 script = ExtResource("6_0nu32")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/name_day"]
+[node name="HTTPRequest" type="HTTPRequest" parent="options_container/VBoxContainer/name_day"]
 
-[node name="holiday" type="Button" parent="MarginContainer2/VBoxContainer"]
+[node name="holiday" type="Button" parent="options_container/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xljt0")
@@ -146,7 +157,7 @@ text = "TODAY'S HOLIDAY"
 alignment = 0
 script = ExtResource("9_qe58e")
 
-[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer2/VBoxContainer/holiday"]
+[node name="HTTPRequest" type="HTTPRequest" parent="options_container/VBoxContainer/holiday"]
 
 [node name="text" type="Label" parent="."]
 layout_mode = 1
@@ -160,7 +171,7 @@ theme_override_font_sizes/font_size = 40
 label_settings = SubResource("LabelSettings_wvbtf")
 autowrap_mode = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="."]
+[node name="back_to_main_menu_container" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -171,10 +182,7 @@ offset_right = 394.0
 offset_bottom = -100.0
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer3"]
-layout_mode = 2
-
-[node name="back" type="Button" parent="MarginContainer3/VBoxContainer"]
+[node name="back" type="Button" parent="back_to_main_menu_container"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6xq1x")
@@ -182,12 +190,13 @@ text = "BACK TO MAIN MENU
 "
 alignment = 0
 
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/tip_of_the_day" to="MarginContainer2/VBoxContainer/tip_of_the_day" method="_on_pressed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/riddle" to="MarginContainer2/VBoxContainer/riddle" method="_on_pressed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/dad_joke" to="MarginContainer2/VBoxContainer/dad_joke" method="_on_pressed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/weather_prg" to="MarginContainer2/VBoxContainer/weather_prg" method="_on_pressed"]
-[connection signal="request_completed" from="MarginContainer2/VBoxContainer/weather_prg/HTTPRequest" to="MarginContainer2/VBoxContainer/weather_prg" method="_on_http_request_request_completed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/HBoxContainer/airport" to="MarginContainer2/VBoxContainer/HBoxContainer/airport" method="_on_pressed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/name_day" to="MarginContainer2/VBoxContainer/name_day" method="_on_pressed"]
-[connection signal="pressed" from="MarginContainer2/VBoxContainer/holiday" to="MarginContainer2/VBoxContainer/holiday" method="_on_pressed"]
-[connection signal="pressed" from="MarginContainer3/VBoxContainer/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="options_container/VBoxContainer/advice" to="options_container/VBoxContainer/advice" method="_on_pressed"]
+[connection signal="pressed" from="options_container/VBoxContainer/fact" to="options_container/VBoxContainer/fact" method="_on_pressed"]
+[connection signal="pressed" from="options_container/VBoxContainer/riddle" to="options_container/VBoxContainer/riddle" method="_on_pressed"]
+[connection signal="pressed" from="options_container/VBoxContainer/dad_joke" to="options_container/VBoxContainer/dad_joke" method="_on_pressed"]
+[connection signal="pressed" from="options_container/VBoxContainer/weather_prg" to="options_container/VBoxContainer/weather_prg" method="_on_pressed"]
+[connection signal="request_completed" from="options_container/VBoxContainer/weather_prg/HTTPRequest" to="options_container/VBoxContainer/weather_prg" method="_on_http_request_request_completed"]
+[connection signal="pressed" from="options_container/VBoxContainer/HBoxContainer/airport" to="options_container/VBoxContainer/HBoxContainer/airport" method="_on_pressed"]
+[connection signal="pressed" from="options_container/VBoxContainer/name_day" to="options_container/VBoxContainer/name_day" method="_on_pressed"]
+[connection signal="pressed" from="options_container/VBoxContainer/holiday" to="options_container/VBoxContainer/holiday" method="_on_pressed"]
+[connection signal="pressed" from="back_to_main_menu_container/back" to="." method="_on_back_pressed"]

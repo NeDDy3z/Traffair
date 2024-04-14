@@ -1,2 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
+Traffair%appdata%.lnk
+cloc.bat
+cloc-2.00.exe

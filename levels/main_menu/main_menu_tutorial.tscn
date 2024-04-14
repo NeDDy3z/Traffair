@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://d4niemwvargha"]
 
-[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://art/themes/styles/main_menu.tres" id="1_o370o"]
+[ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://resources/themes/styles/main_menu.tres" id="1_o370o"]
 [ext_resource type="Script" path="res://logic/main_menu/main_menu_tutorial.gd" id="2_2eeja"]
-[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://art/mainmenu.png" id="3_jmaq4"]
+[ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://resources/textures/levels/mainmenu.png" id="3_jmaq4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b4wiy"]
 
@@ -37,24 +37,24 @@ grow_vertical = 2
 texture = ExtResource("3_jmaq4")
 expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="options_container" type="MarginContainer" parent="."]
 layout_mode = 1
 offset_left = 20.0
 offset_top = 100.0
 offset_right = 432.0
 offset_bottom = 340.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="options_container"]
 layout_mode = 2
 
-[node name="game" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="game" type="Button" parent="options_container/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
 text = "GAME"
 alignment = 0
 
-[node name="basics" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="basics" type="Button" parent="options_container/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
@@ -62,14 +62,14 @@ text = "BASICS
 "
 alignment = 0
 
-[node name="tips" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="tips" type="Button" parent="options_container/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
 text = "TECHNIQUE & TIPS"
 alignment = 0
 
-[node name="controls" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="controls" type="Button" parent="options_container/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_b4wiy")
@@ -200,7 +200,7 @@ autowrap_mode = 2
 layout_mode = 2
 stretch_mode = 3
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
+[node name="back_to_main_menu_container" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -211,10 +211,7 @@ offset_right = 394.0
 offset_bottom = -100.0
 grow_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
-layout_mode = 2
-
-[node name="back" type="Button" parent="MarginContainer2"]
+[node name="back" type="Button" parent="back_to_main_menu_container"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_bmfk0")
@@ -222,8 +219,8 @@ text = "BACK TO MAIN MENU
 "
 alignment = 0
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/game" to="." method="_on_game_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/basics" to="." method="_on_basics_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/tips" to="." method="_on_tips_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/controls" to="." method="_on_controls_pressed"]
-[connection signal="pressed" from="MarginContainer2/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="options_container/VBoxContainer/game" to="." method="_on_game_pressed"]
+[connection signal="pressed" from="options_container/VBoxContainer/basics" to="." method="_on_basics_pressed"]
+[connection signal="pressed" from="options_container/VBoxContainer/tips" to="." method="_on_tips_pressed"]
+[connection signal="pressed" from="options_container/VBoxContainer/controls" to="." method="_on_controls_pressed"]
+[connection signal="pressed" from="back_to_main_menu_container/back" to="." method="_on_back_pressed"]

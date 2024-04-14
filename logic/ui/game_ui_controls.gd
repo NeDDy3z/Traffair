@@ -8,6 +8,8 @@ var time_scale_stages = [
 	2,
 	5,
 	10,
+	15,
+	20
 ]
 
 var speedup : Object

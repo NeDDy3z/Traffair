@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://sfinjguu5eqh"]
 
 [ext_resource type="Script" path="res://logic/plane/plane.gd" id="1_agcie"]
-[ext_resource type="Texture2D" uid="uid://djw40ufctbg5c" path="res://art/plane/plane.png" id="2_nsr61"]
-[ext_resource type="Texture2D" uid="uid://b2bkbuaxcr4o1" path="res://art/plane/plane2.png" id="3_6dvle"]
+[ext_resource type="Texture2D" uid="uid://djw40ufctbg5c" path="res://resources/textures/game/plane/plane.png" id="2_nckax"]
+[ext_resource type="Texture2D" uid="uid://b2bkbuaxcr4o1" path="res://resources/textures/game/plane/plane2.png" id="3_rdvy0"]
 [ext_resource type="Script" path="res://logic/plane/plane_description.gd" id="4_iu7ly"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hlp05"]
@@ -46,12 +46,12 @@ shape = SubResource("CircleShape2D_kaubd")
 
 [node name="body" type="Sprite2D" parent="."]
 scale = Vector2(0.04, 0.04)
-texture = ExtResource("2_nsr61")
+texture = ExtResource("2_nckax")
 
 [node name="direction" type="Sprite2D" parent="."]
 position = Vector2(2.87969, 0)
 scale = Vector2(0.0851562, 0.1)
-texture = ExtResource("3_6dvle")
+texture = ExtResource("3_rdvy0")
 offset = Vector2(450, 0)
 
 [node name="plane_description" type="Control" parent="."]
