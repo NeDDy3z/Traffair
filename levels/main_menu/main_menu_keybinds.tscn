@@ -77,9 +77,40 @@ theme_override_constants/separation = 80
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="window_mode" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="pause" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "WINDOW MODE"
+text = "PAUSE"
+
+[node name="speedup_forward" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "SPEEDUP FORWARD"
+
+[node name="speedup_backward" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "SPEEDUP BACKWARD"
+
+[node name="separator" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="plane_land" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "PLANE LANDING"
+
+[node name="plane_hold" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "PLANE HOLD"
+
+[node name="plane_alt" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "PLANE ALT"
+
+[node name="plane_hdg" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "PLANE HDG"
+
+[node name="plane_spd" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "PLANE SPD"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(80, 0)

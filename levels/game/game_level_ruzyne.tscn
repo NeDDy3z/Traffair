@@ -57,7 +57,6 @@ texture = ExtResource("2_41r1b")
 expand_mode = 1
 
 [node name="nav_points" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchor_right = 1.001
 anchor_bottom = 1.0

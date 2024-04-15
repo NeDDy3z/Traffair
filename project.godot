@@ -31,9 +31,9 @@ Logger="*res://logic/log.gd"
 Global="*res://logic/global.gd"
 BrightnessControl="*res://levels/brightness_control.tscn"
 Settings="*res://logic/settings.gd"
-Sound="*res://logic/sound.gd"
 GlobalInput="*res://logic/input.gd"
 Math="*res://logic/math.gd"
+Sound="*res://logic/sound.gd"
 
 [debug]
 

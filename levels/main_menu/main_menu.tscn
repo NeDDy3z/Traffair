@@ -148,22 +148,6 @@ layout_mode = 2
 theme = SubResource("Theme_884hu")
 theme_override_constants/separation = 50
 
-[node name="ruzyne" type="Control" parent="level_selection/CenterContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(250, 250)
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="level_selection/CenterContainer/VBoxContainer/HBoxContainer/ruzyne"]
-layout_mode = 2
-offset_right = 250.0
-offset_bottom = 250.0
-texture = ExtResource("5_pq8sl")
-expand_mode = 1
-
-[node name="ruzyne_button" type="Button" parent="level_selection/CenterContainer/VBoxContainer/HBoxContainer/ruzyne"]
-layout_mode = 2
-offset_right = 250.0
-offset_bottom = 250.0
-
 [node name="kbely" type="Control" parent="level_selection/CenterContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(250, 250)
 layout_mode = 2
@@ -180,6 +164,36 @@ layout_mode = 2
 offset_right = 250.0
 offset_bottom = 250.0
 
+[node name="kbely_label" type="Label" parent="level_selection/CenterContainer/VBoxContainer/HBoxContainer/kbely"]
+layout_mode = 0
+offset_right = 250.0
+offset_bottom = 57.0
+text = "KBELY"
+horizontal_alignment = 1
+
+[node name="ruzyne" type="Control" parent="level_selection/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="level_selection/CenterContainer/VBoxContainer/HBoxContainer/ruzyne"]
+layout_mode = 2
+offset_right = 250.0
+offset_bottom = 250.0
+texture = ExtResource("5_pq8sl")
+expand_mode = 1
+
+[node name="ruzyne_button" type="Button" parent="level_selection/CenterContainer/VBoxContainer/HBoxContainer/ruzyne"]
+layout_mode = 2
+offset_right = 250.0
+offset_bottom = 250.0
+
+[node name="ruzyne" type="Label" parent="level_selection/CenterContainer/VBoxContainer/HBoxContainer/ruzyne"]
+layout_mode = 0
+offset_right = 250.0
+offset_bottom = 57.0
+text = "RUZYNĚ"
+horizontal_alignment = 1
+
 [node name="close" type="Button" parent="level_selection/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme = SubResource("Theme_p434e")
@@ -194,6 +208,6 @@ text = "CLOSE"
 [connection signal="pressed" from="options_container/VBoxContainer/credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="exit_container/exit" to="." method="_on_exit_pressed"]
 [connection signal="draw" from="level_selection" to="level_selection" method="_on_draw"]
-[connection signal="pressed" from="level_selection/CenterContainer/VBoxContainer/HBoxContainer/ruzyne/ruzyne_button" to="level_selection" method="_on_ruzyne_button_pressed"]
 [connection signal="pressed" from="level_selection/CenterContainer/VBoxContainer/HBoxContainer/kbely/kbely_button" to="level_selection" method="_on_kbely_button_pressed"]
+[connection signal="pressed" from="level_selection/CenterContainer/VBoxContainer/HBoxContainer/ruzyne/ruzyne_button" to="level_selection" method="_on_ruzyne_button_pressed"]
 [connection signal="pressed" from="level_selection/CenterContainer/VBoxContainer/close" to="level_selection" method="_on_close_pressed"]

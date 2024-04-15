@@ -17,6 +17,8 @@ func _ready():
 	bonus = "res://levels/main_menu/main_menu_bonus.tscn"
 	credits = "res://levels/main_menu/main_menu_credits.tscn"
 	
+	level_selection.visible = false
+	
 	
 	Logger.write_to_log(name, "loaded")
 	Logger.write_to_console(name, "loaded")

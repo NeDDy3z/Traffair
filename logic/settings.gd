@@ -104,11 +104,13 @@ func read_settings():
 		if settings_data["brightness"] == 0:
 			settings_data["brightness"] = 0.1
 		
+		
 		Logger.write_to_log(name, "read settings")
 		Logger.write_to_console(name, "read settings")
 	else:
 		create_settings()
-
+		
+		
 		Logger.write_to_log(name, "failed to read settings", "settings file does not exist")
 		Logger.write_to_console(name, "failed to read settings", "settings file does not exist")
 
@@ -135,6 +137,8 @@ func load_settings():
 	set_vsync(settings_data["vsync"])
 	set_fps(settings_data["fps"])
 	set_brightness(settings_data["brightness"])
+	set_sfx(settings_data["sfx"])
+	set_music(settings_data["music"])
 	set_debug(settings_data["debug"])
 	set_logging(settings_data["logging"])
 	
@@ -244,7 +248,7 @@ func set_sfx(value):
 	var db
 	
 	sfx = AudioServer.get_bus_index("SFX")
-	db = linear_to_db(value) # Convert <0-100> to <-80,-0>
+	db = (float(value) / 100) * 80 - 80 # Convert <0-100> to <-80,-0>
 	
 	AudioServer.set_bus_volume_db(sfx, db)
 	
@@ -254,12 +258,12 @@ func set_sfx(value):
 
 
 # Set music level
-func set_music(value):
+func set_music(value : int = settings_data["music"]):
 	var music
 	var db
 	
 	music = AudioServer.get_bus_index("Music")
-	db = linear_to_db(value) # Convert <0-100> to <-80,-0>
+	db = (float(value) / 100) * 80 - 80 # Convert <0-100> to <-80,-0>
 	
 	AudioServer.set_bus_volume_db(music, db)
 	

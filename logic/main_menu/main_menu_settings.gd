@@ -22,18 +22,18 @@ var main_menu : String
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Load value Nodes
-	resolution = $MarginContainer/HBoxContainer/VBoxContainer2/resolution_value
-	window_mode = $MarginContainer/HBoxContainer/VBoxContainer2/window_mode
-	vsync = $MarginContainer/HBoxContainer/VBoxContainer2/vsync_value
-	fps = $MarginContainer/HBoxContainer/VBoxContainer2/fps_value
-	brightness = $MarginContainer/HBoxContainer/VBoxContainer2/brightness_box/brightness_value
-	brightness_label = $MarginContainer/HBoxContainer/VBoxContainer2/brightness_box/brightness_value/brightness_value_label
-	sfx = $MarginContainer/HBoxContainer/VBoxContainer2/sfx_box/sfx_value
-	sfx_label = $MarginContainer/HBoxContainer/VBoxContainer2/sfx_box/sfx_value/sfx_value_label
-	music = $MarginContainer/HBoxContainer/VBoxContainer2/music_box/music_value
-	music_label = $MarginContainer/HBoxContainer/VBoxContainer2/music_box/music_value/music_value_label
-	debug = $MarginContainer/HBoxContainer/VBoxContainer2/debug_value
-	logging = $MarginContainer/HBoxContainer/VBoxContainer2/logging_value
+	resolution = $options_container/HBoxContainer/VBoxContainer2/resolution_value
+	window_mode = $options_container/HBoxContainer/VBoxContainer2/window_mode
+	vsync = $options_container/HBoxContainer/VBoxContainer2/vsync_value
+	fps = $options_container/HBoxContainer/VBoxContainer2/fps_value
+	brightness = $options_container/HBoxContainer/VBoxContainer2/brightness_box/brightness_value
+	brightness_label = $options_container/HBoxContainer/VBoxContainer2/brightness_box/brightness_value/brightness_value_label
+	sfx = $options_container/HBoxContainer/VBoxContainer2/sfx_box/sfx_value
+	sfx_label = $options_container/HBoxContainer/VBoxContainer2/sfx_box/sfx_value/sfx_value_label
+	music = $options_container/HBoxContainer/VBoxContainer2/music_box/music_value
+	music_label = $options_container/HBoxContainer/VBoxContainer2/music_box/music_value/music_value_label
+	debug = $options_container/HBoxContainer/VBoxContainer2/debug_value
+	logging = $options_container/HBoxContainer/VBoxContainer2/logging_value
 	
 	main_menu = "res://levels/main_menu/main_menu.tscn"
 	
@@ -84,8 +84,8 @@ func display_settings():
 	sfx_label.text = str(Settings.settings_data["sfx"])
 	
 	# Music
-	sfx.value = Settings.settings_data["sfx"]
-	sfx_label.text = str(Settings.settings_data["sfx"])
+	music.value = Settings.settings_data["music"]
+	music_label.text = str(Settings.settings_data["music"])
 	
 	# Debug
 	if Settings.settings_data["debug"]:
@@ -103,10 +103,11 @@ func display_settings():
 	disable_resolution_selection()
 	
 	
-	Logger.write_to_log(name, "failed to load settings", "settings file does not exist, applying default settings")
-	Logger.write_to_console(name, "failed to load settings", "settings file does not exist, applying default settings")
+	Logger.write_to_log(name, "display settings")
+	Logger.write_to_console(name, "display settings")
 
 
+# Turn off resolution optionButton
 func disable_resolution_selection():
 	# In fullscreen disable resolution selection
 	var wm_item
@@ -240,6 +241,19 @@ func _on_sfx_value_value_changed(value):
 	
 	# Save new settings
 	Settings.write_settings()
+	
+	
+	if (Global.debug 
+			and self.name == "main_menu_settings"):
+		var explosion 
+		explosion = AudioStreamPlayer.new()
+		explosion.stream = load("res://resources/sounds/explosion.ogg")
+		explosion.bus = "SFX"
+		add_child(explosion)
+		
+		explosion.play()
+		await explosion.finished
+		explosion.queue_free()
 	
 	
 	Logger.write_to_log(name, "sfx value changed")

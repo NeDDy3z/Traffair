@@ -12,6 +12,7 @@ func _process(delta):
 
 # Read input from user
 func _unhandled_input(event):
+	"""
 	if (event is InputEvent
 			and event.pressed):
 		
@@ -32,4 +33,5 @@ func _unhandled_input(event):
 			pass
 		elif event.is_action_pressed("plane_hold"):
 			pass
-		
+	"""
+	pass

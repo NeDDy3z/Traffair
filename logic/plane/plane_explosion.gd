@@ -20,7 +20,7 @@ func _ready():
 	videoplayer.expand = true
 	videoplayer.size = Vector2(60, 60)
 	videoplayer.position = Vector2(-30,-30)
-	audioplayer.bus = &"SFX"
+	audioplayer.bus = "SFX"
 	
 	add_child(videoplayer)
 	add_child(audioplayer)
