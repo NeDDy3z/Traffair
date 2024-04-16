@@ -226,7 +226,7 @@ var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	text_label = $"../../../text"
+	text_label = $"../../../../text"
 
 
 # On "tip_dne" button click, show tip

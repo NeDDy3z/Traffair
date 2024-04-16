@@ -16,8 +16,8 @@ var headers
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	HTTP_req = $HTTPRequest
-	text_label = $"../../../text"
+	HTTP_req = HTTPRequest.new()
+	text_label = $"../../../../text"
 	
 	country_code = "CZ"
 	year = str(Time.get_date_dict_from_system()["year"])
@@ -25,6 +25,8 @@ func _ready():
 	api_link = "https://api.api-ninjas.com/v1/holidays?country="+ country_code +"&year="+year
 	api_key = "hR1LjzS5Mqz+5L4x20wTJw==KzbXcGzzS6qKysoJ"
 	headers = ['X-Api-Key: '+str(api_key)]
+	
+	add_child(HTTP_req)
 	
 	
 	Logger.write_to_log(name, "loaded")

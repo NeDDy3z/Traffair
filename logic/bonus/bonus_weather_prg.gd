@@ -11,9 +11,11 @@ var text_label
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	HTTP_req = $HTTPRequest
-	text_label = $"../../../text"
+	HTTP_req = HTTPRequest.new()
+	text_label = $"../../../../text"
 	api_link = "https://api.open-meteo.com/v1/forecast?latitude=50.088&longitude=14.4208&current=temperature_2m,apparent_temperature,precipitation&forecast_days=1"
+	
+	add_child(HTTP_req)
 	
 	
 	Logger.write_to_log(name, "loaded")

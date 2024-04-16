@@ -1,7 +1,7 @@
 extends Control
 
 
-
+var runways : Array
 var runway_0 : Object
 var runway_1 : Object
 var landing : Object
@@ -15,8 +15,9 @@ var land : Object
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	runway_0 = $rw07
-	runway_1 = $rw25
+	runways = get_children()
+	runway_0 = runways[runways.size()-2]
+	runway_1 = runways[runways.size()-1]
 	landing = $landing
 	game_level = $"../.."
 

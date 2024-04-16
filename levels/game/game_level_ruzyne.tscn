@@ -918,19 +918,16 @@ shape = SubResource("CircleShape2D_n4n2x")
 [node name="planes" type="Node2D" parent="."]
 
 [node name="plane_body" parent="planes" instance=ExtResource("4_8dxgn")]
-position = Vector2(960, 1265)
+position = Vector2(864, 1135)
 
 [node name="plane_body2" parent="planes" instance=ExtResource("4_8dxgn")]
-position = Vector2(-123, 582)
+position = Vector2(203, 714)
 
 [node name="plane_body3" parent="planes" instance=ExtResource("4_8dxgn")]
-position = Vector2(1678, -219)
+position = Vector2(1261, -79)
 
 [node name="plane_body4" parent="planes" instance=ExtResource("4_8dxgn")]
 position = Vector2(2066, 154)
-
-[node name="plane_body5" parent="planes" instance=ExtResource("4_8dxgn")]
-position = Vector2(2420, 552)
 
 [node name="target_point" type="Node2D" parent="."]
 position = Vector2(1075, 551)

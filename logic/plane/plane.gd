@@ -84,7 +84,7 @@ func _ready():
 		direction.rotation = global_position.direction_to(target_point.position).angle()
 	else:
 		direction.rotation_degrees = Math.deg_to_rot(heading)
-		
+	
 	
 	# Set description of an airplane
 	callsign = generate_callsign()
@@ -247,6 +247,7 @@ func generate_speed():
 	return spd
 
 
+# Set point
 func set_point(value):
 	point = value
 	
@@ -370,7 +371,7 @@ func _on_area_2d_body_entered(body):
 	if (body.is_in_group("plane") 
 			and name != body.name
 			and (altitude - body.altitude <= 150
-			or altitude - body.altitude >= -150)):
+			and  altitude - body.altitude >= -150)):
 		
 		var explosion
 		explosion = plane_explosion_prefab.instantiate()
@@ -395,6 +396,7 @@ func _on_timer_timeout():
 # Send plane towards point every x seconds (so it turns to it at all times)
 func _on_direct_timer_timeout():
 	direct_to(point)
+
 
 # Turn 180° every x seconds
 func _on_hold_timer_timeout():

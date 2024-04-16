@@ -250,7 +250,8 @@ func set_sfx(value):
 	sfx = AudioServer.get_bus_index("SFX")
 	db = (float(value) / 100) * 80 - 80 # Convert <0-100> to <-80,-0>
 	
-	AudioServer.set_bus_volume_db(sfx, db)
+	if sfx >= 0:
+		AudioServer.set_bus_volume_db(sfx, db)
 	
 	
 	Logger.write_to_log(name, "sfx volume set", value)
@@ -265,7 +266,8 @@ func set_music(value : int = settings_data["music"]):
 	music = AudioServer.get_bus_index("Music")
 	db = (float(value) / 100) * 80 - 80 # Convert <0-100> to <-80,-0>
 	
-	AudioServer.set_bus_volume_db(music, db)
+	if music >= 0:
+		AudioServer.set_bus_volume_db(music, db)
 	
 	
 	Logger.write_to_log(name, "music volume set", value)

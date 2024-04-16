@@ -238,26 +238,29 @@ func _on_speed_value_text_submitted(new_text):
 
 # Direct to selected -> plane gets sent to it
 func _on_direct_value_item_selected(index):
+	var plane
+	var point
+	
+	plane = get_plane()
+	
 	if index != 0:
-		var plane
-		var point
-		
-		plane = get_plane()
 		point = nav_points_list[str(direct_to_options.get_item_text(index))]
 		
-		if index != 0:
-			plane.set_point(point)
-			plane.set_status("direct")
-		else:
-			direct_to_options.select(0)
-			plane.set_point(null)
+		plane.set_point(point)
+		plane.set_status("direct")
 		
 		land_options.select(0)
 		hold_button.emit_signal("toggled", false)
+	elif (index == 0 
+			and direct_to_options.has_focus()):
+		point = Node.new()
+		point.name = "none"
 		
-		
-		Logger.write_to_log(id_callsign, "fly towards nav_point selected", point.name)
-		Logger.write_to_console(id_callsign, "fly towards nav_point selected", point.name)
+		plane.set_point(null)
+	
+	
+	Logger.write_to_log(id_callsign, "fly towards nav_point selected", point.name)
+	Logger.write_to_console(id_callsign, "fly towards nav_point selected", point.name)
 
 
 # Runway selected -> plane gets sent to it
@@ -266,18 +269,23 @@ func _on_land_item_selected(index):
 	var point
 	
 	plane = get_plane()
-	point = runways_list[str(land_options.get_item_text(index))]
+	direct_to_options.select(0)
+	hold_button.emit_signal("toggled", false)
 	
 	if index != 0:
+		point = runways_list[str(land_options.get_item_text(index))]
+		
 		plane.set_point(point)
 		plane.set_status("direct")
 		plane.add_to_group("land")
 	else:
+		point = Node.new()
+		point.name = "none"
+		
 		land_options.select(0)
 		plane.set_point(null)
 	
-	direct_to_options.select(0)
-	hold_button.emit_signal("toggled", false)
+	
 	
 	
 	Logger.write_to_log(id_callsign, "land on runway selected", point.name)

@@ -231,7 +231,7 @@ var rng : RandomNumberGenerator
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	text_label = $"../../../text"
+	text_label = $"../../../../text"
 	rng = RandomNumberGenerator.new()
 	
 	
