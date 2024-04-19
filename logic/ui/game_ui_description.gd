@@ -255,6 +255,8 @@ func _on_direct_value_item_selected(index):
 	var point
 	
 	plane = get_plane()
+	land.select(0)
+	hold.emit_signal("toggled", false)
 	
 	if visible:
 		if index != 0:
@@ -262,17 +264,16 @@ func _on_direct_value_item_selected(index):
 			
 			plane.set_point(point)
 			plane.set_status("direct")
-			
-			land.select(0)
-			hold.emit_signal("toggled", false)
 		elif (
 			index == 0 
 			and direct.has_focus()
 		):
+			plane.set_point(null)
+			plane.set_status("fly")
+			
 			point = Node.new()
 			point.name = "none"
-			
-			plane.set_point(null)
+	
 	
 	
 	Logger.write_to_log(id_callsign, "fly towards nav_point selected", point.name)
@@ -295,14 +296,15 @@ func _on_land_item_selected(index):
 			plane.set_point(point)
 			plane.set_status("direct")
 			plane.add_to_group("land")
-		else:
+		elif (
+			index == 0
+			and land.has_focus()
+		):
+			plane.set_point(null)
+			plane.set_status("fly")
+			
 			point = Node.new()
 			point.name = "none"
-			
-			land.select(0)
-			plane.set_point(null)
-	
-	
 	
 	
 	Logger.write_to_log(id_callsign, "land on runway selected", point.name)
@@ -317,6 +319,7 @@ func _on_hold_toggled(toggled_on):
 		if toggled_on:
 			plane.hold()
 			plane.hold_timer.start()
+			plane.set_point(null)
 		else:
 			plane.set_heading(plane.heading)
 			plane.set_status("fly")

@@ -169,11 +169,11 @@ func get_plane_data():
 		"direct" : direct
 	}
 	
+	if !Global.log_antispam:
+		Logger.write_to_console(name, "get_plane_data()")
+		Logger.write_to_log(name, "get_plane_data()")
+	
 	return data
-	
-	
-	Logger.write_to_console(name, "get_plane_data()")
-	Logger.write_to_log(name, "get_plane_data()")
 
 
 # Slowly transition altitude/heading/speed into a new values (increases the realism)
