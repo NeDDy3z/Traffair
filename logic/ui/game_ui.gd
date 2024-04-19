@@ -4,6 +4,7 @@ extends Control
 
 
 var description : Object
+var controls : Object
 var queue : Object
 var game_time : Timer
 var counter : Label
@@ -15,6 +16,7 @@ var plane_tab_prefab : Object
 
 func _ready():
 	description = $description
+	controls = $controls
 	queue = $timetable/queue_scrollcontainer/queue_vboxcontainer
 	game_time = $game_time
 	counter = $counter/counter

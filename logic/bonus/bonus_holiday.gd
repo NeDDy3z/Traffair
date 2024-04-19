@@ -34,14 +34,16 @@ func _ready():
 
 
 # Set text of the label
-func set_text_label(json):
+func set_text_label(value):
 	var out
 	var holidays : bool
 	holidays = false
 	
-	if (json != null 
-			and not json.has("error")):
-		for item in json:
+	if (
+		value != null 
+		and not value.has("error")
+	):
+		for item in value:
 			if item["date"] == str(Time.get_date_string_from_system()):
 				out = "Name: "
 				out += item["name"]
@@ -61,12 +63,13 @@ func set_text_label(json):
 
 # On finished api request call set_text_label()
 func _on_http_request_request_completed(_result, _response_code, _headers, body):
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	set_text_label(json)
+	var value
+	value = JSON.parse_string(body.get_string_from_utf8())
+	set_text_label(value)
 	
 	
-	Logger.write_to_log(name, "pulled data from api", json)
-	Logger.write_to_console(name, "pulled data from api", json)
+	Logger.write_to_log(name, "pulled data from api", value)
+	Logger.write_to_console(name, "pulled data from api", value)
 
 
 # On button press initiate api request

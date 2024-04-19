@@ -8,11 +8,13 @@ var rng : RandomNumberGenerator
 var main_menu : String
 
 
+
+# Called when the node enters the scene tree for the first time.
 func _ready():
 	text_label = $text
 	rng = RandomNumberGenerator.new()
 	
-	main_menu = "res://levels/main_menu/main_menu.tscn"
+	main_menu = Global.main_menu_paths["main_menu"]
 	
 	random_hamburger()
 	

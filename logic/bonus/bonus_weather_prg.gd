@@ -23,20 +23,22 @@ func _ready():
 
 
 # Set text of the label
-func set_text_label(json):
+func set_text_label(value):
 	var out
-	if (json != null 
-			and not json.has("error")):
+	if (
+		value != null 
+		and not value.has("error")
+	):
 		out = "Temperature: "
-		out += str(json["current"]["temperature_2m"])
+		out += str(value["current"]["temperature_2m"])
 		out += " °C"
 		
 		out += "\nApparent temp.: "
-		out += str(json["current"]["apparent_temperature"])
+		out += str(value["current"]["apparent_temperature"])
 		out += " °C"
 		
 		out += "\nRainfalls: "
-		out += str(json["current"]["precipitation"])
+		out += str(value["current"]["precipitation"])
 		out += " mm"
 	else:
 		out = "API Error"
@@ -50,18 +52,20 @@ func set_text_label(json):
 
 # On finished api request call set_text_label()
 func _on_http_request_request_completed(_result, _response_code, _headers, body):
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	set_text_label(json)
+	var value 
+	value = JSON.parse_string(body.get_string_from_utf8())
+	set_text_label(value)
 	
 	
-	Logger.write_to_log(name, "pulled data from api", json)
-	Logger.write_to_console(name, "pulled data from api", json)
+	Logger.write_to_log(name, "pulled data from api", value)
+	Logger.write_to_console(name, "pulled data from api", value)
 
 
 # On button press initiate api request
 func _on_pressed():
 	HTTP_req.request_completed.connect(_on_http_request_request_completed)
 	HTTP_req.request(api_link)
+	
 	text_label.text = "Loading..."
 	
 	

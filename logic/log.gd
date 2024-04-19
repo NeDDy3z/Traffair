@@ -11,7 +11,7 @@ var temp_data : String = ""
 
 
 
-# Initialization
+# Called when the node enters the scene tree for the first time.
 func _ready():
 	# Make "my_logs" folder if it doesnt exist
 	dir_access = DirAccess.open("user://")

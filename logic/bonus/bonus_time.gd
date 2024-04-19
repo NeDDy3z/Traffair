@@ -19,9 +19,12 @@ func _ready():
 # Set text of the label
 func set_text_label(value):
 	var out
-	if value != null:
+	if (
+		value != null
+	):
 		out = "Time:\n"
 		out += value
+	
 	text_label.text = out
 	
 	

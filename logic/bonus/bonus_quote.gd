@@ -24,16 +24,18 @@ func _ready():
 
 
 # Set text of the label
-func set_text_label(json):
+func set_text_label(value):
 	var out
-	if (json != null 
-			and not json.has("error")):
+	if (
+		value != null 
+		and not value.has("error")
+	):
 		out = "Quote:\n"
-		out += str(json["content"])
+		out += str(value["content"])
 		out += "\n   - "
-		out += str(json["author"])
+		out += str(value["author"])
 		out += " : "
-		out += str(json["dateAdded"])
+		out += str(value["dateAdded"])
 	else:
 		out = "API Error"
 	text_label.text = out
@@ -45,12 +47,13 @@ func set_text_label(json):
 
 # On finished api request call set_text_label()
 func _on_http_request_request_completed(_result, _response_code, _headers, body):
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	set_text_label(json)
+	var value 
+	value = JSON.parse_string(body.get_string_from_utf8())
+	set_text_label(value)
 	
 	
-	Logger.write_to_log(name, "pulled data from api", json)
-	Logger.write_to_console(name, "pulled data from api", json)
+	Logger.write_to_log(name, "pulled data from api", value)
+	Logger.write_to_console(name, "pulled data from api", value)
 
 
 # On button press initiate api request

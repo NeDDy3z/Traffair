@@ -15,7 +15,9 @@ var music_label : Label
 var debug : OptionButton
 var logging : OptionButton
 
+var keybinds : String
 var main_menu : String
+
 
 
 
@@ -35,7 +37,8 @@ func _ready():
 	debug = $options_container/HBoxContainer/VBoxContainer2/debug_value
 	logging = $options_container/HBoxContainer/VBoxContainer2/logging_value
 	
-	main_menu = "res://levels/main_menu/main_menu.tscn"
+	keybinds = Global.main_menu_paths["keybinds"]
+	main_menu = Global.main_menu_paths["main_menu"]
 	
 	# Add resolution options into resolution-optionbutton
 	for res in Settings.resolutions:
@@ -116,12 +119,14 @@ func disable_resolution_selection():
 	wm_item = window_mode.get_selected_id()
 	wm_text = window_mode.get_item_text(wm_item)
 	
-	if (wm_text == Settings.window_modes[0] 
-			or wm_text == Settings.window_modes[1]):
-		resolution.disabled = true
-		# Select screen size of the display
+	if (
+		wm_text == Settings.window_modes[0] 
+		or wm_text == Settings.window_modes[1]
+	):
 		var screen_size
 		screen_size = DisplayServer.screen_get_size()
+		resolution.disabled = true
+		
 		for i in resolution.item_count:
 			if resolution.get_item_text(i).to_lower() == str(screen_size.x) +" x "+ str(screen_size.y):
 				resolution.select(i)
@@ -194,8 +199,10 @@ func _on_vsync_value_item_selected(index):
 
 func _on_fps_value_text_submitted(new_text):
 	new_text = int(new_text)
-	if (new_text < 30 
-			or new_text > 999):
+	if (
+		new_text < 30 
+		or new_text > 999
+	):
 		new_text = str(Settings.settings_data["fps"])
 		fps.text = new_text
 	
@@ -243,8 +250,10 @@ func _on_sfx_value_value_changed(value):
 	Settings.write_settings()
 	
 	
-	if (Global.debug 
-			and self.name == "main_menu_settings"):
+	if (
+		Global.debug 
+		and self.name == "main_menu_settings"
+	):
 		var explosion 
 		explosion = AudioStreamPlayer.new()
 		explosion.stream = load("res://resources/sounds/explosion.ogg")
@@ -278,7 +287,8 @@ func _on_music_value_value_changed(value):
 
 func _on_debug_value_item_selected(index):
 	# Load debug value into variable
-	var item_text = debug.get_item_text(index)
+	var item_text 
+	item_text = debug.get_item_text(index)
 	
 	# Check if value is on/off, on = true, off = false
 	if item_text.to_lower() == "on":
@@ -299,7 +309,8 @@ func _on_debug_value_item_selected(index):
 
 func _on_logging_value_item_selected(index):
 	# Load debug value into variable
-	var item_text = logging.get_item_text(index)
+	var item_text 
+	item_text = logging.get_item_text(index)
 	
 	# Check if value is on/off, on = true, off = false
 	if item_text.to_lower() == "on":
@@ -316,6 +327,15 @@ func _on_logging_value_item_selected(index):
 	
 	Logger.write_to_log(name, "debug option changed")
 	Logger.write_to_console(name, "debug option changed")
+
+
+# open keybind menu
+func _on_keybinds_pressed():
+	get_tree().change_scene_to_file(keybinds)
+	
+	
+	Logger.write_to_log(name, "open keybinds")
+	Logger.write_to_console(name, "open keybinds")
 
 
 # Return to main_menu

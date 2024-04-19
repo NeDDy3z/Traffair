@@ -5,11 +5,11 @@ extends Button
 var airport_name : String
 var airport_icao : String
 
-var text_label : Label
-var icao : LineEdit
-
 var api_link : String
 var api_key : String
+
+var text_label : Label
+var icao : LineEdit
 var HTTP_req : HTTPRequest
 var headers 
 
@@ -33,22 +33,24 @@ func _ready():
 
 
 # Set text_label of the label
-func set_text_label(json):
+func set_text_label(value):
 	var out
-	if (json != null 
-			and not json.has("error")):
+	if (
+		value != null 
+		and not value.has("error")
+	):
 		out = "Airport: "
-		out += json[0]["name"]
+		out += value[0]["name"]
 		out += "\nICAO: "
-		out += json[0]["icao"]
+		out += value[0]["icao"]
 		out += "\nIATA: "
-		out += json[0]["iata"]
+		out += value[0]["iata"]
 		out += "\nCountry: "
-		out += json[0]["country"]
+		out += value[0]["country"]
 		out += "\nCity: "
-		out += json[0]["city"]
+		out += value[0]["city"]
 		out += "\nElevation: "
-		out += json[0]["elevation_ft"]
+		out += value[0]["elevation_ft"]
 		out += " ft"
 	else:
 		out = "API Error"
@@ -61,19 +63,22 @@ func set_text_label(json):
 
 # On finished api request call set_text_label()
 func _on_http_request_request_completed(_result, _response_code, _headers, body):
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	set_text_label(json)
+	var value 
+	value = JSON.parse_string(body.get_string_from_utf8())
+	set_text_label(value)
 	
 	
-	Logger.write_to_log(name, "pulled data from api", json)
-	Logger.write_to_console(name, "pulled data from api", json)
+	Logger.write_to_log(name, "pulled data from api", value)
+	Logger.write_to_console(name, "pulled data from api", value)
 
 
 # On button press initiate api request
 func _on_pressed():
-	if (icao.text == null 
-			or icao.text == ""
-			or icao.text.to_lower() == "icao"):
+	if (
+		icao.text == null 
+		or icao.text == ""
+		or icao.text.to_lower() == "icao"
+	):
 		airport_icao = "lkpr"
 	else:
 		airport_icao = icao.text.to_lower()

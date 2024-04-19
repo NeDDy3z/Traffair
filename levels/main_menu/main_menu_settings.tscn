@@ -143,7 +143,6 @@ text = "MUSIC"
 layout_mode = 2
 
 [node name="keybinds" type="Button" parent="options_container/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6xq1x")
@@ -151,7 +150,6 @@ text = "KEYBINDS"
 alignment = 0
 
 [node name="separator3" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="debug" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
@@ -275,11 +273,9 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="separator3" type="Label" parent="options_container/HBoxContainer/VBoxContainer2"]
-visible = false
 layout_mode = 2
 
 [node name="separator4" type="Label" parent="options_container/HBoxContainer/VBoxContainer2"]
-visible = false
 layout_mode = 2
 
 [node name="debug_value" type="OptionButton" parent="options_container/HBoxContainer/VBoxContainer2"]

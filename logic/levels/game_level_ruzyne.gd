@@ -2,14 +2,15 @@ extends Control
 
 
 
-@export var plane_spawn_chance : int = 60 # in %
-@export var plane_spawn_delay_in_s : float = 12 # in seconds 
+@export var plane_spawn_chance : int = 50 # in %
+@export var plane_spawn_delay_in_s : float = 15 # in seconds 
 
 var plane_body_prefab = preload("res://prefabs/plane_body.tscn")
 
 var planes
 var target_point
 var spawner
+var game_ui
 
 var rng : RandomNumberGenerator
 var window_size : Vector2
@@ -21,11 +22,14 @@ func _ready():
 	planes = $planes
 	target_point = $target_point
 	spawner = $spawner
+	game_ui = $game_ui
 	rng = RandomNumberGenerator.new()
 	window_size = size
 	
 	spawner.wait_time = plane_spawn_delay_in_s
 	spawner.start()
+	
+	GlobalInput.load_nodes(game_ui)
 	
 	
 	Logger.write_to_log(name, "loaded")
@@ -49,8 +53,10 @@ func random_spawn_position():
 	var x : int
 	var y : int
 	x = rng.randi_range(200, window_size.x + 100)
-	if (x >= 300 
-			and x <= window_size.x):
+	if (
+		x >= 300 
+		and x <= window_size.x
+	):
 		if rng.randi()%2 == 1:
 			y = window_size.y
 		else:
@@ -58,8 +64,10 @@ func random_spawn_position():
 	else:
 		y = rng.randi_range(10, window_size.y-10)
 	
-	if (x == null 
-			and y == null):
+	if (
+		x == null 
+		and y == null
+	):
 		x = 500
 		y = 500
 	

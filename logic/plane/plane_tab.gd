@@ -48,7 +48,7 @@ func get_plane():
 			exists = true
 			return p
 	
-	if !exists:
+	if not exists:
 		queue_free()
 		description.visible = false
 		return null

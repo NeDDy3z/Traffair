@@ -21,6 +21,10 @@ func rot_to_deg(value):
 			angle -= 360
 		
 		return angle
+		
+		
+		Logger.write_to_console(name, "converstion rot_to_deg")
+		Logger.write_to_log(name, "converstion rot_to_deg")
 
 
 # Convert degrees (0,360) to Godot Engine rotation value (-180,-90,0,90,180)
@@ -29,12 +33,16 @@ func deg_to_rot(value):
 		var angle
 		angle = int(value)
 		
-		if (angle <= 360 
-				and angle >= 270):
+		if (
+			angle <= 360 
+			and angle >= 270
+		):
 			angle -= 360
 		angle -= 90
 		
 		return angle
-
-
+		
+		
+		Logger.write_to_console(name, "converstion deg_to_rot")
+		Logger.write_to_log(name, "converstion deg_to_rot")
 

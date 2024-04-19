@@ -771,19 +771,34 @@ shape = SubResource("CircleShape2D_n4n2x")
 [node name="planes" type="Node2D" parent="."]
 
 [node name="plane_body" parent="planes" instance=ExtResource("6_m4hx5")]
-position = Vector2(960, 1265)
+position = Vector2(923, 1117)
 
 [node name="plane_body2" parent="planes" instance=ExtResource("6_m4hx5")]
-position = Vector2(-123, 582)
+position = Vector2(304, 271)
 
 [node name="plane_body3" parent="planes" instance=ExtResource("6_m4hx5")]
-position = Vector2(-438, 741)
+position = Vector2(798, 440)
 
 [node name="plane_body4" parent="planes" instance=ExtResource("6_m4hx5")]
-position = Vector2(2066, 154)
+position = Vector2(2002, 112)
 
 [node name="plane_body5" parent="planes" instance=ExtResource("6_m4hx5")]
-position = Vector2(2420, 552)
+position = Vector2(1523, 780)
+
+[node name="plane_body6" parent="planes" instance=ExtResource("6_m4hx5")]
+position = Vector2(1206, 116)
+
+[node name="plane_body7" parent="planes" instance=ExtResource("6_m4hx5")]
+position = Vector2(2084, 1170)
+
+[node name="plane_body8" parent="planes" instance=ExtResource("6_m4hx5")]
+position = Vector2(1997, 594)
+
+[node name="plane_body9" parent="planes" instance=ExtResource("6_m4hx5")]
+position = Vector2(1575, 1153)
+
+[node name="plane_body10" parent="planes" instance=ExtResource("6_m4hx5")]
+position = Vector2(246, 810)
 
 [node name="target_point" type="Node2D" parent="."]
 position = Vector2(1075, 551)

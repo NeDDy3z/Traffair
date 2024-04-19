@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdt8ethrd4i63"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_llisa"]
+
+[node name="action" type="HBoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+theme_override_constants/separation = 100
+
+[node name="action_label" type="Label" parent="."]
+layout_mode = 2
+
+[node name="separator" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="action_value" type="Button" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_llisa")
+alignment = 2

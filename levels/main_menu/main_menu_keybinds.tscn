@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://b1unk560uphe"]
 
 [ext_resource type="Theme" uid="uid://dtljlfpi5hkeh" path="res://resources/themes/styles/main_menu.tres" id="1_e2kmn"]
-[ext_resource type="Script" path="res://logic/main_menu/main_menu_settings.gd" id="2_uo821"]
+[ext_resource type="Script" path="res://logic/main_menu/main_menu_keybinds.gd" id="2_invre"]
 [ext_resource type="Texture2D" uid="uid://d235ugdj62yp4" path="res://resources/textures/levels/mainmenu.png" id="3_751xu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sp8m"]
@@ -40,7 +40,7 @@ OptionButton/styles/pressed = SubResource("StyleBoxFlat_wnrvl")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6xq1x"]
 
-[node name="main_menu_settings" type="Control"]
+[node name="main_menu_keybinds" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,7 +48,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_e2kmn")
-script = ExtResource("2_uo821")
+script = ExtResource("2_invre")
 
 [node name="background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -66,61 +66,14 @@ expand_mode = 1
 layout_mode = 0
 offset_left = 20.0
 offset_top = 100.0
-offset_right = 593.0
-offset_bottom = 523.0
+offset_right = 720.0
+offset_bottom = 889.0
 theme = SubResource("Theme_bfiil")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 80
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="pause" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "PAUSE"
-
-[node name="speedup_forward" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "SPEEDUP FORWARD"
-
-[node name="speedup_backward" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "SPEEDUP BACKWARD"
-
-[node name="separator" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="plane_land" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "PLANE LANDING"
-
-[node name="plane_hold" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "PLANE HOLD"
-
-[node name="plane_alt" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "PLANE ALT"
-
-[node name="plane_hdg" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "PLANE HDG"
-
-[node name="plane_spd" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "PLANE SPD"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(80, 0)
+[node name="action_list" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 theme_override_constants/separation = 5
-
-[node name="window_mode" type="OptionButton" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 35
-allow_reselect = true
 
 [node name="back_to_main_menu_container" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -137,8 +90,7 @@ grow_vertical = 0
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6xq1x")
-text = "BACK TO MAIN MENU"
+text = "BACK TO SETTINGS"
 alignment = 0
 
-[connection signal="item_selected" from="MarginContainer/HBoxContainer/VBoxContainer2/window_mode" to="." method="_on_window_mode_item_selected"]
 [connection signal="pressed" from="back_to_main_menu_container/back" to="." method="_on_back_pressed"]

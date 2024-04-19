@@ -39,15 +39,29 @@ func get_plane(object):
 			return p
 
 
+func can_land(plane_data):
+	if (
+		plane_data["altitude"] <= 6000 
+		and plane_data["speed"] <= 150
+	):
+		return true
+		
+	else:
+		return false
+
+
 # On runway point collision its sent to land on runway
 func _on_rw_07_body_entered(body):
-	if body.is_in_group("plane") and body.is_in_group("land"):
+	if (
+		body.is_in_group("plane") 
+		and body.is_in_group("land")
+	):
 		var plane 
 		var plane_data
 		plane = get_plane(body.get_node("./"))
 		plane_data = plane.get_plane_data()
 		
-		if plane_data["altitude"] <= 6000 and plane_data["speed"] <= 150:
+		if can_land(plane_data):
 			land.select(0)
 			
 			plane.set_point(landing)
@@ -71,13 +85,16 @@ func _on_rw_07_body_entered(body):
 
 # On runway point collision it's sent to land on runway
 func _on_rw_25_body_entered(body):
-	if body.is_in_group("plane") and body.is_in_group("land"):
+	if (
+		body.is_in_group("plane") 
+		and body.is_in_group("land")
+	):
 		var plane 
 		var plane_data
 		plane = get_plane(body.get_node("./"))
 		plane_data = plane.get_plane_data()
 		
-		if plane_data["altitude"] <= 6000 and plane_data["speed"] <= 150:
+		if can_land(plane_data):
 			land.select(0)
 			
 			plane.set_point(landing)

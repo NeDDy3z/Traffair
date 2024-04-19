@@ -28,8 +28,10 @@ func _ready():
 # Set text of the label
 func set_text_label(value):
 	var out
-	if (value != null 
-			and not value.contains("error")):
+	if (
+		value != null 
+		and not value.contains("error")
+	):
 		out = "Date: "
 		out += date
 		
@@ -46,7 +48,8 @@ func set_text_label(value):
 
 # On finished api request call set_text_label()
 func _on_http_request_request_completed(_result, _response_code, _headers, body):
-	var value = body.get_string_from_utf8()
+	var value 
+	value = body.get_string_from_utf8()
 	set_text_label(value)
 	
 	

@@ -134,7 +134,7 @@ func _ready():
 	scroll_container = $ScrollContainer
 	scroll_vboxcont = $ScrollContainer/scroll_VBoxContainer
 	
-	main_menu = "res://levels/main_menu/main_menu.tscn"
+	main_menu = Global.main_menu_paths["main_menu"]
 	
 	# All containers into an array
 	for child in scroll_vboxcont.get_children():

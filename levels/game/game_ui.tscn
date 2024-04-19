@@ -235,6 +235,15 @@ autostart = true
 wait_time = 3.0
 autostart = true
 
+[node name="background" type="ColorRect" parent="description"]
+layout_mode = 2
+anchor_bottom = 1.0
+offset_right = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.105882, 0.117647, 0.129412, 1)
+metadata/_edit_use_anchors_ = true
+
 [node name="line" type="ColorRect" parent="description"]
 layout_mode = 1
 anchors_preset = -1

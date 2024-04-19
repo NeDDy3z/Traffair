@@ -18,7 +18,7 @@ func _ready():
 	github = "www.github.com/neddy3z/"
 	linkedin = "https://www.linkedin.com/in/vanekerik/"
 	
-	main_menu = "res://levels/main_menu/main_menu.tscn"
+	main_menu = Global.main_menu_paths["main_menu"]
 	image.texture = load("res://art/chef.png")
 	
 	
@@ -37,8 +37,10 @@ func _on_godot_pressed():
 
 # Open github/linkedin
 func _on_erik_gui_input(event):
-	if (event is InputEventMouseButton
-			and event.pressed):
+	if (
+		event is InputEventMouseButton
+		and event.pressed
+	):
 		match event.button_index:
 			1: # On left mouse click open github
 				OS.shell_open(github)

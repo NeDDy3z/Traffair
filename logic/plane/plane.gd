@@ -72,9 +72,11 @@ func _ready():
 	data_timer.start()
 	
 	# Randomly place a target point to which the plane will direct to (only used for spawning)
-	if ((heading == null 
+	if (
+		(heading == null 
 			or heading == 0)
-			and !Global.debug):
+		and !Global.debug
+	):
 		target_offset_x = rng.randf_range(500+300, 1000+300)
 		target_offset_y = rng.randf_range(300, 800)
 		target_point.position = Vector2(target_offset_x, target_offset_y)
@@ -90,11 +92,15 @@ func _ready():
 	callsign = generate_callsign()
 	status = states["fly"]
 	
-	if (altitude == null 
-			or altitude == 0):
+	if (
+		altitude == null 
+		or altitude == 0
+	):
 		altitude = generate_altitude()
-	if (speed == null 
-			or speed == 0):
+	if (
+		speed == null 
+		or speed == 0
+	):
 		speed = generate_speed()
 	
 	# Set ID & node name; and increment it
@@ -102,10 +108,8 @@ func _ready():
 	Global.plane_index += 1
 	
 	
-	
 	Logger.write_to_console(name, "spawn", "plane_count="+str(Global.plane_index))
 	Logger.write_to_log(name, "spawn", "plane_count="+str(Global.plane_index))
-	Logger.write_to_console("-")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -118,21 +122,31 @@ func _process(_delta):
 # Moevement stuff
 func _physics_process(_delta):
 	# Destroy if out of the screen
-	if (position.x > window_size.x + 500
-			or position.x < -500):
+	if (
+		position.x > window_size.x + 500
+		or position.x < -500
+	):
 		queue_free()
-	if (position.y > window_size.y + 500
-			or position.y < -500):
+	
+	if (
+		position.y > window_size.y + 500
+		or position.y < -500
+	):
 		queue_free()
 	
 	# Go faster if outside of the screen
-	if (position.x < window_size.x + 20
-			and position.x > 380):
+	if (
+		position.x < window_size.x + 20
+		and position.x > 380
+	):
 		speed_up = 1
 	else:
 		speed_up = 10
-	if (position.y < window_size.y + 10
-			and position.y > -10):
+	
+	if (
+		position.y < window_size.y + 10
+		and position.y > -10
+	):
 		speed_up = 1
 	else:
 		speed_up = 10
@@ -156,13 +170,19 @@ func get_plane_data():
 	}
 	
 	return data
+	
+	
+	Logger.write_to_console(name, "get_plane_data()")
+	Logger.write_to_log(name, "get_plane_data()")
 
 
 # Slowly transition altitude/heading/speed into a new values (increases the realism)
 func slow_update_data():
 	# Slowupdate altitude
-	if (new_alt != null 
-			and altitude != new_alt):
+	if (
+		new_alt != null 
+		and altitude != new_alt
+	):
 		if altitude > new_alt:
 			altitude -= 25
 			if altitude <= new_alt:
@@ -175,8 +195,10 @@ func slow_update_data():
 				new_alt = null
 	
 	# Slowupdate speed
-	if (new_spd != null 
-			and speed != new_spd):
+	if (
+		new_spd != null 
+		and speed != new_spd
+	):
 		if speed > new_spd:
 			speed -= 2
 			if speed <= new_spd:
@@ -189,8 +211,10 @@ func slow_update_data():
 				new_spd = null
 	
 	# Slowupdate heading
-	if (new_hdg != null 
-			and heading != new_hdg):
+	if (
+		new_hdg != null 
+		and heading != new_hdg
+	):
 		var difference 
 		difference = (new_hdg%360 - heading%360 + 360) % 360
 		
@@ -199,8 +223,10 @@ func slow_update_data():
 		else:
 			heading_rotation -= 2
 		
-		if (difference < 4
-				or difference >= 358):
+		if (
+			difference < 4
+			or difference >= 358
+		):
 			heading_rotation = new_hdg
 		
 		if heading_rotation != 90:
@@ -315,7 +341,7 @@ func hold():
 	status = states["hold"]
 	
 	set_heading(Math.rot_to_deg(direction.rotation_degrees * -1))
-	print("holdssssssssssssssss")
+	
 	
 	Logger.write_to_log(name, "hold()")
 	Logger.write_to_console(name, "hold()")
@@ -352,14 +378,17 @@ func hide_and_freeze():
 #                      - Select plane_tab in GAME_UI sidebar when the Plane was interacted with already
 func _on_plane_button_pressed():
 	var plane_tabs 
-	plane_tabs = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer").get_children()
 	var contains
+	
+	plane_tabs = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer").get_children()
 	contains = false
 	
 	for pt in plane_tabs:
-		if pt.name == "plane_tab"+str(name):
+		print(pt.name, name)
+		if pt.name == "plane_tab"+str(name.replace("plane_","")):
 			pt.get_child(0).emit_signal("pressed")
 			contains = true
+	
 	if !contains:
 		game_ui.add_plane_tab(self)
 		plane_tabs = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer").get_children()
@@ -368,10 +397,12 @@ func _on_plane_button_pressed():
 
 # Collision
 func _on_area_2d_body_entered(body):
-	if (body.is_in_group("plane") 
-			and name != body.name
-			and (altitude - body.altitude <= 150
-			and  altitude - body.altitude >= -150)):
+	if (
+		body.is_in_group("plane") 
+		and name != body.name
+		and (altitude - body.altitude <= 150
+		and  altitude - body.altitude >= -150)
+	):
 		
 		var explosion
 		explosion = plane_explosion_prefab.instantiate()

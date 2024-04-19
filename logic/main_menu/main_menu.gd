@@ -10,12 +10,13 @@ var credits : String
 
 
 
+# Called when the node enters the scene tree for the first time.
 func _ready():
 	level_selection = $level_selection
-	settings = "res://levels/main_menu/main_menu_settings.tscn"
-	tutorial = "res://levels/main_menu/main_menu_tutorial.tscn"
-	bonus = "res://levels/main_menu/main_menu_bonus.tscn"
-	credits = "res://levels/main_menu/main_menu_credits.tscn"
+	settings = Global.main_menu_paths["settings"]
+	tutorial = Global.main_menu_paths["tutorial"]
+	bonus = Global.main_menu_paths["bonus"]
+	credits = Global.main_menu_paths["credits"]
 	
 	level_selection.visible = false
 	

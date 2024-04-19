@@ -36,7 +36,7 @@ func _ready():
 
 
 # Go thru speeds forward
-func speed_forwards():
+func speed_forward():
 	if current_position == time_scale_stages.size() - 1:
 		current_position = 0
 	else:
@@ -51,7 +51,7 @@ func speed_forwards():
 
 
 # Go thru speeds backwards
-func speed_backwards():
+func speed_backward():
 	if current_position == 0:
 		current_position = time_scale_stages.size() - 1
 	else:
@@ -65,34 +65,17 @@ func speed_backwards():
 	Logger.write_to_console(name, "game spedup", time_scale_stages[current_position])
 
 
-# Read input from user
-func _unhandled_input(event):
-	if (event is InputEventKey
-			and event.pressed):
-		match event.keycode:
-			KEY_ESCAPE:
-				pause.set_pressed(!get_tree().paused)
-				
-				Logger.write_to_log(name, "game paused - ESC", "ingame")
-				Logger.write_to_console(name, "game paused - ESC", "ingame")
-		 	
-			KEY_RIGHT: # On right arrow cycle right
-				speed_forwards()
-			
-			KEY_LEFT: # On left arrow cycle left
-				speed_backwards()
-
-
 # Speedup input - left/right mouse click
 func _on_speedup_gui_input(event):
-	if (event is InputEventMouseButton
-			and event.pressed):
+	if (
+		event is InputEventMouseButton
+		and event.pressed
+	):
 		match event.button_index:
 			1: # On left mouse click
-				speed_forwards()
-			
+				speed_forward()
 			2: # On right mouse click
-				speed_backwards()
+				speed_backward()
 
 
 # Pause game - "freeze"
