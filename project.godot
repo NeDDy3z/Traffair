@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Traffair"
+config/name="Traffair-clean"
 config/description="2D Arcade ATC simulator"
 config/version="1.0"
 run/main_scene="res://levels/main_menu/main_menu.tscn"
