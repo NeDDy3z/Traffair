@@ -156,10 +156,6 @@ layout_mode = 2
 layout_mode = 2
 text = "DEBUG"
 
-[node name="logging" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "LOGGING"
-
 [node name="VBoxContainer2" type="VBoxContainer" parent="options_container/HBoxContainer"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
@@ -288,16 +284,6 @@ popup/item_0/id = 1
 popup/item_1/text = "OFF"
 popup/item_1/id = 0
 
-[node name="logging_value" type="OptionButton" parent="options_container/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 35
-item_count = 2
-selected = 0
-popup/item_0/text = "ON"
-popup/item_0/id = 1
-popup/item_1/text = "OFF"
-popup/item_1/id = 0
-
 [node name="back_to_main_menu_container" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
@@ -325,5 +311,4 @@ alignment = 0
 [connection signal="value_changed" from="options_container/HBoxContainer/VBoxContainer2/sfx_box/sfx_value" to="." method="_on_sfx_value_value_changed"]
 [connection signal="value_changed" from="options_container/HBoxContainer/VBoxContainer2/music_box/music_value" to="." method="_on_music_value_value_changed"]
 [connection signal="item_selected" from="options_container/HBoxContainer/VBoxContainer2/debug_value" to="." method="_on_debug_value_item_selected"]
-[connection signal="item_selected" from="options_container/HBoxContainer/VBoxContainer2/logging_value" to="." method="_on_logging_value_item_selected"]
 [connection signal="pressed" from="back_to_main_menu_container/back" to="." method="_on_back_pressed"]

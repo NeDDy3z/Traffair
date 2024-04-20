@@ -1,6 +1,5 @@
 ## Target point is a point at which planes travel towards on their spawn, [br]
 ## it ensures the planes always travel from outside of the view towards the center of a map (the airport)
-
 extends Node2D
 
 
@@ -20,7 +19,3 @@ func _ready():
 			sprite.visible = true
 		false:
 			sprite.visible = false
-	
-	
-	Logger.write_to_console(name, "loaded")
-	Logger.write_to_log(name, "loaded")

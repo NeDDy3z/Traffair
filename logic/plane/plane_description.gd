@@ -5,40 +5,25 @@ extends Control
 const NORMAL = Color("00aeff")
 const HOVER = Color("74c8ff")
 
-var labels : Dictionary
-var plane
-var data
+@onready var labels = {
+	"callsign" : $VBoxContainer/callsign,
+	"heading" : $VBoxContainer/HBoxContainer/heading,
+	"altitude" : $VBoxContainer/HBoxContainer/altitude
+}
 
-var plane_tab
-
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	labels = {
-		"callsign" : $VBoxContainer/callsign,
-		"heading" : $VBoxContainer/HBoxContainer/heading,
-		"altitude" : $VBoxContainer/HBoxContainer/altitude
-	}
-	
-	
-	Logger.write_to_console(name, "loaded")
-	Logger.write_to_log(name, "loaded")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	plane = get_parent()
-	data = plane.get_plane_data()
-	if data != null:
+	var plane = get_parent()
+	if plane.get_plane_data() != null:
 		update_data(data["callsign"], data["altitude"], data["heading"])
 
 
 # Update plane data
 func update_data(u_callsign, u_altitude, u_heading):
 	# Make heading text 3chars long
-	var hdg
-	hdg = str(int(u_heading))
+	var hdg = str(int(u_heading))
 	if len(hdg) == 1:
 		hdg = "00" + str(hdg)
 	elif len(hdg) == 2:

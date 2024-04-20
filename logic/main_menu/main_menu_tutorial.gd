@@ -117,25 +117,19 @@ const tutorials : Dictionary = {
 		}
 }
 
-var scroll_container
-var scroll_vboxcont
 var containers : Array
 
 var title_0
 var description_0
 var image_0
 
-var main_menu
+@onready var scroll_container = $ScrollContainer
+@onready var scroll_vboxcont = $ScrollContainer/scroll_VBoxContainer
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	## Initialize variables
-	scroll_container = $ScrollContainer
-	scroll_vboxcont = $ScrollContainer/scroll_VBoxContainer
-	main_menu = Global.main_menu_paths["main_menu"]
-	
 	## Put all containers into an array
 	for child in scroll_vboxcont.get_children():
 		containers.append(child)
@@ -144,9 +138,6 @@ func _ready():
 	title_0 = containers[0].get_child(0)
 	description_0 = containers[0].get_child(1)
 	image_0 = containers[0].get_child(2)
-	
-	Logger.write_to_log(name, "loaded")
-	Logger.write_to_console(name, "loaded")
 
 
 ## Set the value of text in [Label]s to null
@@ -163,10 +154,6 @@ func _on_game_pressed():
 	title_0.text = tutorials["game"]["title"]
 	description_0.text = tutorials["game"]["description"]
 	#image_0.image = tutorials[0]["image"] 
-	
-	
-	Logger.write_to_log(name, "game description")
-	Logger.write_to_console(name, "game description")
 
 
 ## On Basics [Button] press show basics tutorial
@@ -175,10 +162,6 @@ func _on_basics_pressed():
 	title_0.text = tutorials["basics"]["title"]
 	description_0.text = tutorials["basics"]["description"]
 	#image_0.image = tutorials[0]["image"] 
-	
-	
-	Logger.write_to_log(name, "game basics")
-	Logger.write_to_console(name, "game basics")
 
 
 ## On Tips [Button] press show tips
@@ -187,10 +170,6 @@ func _on_tips_pressed():
 	title_0.text = tutorials["tips"]["title"]
 	description_0.text = tutorials["tips"]["description"]
 	#image_0.image = tutorials[0]["image"] 
-	
-	
-	Logger.write_to_log(name, "game tips")
-	Logger.write_to_console(name, "game tips")
 
 
 # TODO
@@ -204,16 +183,8 @@ func _on_controls_pressed():
 	
 
 	#image.image = tutorials["ui_1"]["image"] 
-	
-	
-	Logger.write_to_log(name, "game description")
-	Logger.write_to_console(name, "game description")
 
 
 ## Return to mainMenu [main_menu.tsnc] on BackToMainMenu [Button] press
 func _on_back_pressed():
-	get_tree().change_scene_to_file(main_menu)
-	
-	
-	Logger.write_to_log(name, "open main_menu")
-	Logger.write_to_console(name, "open main_menu")
+	get_tree().change_scene_to_file(Global.main_menu_paths["main_menu"])

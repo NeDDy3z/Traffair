@@ -11,24 +11,21 @@ extends Control
 @export var speed_min : int = 120
 @export var speed_max : int = 350
 
-var callsign_label : Label
-var altitude : LineEdit
-var heading : LineEdit
-var speed : LineEdit
-var status_label : Label
-var direct : OptionButton
-var land : OptionButton
-var hold : Button
-
 var nav_points_list : Dictionary
 var runways_list : Dictionary
-
 var id_callsign
-var planes
-var nav_points
-var runways
-var update_repeat_s : int = 1
-var i : int
+
+@onready var callsign_label = $callsign
+@onready var altitude = $data/values/altitude_value
+@onready var heading = $data/values/heading_value
+@onready var speed = $data/values/speed_value
+@onready var status_label = $status/status
+@onready var direct = $data/values/direct_value
+@onready var land = $commands/land
+@onready var hold = $commands/hold
+@onready var planes = get_node("../../planes")
+@onready var nav_points = get_node("../../nav_points")
+@onready var runways = get_node("../../runways")
 
 
 
@@ -36,30 +33,13 @@ var i : int
 func _ready():
 	## [PROCESS_MODE_ALWAYS] ensures the script will still work when the game is frozen
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	
-	## Initialize variables
-	callsign_label = $callsign
-	altitude = $data/values/altitude_value
-	heading = $data/values/heading_value
-	speed = $data/values/speed_value
-	status_label = $status/status
-	direct = $data/values/direct_value
-	land = $commands/land
-	hold = $commands/hold
-	
-	planes = get_node("../../planes")
-	nav_points = get_node("../../nav_points")
-	runways = get_node("../../runways")
+
 	load_nav_points()
 	load_runways()
 	
 	## Reset the [OptionButton]s selection 
 	direct.select(0)
 	land.select(0)
-	
-	
-	Logger.write_to_log(name, "loaded")
-	Logger.write_to_console(name, "loaded")
 
 
 ## Retrieve [Plane] by its callsign
@@ -110,10 +90,6 @@ func get_direct_runway(value):
 ## Set a reference callsign
 func callsign_reference(value):
 	id_callsign = value.text
-	
-	
-	Logger.write_to_log(name, "callsign reference set")
-	Logger.write_to_console(name, "callsign reference set")
 
 
 ## Load all direct_points to the Direct [OptionButton]
@@ -124,10 +100,6 @@ func load_nav_points():
 		for n in n_p:
 			nav_points_list[n.name.to_upper()] = n
 			direct.add_item(n.name.to_upper())
-	
-	
-	Logger.write_to_log(id_callsign, "nav_points_selection loaded")
-	Logger.write_to_console(id_callsign, "nav_points_selection loaded")
 
 
 ## Load all runway_points to the Land [OptionButton]
@@ -142,31 +114,14 @@ func load_runways():
 				if r.name.contains("rw"):
 					runways_list[r.name.to_upper()] = r
 					land.add_item(r.name.to_upper())
-	
-	
-	Logger.write_to_log(id_callsign, "runways_selection loaded")
-	Logger.write_to_console(id_callsign, "runways_selection loaded")
 
 
 ## Reset [Plane] direction on landing canceled
 func cancel(plane):
 	if plane.is_in_group("landing"):
 		plane.cancel_landing()
-		reset_selection()
-		
-		
-		Logger.write_to_log(name, "cancel")
-		Logger.write_to_console(name, "cancel")
-
-
-## Reset selection of Direct & Land [OptionButton]s
-func reset_selection():
-	direct.select(0)
-	land.select(0)
-	
-	
-	Logger.write_to_log(name, "reset selection")
-	Logger.write_to_console(name, "reset selection")
+		direct.select(0)
+		land.select(0)
 
 
 ## Turn off [game_ui_description] input when [Plane] initiates landing
@@ -181,10 +136,6 @@ func disable_input(plane : Object = null):
 		direct.disabled = true
 		land.disabled = true
 		hold.disabled = true
-		
-		
-		Logger.write_to_log(id_callsign, "disabled input")
-		Logger.write_to_console(id_callsign, "disabled input")
 
 
 ## Set altitude of a [Plane] on [altitude.value] text submit
@@ -200,12 +151,8 @@ func _on_altitude_value_text_submitted(new_text):
 	
 	altitude.text = str(new_text)
 	
-	var plane
-	plane = get_plane()
+	var plane = get_plane()
 	plane.set_altitude(new_text)
-	
-	Logger.write_to_log(id_callsign, "altitude set", new_text)
-	Logger.write_to_console(id_callsign, "altitude set", new_text)
 
 
 ## Set heading of a [Plane] on [heading.value] text submit
@@ -221,8 +168,7 @@ func _on_heading_value_text_submitted(new_text):
 	
 	heading.text = str(new_text)
 	
-	var plane
-	plane = get_plane()
+	var plane = get_plane()
 	plane.set_heading(new_text)
 	plane.set_status("fly")
 	
@@ -230,9 +176,6 @@ func _on_heading_value_text_submitted(new_text):
 	hold.emit_signal("toggled", false)
 	land.select(0)
 	direct.select(0)
-	
-	Logger.write_to_log(id_callsign, "heading set", new_text)
-	Logger.write_to_console(id_callsign, "heading set", new_text)
 
 
 ## Set speed of a [Plane] on [speed.value] text submit
@@ -248,22 +191,16 @@ func _on_speed_value_text_submitted(new_text):
 	
 	speed.text = str(new_text)
 	
-	var plane
-	plane = get_plane()
+	var plane = get_plane()
 	plane.set_speed(new_text)
-	
-	
-	Logger.write_to_log(id_callsign, "speed set", new_text)
-	Logger.write_to_console(id_callsign, "speed set", new_text)
 
 
 ## Set point of a [Plane] on Direct [OptionButton] selection
 ## Reset selection in a Land [OptionButton]
 func _on_direct_value_item_selected(index):
-	var plane
+	var plane = get_plane()
 	var point
 	
-	plane = get_plane()
 	land.select(0)
 	hold.emit_signal("toggled", false)
 	
@@ -273,28 +210,20 @@ func _on_direct_value_item_selected(index):
 			
 			plane.set_point(point)
 			plane.set_status("direct")
-		elif (
-			index == 0 
-			and direct.has_focus()
-		):
+		elif index == 0 and direct.has_focus():
 			plane.set_point(null)
 			plane.set_status("fly")
 			
 			point = Node.new()
 			point.name = "none"
-	
-	
-	Logger.write_to_log(id_callsign, "fly towards nav_point selected", point.name)
-	Logger.write_to_console(id_callsign, "fly towards nav_point selected", point.name)
 
 
 ## Set point of a [Plane] on Land [OptionButton] selection
 ## Reset selection in a Direct [OptionButton]
 func _on_land_item_selected(index):
-	var plane
+	var plane = get_plane()
 	var point
 	
-	plane = get_plane()
 	direct.select(0)
 	hold.emit_signal("toggled", false)
 	
@@ -305,25 +234,17 @@ func _on_land_item_selected(index):
 			plane.set_point(point)
 			plane.set_status("direct")
 			plane.add_to_group("land")
-		elif (
-			index == 0
-			and land.has_focus()
-		):
+		elif index == 0 and land.has_focus():
 			plane.set_point(null)
 			plane.set_status("fly")
 			
 			point = Node.new()
 			point.name = "none"
-	
-	
-	Logger.write_to_log(id_callsign, "land on runway selected", point.name)
-	Logger.write_to_console(id_callsign, "land on runway selected", point.name)
 
 
 ## Set [Plane] to holding pattern on Hold [Button] toggle
 func _on_hold_toggled(toggled_on):
-	var plane
-	plane = get_plane()
+	var plane = get_plane()
 	
 	if visible:
 		if toggled_on:
@@ -334,10 +255,6 @@ func _on_hold_toggled(toggled_on):
 			plane.set_heading(plane.heading)
 			plane.set_status("fly")
 			plane.hold_timer.stop()
-	
-	
-	Logger.write_to_log(id_callsign, "hold toggled", toggled_on)
-	Logger.write_to_console(id_callsign, "hold toggled", toggled_on)
 
 
 ## Update data on description open

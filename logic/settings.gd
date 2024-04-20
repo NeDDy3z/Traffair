@@ -31,8 +31,7 @@ const required_settings_keys = [
 	"brightness",
 	"sfx",
 	"music",
-	"debug",
-	"logging"
+	"debug"
 ]
 const settings_data_default = {
 	"window_mode" : "window",
@@ -42,12 +41,11 @@ const settings_data_default = {
 	"brightness" : 1.0,
 	"sfx" : 50,
 	"music" : 50,
-	"debug" : false,
-	"logging" : true
+	"debug" : false
 }
 var settings_data
 
-var file_path : String
+var file_path : String = "user://settings/settings.conf"
 var dir_access 
 var read
 var write
@@ -57,19 +55,12 @@ var write
 ## Load settings on startup
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	## Set file_path of settings file
-	file_path = "user://settings/settings.conf"
-	
 	## Create settings folder
 	create_settings()
 	
 	## Load saved settings into values
 	read_settings()
 	load_settings()
-	
-	
-	Logger.write_to_log(name, "loaded")
-	Logger.write_to_console(name, "loaded")
 
 
 ## Create "settings" folder if it doesnt exist
@@ -80,10 +71,6 @@ func create_settings():
 	## Create settings file if it doesnt exist (it definitely doesnt)
 	if not FileAccess.file_exists("user://settings/settings.conf"):
 		write_settings(settings_data_default)
-	
-	
-	Logger.write_to_log(name, "created settings folder and file")
-	Logger.write_to_console(name, "created settings folder and file")
 
 
 ## Load settings from file
@@ -103,16 +90,8 @@ func read_settings():
 		## Prevent zero value
 		if settings_data["brightness"] == 0:
 			settings_data["brightness"] = 0.1
-		
-		
-		Logger.write_to_log(name, "read settings")
-		Logger.write_to_console(name, "read settings")
 	else:
 		create_settings()
-		
-		
-		Logger.write_to_log(name, "failed to read settings", "settings file does not exist")
-		Logger.write_to_console(name, "failed to read settings", "settings file does not exist")
 
 
 ## Save settings to file 
@@ -125,10 +104,7 @@ func write_settings(value : Dictionary = settings_data):
 	write = FileAccess.open(file_path, FileAccess.WRITE)
 	write.store_line(storable_settings.to_lower())
 	write.close()
-	
-	
-	Logger.write_to_log(name, "write settings")
-	Logger.write_to_console(name, "write settings")
+
 
 
 func load_settings():
@@ -140,11 +116,6 @@ func load_settings():
 	set_sfx(settings_data["sfx"])
 	set_music(settings_data["music"])
 	set_debug(settings_data["debug"])
-	set_logging(settings_data["logging"])
-	
-	
-	Logger.write_to_log(name, "load settings")
-	Logger.write_to_console(name, "load settings")
 
 
 ## Validate if dictionary contains all required keys and corresponding data
@@ -154,17 +125,10 @@ func validate_dic(value : Dictionary):
 		if key not in value:
 			valid = false
 	
-	if valid:
-		Logger.write_to_log(name, "settings valid", valid)
-		Logger.write_to_console(name, "settings valid", valid)
-	else:
+	if !valid:
 		write_settings(settings_data_default)
 		read_settings()
-		
-		Logger.write_to_log(name, "settings valid", valid)
-		Logger.write_to_console(name, "settings valid", valid)
-		Logger.write_to_log(name, "settings reset")
-		Logger.write_to_console(name, "settings reset")
+
 
 
 ## Set fullscreen
@@ -182,26 +146,16 @@ func set_window_mode(value):
 		"window-bordless":
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
-	
-	
-	Logger.write_to_log(name, "window_mode set", value)
-	Logger.write_to_console(name, "window_mode set", value)
 
 
 ## Set resolution
 func set_resolution(value):
 	if value is Vector2i:
 		DisplayServer.window_set_size(value)
-	elif value:
-		var x 
-		var y
-		x = int(value.split(" x ")[0])
-		y = int(value.split(" x ")[1])
+	elif value: 
+		var x = int(value.split(" x ")[0])
+		var y = int(value.split(" x ")[1])
 		DisplayServer.window_set_size(Vector2i(x,y))
-		
-	
-	Logger.write_to_log(name, "resolution set", value)
-	Logger.write_to_console(name, "resolution set", value)
 
 
 ## Set vsync
@@ -213,19 +167,11 @@ func set_vsync(value):
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 		"adaptive":
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ADAPTIVE)
-	
-	
-	Logger.write_to_log(name, "vsync set", value)
-	Logger.write_to_console(name, "vsync set", value)
 
 
 ## Set fps
 func set_fps(value):
 	Engine.max_fps = value
-	
-	
-	Logger.write_to_log(name, "fps set", value)
-	Logger.write_to_console(name, "fps set", value)
 
 
 ## Set brightness
@@ -236,75 +182,36 @@ func set_brightness(value):
 	
 	## Set brightness of "brightness_control.tsnc"
 	BrightnessControl.environment.adjustment_brightness = value
-	
-	
-	Logger.write_to_log(name, "brightness set", value)
-	Logger.write_to_console(name, "brightness set", value)
 
 
 ## Set sound level
 func set_sfx(value):
-	var sfx 
-	var db
-	
-	sfx = AudioServer.get_bus_index("SFX")
-	db = (float(value) / 100) * 80 - 80 ## Convert <0-100> to <-80,-0>
+	var sfx = AudioServer.get_bus_index("SFX")
+	var db = (float(value) / 100) * 80 - 80 ## Convert <0-100> to <-80,-0>
 	
 	if sfx >= 0:
 		AudioServer.set_bus_volume_db(sfx, db)
-	
-	
-	Logger.write_to_log(name, "sfx volume set", value)
-	Logger.write_to_console(name, "sfx volume set", value)
+
 
 
 ## Set music level
 func set_music(value : int = settings_data["music"]):
-	var music
-	var db
-	
-	music = AudioServer.get_bus_index("Music")
-	db = (float(value) / 100) * 80 - 80 ## Convert <0-100> to <-80,-0>
+	var music = AudioServer.get_bus_index("Music")
+	var db = (float(value) / 100) * 80 - 80 ## Convert <0-100> to <-80,-0>
 	
 	if music >= 0:
 		AudioServer.set_bus_volume_db(music, db)
-	
-	
-	Logger.write_to_log(name, "music volume set", value)
-	Logger.write_to_console(name, "music volume set", value)
 
 
 ## Set debug
 func set_debug(value):
-	## Set global variable debug
 	Global.debug = value
-	
-	
-	Logger.write_to_log(name, "debug set", value)
-	Logger.write_to_console(name, "debug set", value)
-
-
-## Set logging
-func set_logging(value):
-	Logger.write_to_log(name, "logging set", value)
-	Logger.write_to_console(name, "logging set", value)
-	
-	
-	Global.logging = value
-	## Formatting reversed because the logger will stop working after setting it to false
 
 
 ## Get window size
 func get_resolution():
-	var res
-	var x
-	var y
-	
-	res = settings_data["resolution"]
-	x = res[0]
-	y = res[1]
-	
-	Logger.write_to_log(name, "resolution get", x+","+y)
-	Logger.write_to_console(name, "resolution get", x+","+y)
+	var res = settings_data["resolution"]
+	var x = res[0]
+	var y = res[1]
 	
 	return Vector2(x,y)

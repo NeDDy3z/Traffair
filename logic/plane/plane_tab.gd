@@ -2,36 +2,18 @@ extends Control
 
 
 
-var callsign : Label
-var altitude : Label
-var heading : Label
-var speed : Label
-
-var planes : Object
-var description : Object
-
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	## Initialize variables
-	callsign = $Button/callsign
-	altitude = $Button/data_hboxcontainer/values_vboxcontainer/altitude_value
-	heading = $Button/data_hboxcontainer/values_vboxcontainer/heading_value
-	speed = $Button/data_hboxcontainer/values_vboxcontainer/speed_value
-	planes = get_node("../../../../../planes")
-	description = get_node("../../../../description")
-	
-	
-	Logger.write_to_log(name, "loaded")
-	Logger.write_to_console(name, "loaded")
+@onready var callsign = $Button/callsign
+@onready var altitude = $Button/data_hboxcontainer/values_vboxcontainer/altitude_value
+@onready var heading = $Button/data_hboxcontainer/values_vboxcontainer/heading_value
+@onready var speed = $Button/data_hboxcontainer/values_vboxcontainer/speed_value
+@onready var planes = get_node("../../../../../planes")
+@onready var description = get_node("../../../../description")
 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	var data
-	data = get_plane()
+	var data = get_plane()
 	if data != null:
 		data = data.get_plane_data()
 		update_data(data["callsign"], data["altitude"], data["heading"], data["speed"])
@@ -39,10 +21,8 @@ func _process(_delta):
 
 ## Get [Plane] by a callsign
 func get_plane():
-	var pl
+	var pl = planes.get_children()
 	var exists
-	
-	pl = planes.get_children()
 
 	for p in pl:
 		if p.name.contains(callsign.text):
