@@ -14,6 +14,7 @@ var description : Object
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	## Initialize variables
 	callsign = $Button/callsign
 	altitude = $Button/data_hboxcontainer/values_vboxcontainer/altitude_value
 	heading = $Button/data_hboxcontainer/values_vboxcontainer/heading_value
@@ -36,7 +37,7 @@ func _process(_delta):
 		update_data(data["callsign"], data["altitude"], data["heading"], data["speed"])
 
 
-# Get plane by callsign
+## Get [Plane] by a callsign
 func get_plane():
 	var pl
 	var exists
@@ -54,7 +55,7 @@ func get_plane():
 		return null
 
 
-# Set data of plane to tab
+## Set data of plane to tab
 func update_data(u_callsign, u_altitude, u_heading, u_speed):	
 	callsign.text = str(u_callsign)
 	altitude.text = str(int(u_altitude))
@@ -67,7 +68,7 @@ func update_data(u_callsign, u_altitude, u_heading, u_speed):
 	speed.text += " kt"
 
 
-# Show description tab
+## Show description tab
 func _on_button_pressed():
 	description.visible = true
 	description.callsign_reference(callsign)

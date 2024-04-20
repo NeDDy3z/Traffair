@@ -12,12 +12,14 @@ var credits : String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	## Initialize variables
 	level_selection = $level_selection
 	settings = Global.main_menu_paths["settings"]
 	tutorial = Global.main_menu_paths["tutorial"]
 	bonus = Global.main_menu_paths["bonus"]
 	credits = Global.main_menu_paths["credits"]
 	
+	## Hide level selection
 	level_selection.visible = false
 	
 	
@@ -25,7 +27,7 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# Start the game on "play" click
+## Open level selection on Play [Button] press
 func _on_play_pressed():
 	level_selection.visible = true
 	
@@ -34,7 +36,7 @@ func _on_play_pressed():
 	Logger.write_to_console(name, "play pressed")
 
 
-# Open options on "options" click
+## Open Settings [main_menu_settings.tsnc] on Settings [Button] press
 func _on_options_pressed():
 	get_tree().change_scene_to_file(settings)
 	
@@ -43,7 +45,7 @@ func _on_options_pressed():
 	Logger.write_to_console(name, "open settings")
 
 
-# Open tutorial menu
+## Open tutorial [main_menu_tutorial.tsnc] on Tutorial [Button] press
 func _on_tutorial_pressed():
 	get_tree().change_scene_to_file(tutorial)
 	
@@ -52,7 +54,7 @@ func _on_tutorial_pressed():
 
 
 
-# Open bonus content on "bonus" click
+## Open bonus content [main_menu_bonus.tsnc] on BonusContent [Button] press
 func _on_bonus_pressed():
 	get_tree().change_scene_to_file(bonus)
 	
@@ -61,6 +63,7 @@ func _on_bonus_pressed():
 	Logger.write_to_console(name, "open bonus")
 
 
+## Open credits [main_menu_credits.tsnc] on Credits [Button] press
 func _on_credits_pressed():
 	get_tree().change_scene_to_file(credits)
 	
@@ -69,7 +72,7 @@ func _on_credits_pressed():
 	Logger.write_to_console(name, "open credits")
 
 
-# Exit game on "exit" click
+## Exit the game Exit [Button] press
 func _on_exit_pressed():
 	Logger.write_to_log(name, "quit game")
 	Logger.write_to_console(name, "quit game")

@@ -15,6 +15,7 @@ var land : Object
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	## Initialize variables
 	runways = get_children()
 	runway_0 = runways[runways.size()-2]
 	runway_1 = runways[runways.size()-1]
@@ -30,7 +31,7 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# Retireve plane object
+## Retireve plane object
 func get_plane(object):
 	var pl
 	pl = planes.get_children()
@@ -39,6 +40,7 @@ func get_plane(object):
 			return p
 
 
+## Can land
 func can_land(plane_data):
 	if (
 		plane_data["altitude"] <= 6000 
@@ -50,7 +52,7 @@ func can_land(plane_data):
 		return false
 
 
-# On runway point collision its sent to land on runway
+## On runway point collision its sent to land on runway
 func _on_rw_07_body_entered(body):
 	if (
 		body.is_in_group("plane") 
@@ -83,7 +85,7 @@ func _on_rw_07_body_entered(body):
 			Logger.write_to_console(name, "RW07 - plane pass", plane.name)
 
 
-# On runway point collision it's sent to land on runway
+## On runway point collision it's sent to land on runway
 func _on_rw_25_body_entered(body):
 	if (
 		body.is_in_group("plane") 
@@ -116,7 +118,7 @@ func _on_rw_25_body_entered(body):
 			Logger.write_to_console(name, "RW25 - plane pass", plane.name)
 
 
-# When plane "hits" the runway it perishes
+## When plane "hits" the runway it perishes
 func _on_landing_body_entered(body):
 	if body.is_in_group("landing"):
 		body.queue_free()

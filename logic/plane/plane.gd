@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 
 
-@export_category("Plane data")
+@export_category("[Plane] data")
 @export var callsign : String
 @export var altitude : int
 @export var heading : int
@@ -17,7 +17,7 @@ var states = {
 	"error" : "ALT / SPD too high for landing (≥6000ft & ≥150kt)"
 }
 
-# Plane related data
+## [Plane] related data
 var point : Object = null
 var direction : Object
 var heading_rotation
@@ -26,7 +26,7 @@ var new_alt
 var new_hdg
 var new_spd
 
-# Plane related Objects
+## [Plane] related Objects
 var plane_description : Object
 var data_timer : Object
 var direct_timer : Object
@@ -34,17 +34,17 @@ var hold_timer : Object
 var plane_tab_prefab : Object
 var plane_explosion_prefab : Object
 
-# Map Nodes
+## Map Nodes
 var nav_points : Array
 var target_point : Object
 var target_offset_x
 var target_offset_y
 
-# UI Nodes
+## UI Nodes
 var game_ui : Object
 var queue : Object
 
-# Etc..
+## Etc..
 var window_size = DisplayServer.window_get_size()
 var rng = RandomNumberGenerator.new()
 var speed_up = 1
@@ -53,7 +53,7 @@ var speed_up = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Load plane related nodes into variables
+	## Load [Plane] related nodes into variables
 	plane_description = $plane_description
 	direction = $direction
 	direct_timer = $direct_timer
@@ -67,11 +67,11 @@ func _ready():
 	game_ui = get_node("../../game_ui")
 	queue = game_ui.get_node("timetable/queue_scrollcontainer/queue_vboxcontainer")
 	
-	# Start timers
+	## Start timers
 	direct_timer.start()
 	data_timer.start()
 	
-	# Randomly place a target point to which the plane will direct to (only used for spawning)
+	## Randomly place a target point to which the [Plane] will direct to (only used for spawning)
 	if (
 		(heading == null 
 			or heading == 0)
@@ -81,14 +81,14 @@ func _ready():
 		target_offset_y = rng.randf_range(300, 800)
 		target_point.position = Vector2(target_offset_x, target_offset_y)
 		
-		# Direction & rotation of the plane (go towards target point)
+		## Direction & rotation of the [Plane] (go towards target point)
 		direction.look_at(target_point.position)
 		direction.rotation = global_position.direction_to(target_point.position).angle()
 	else:
 		direction.rotation_degrees = Math.deg_to_rot(heading)
 	
 	
-	# Set description of an airplane
+	## Set description of an air[Plane]
 	callsign = generate_callsign()
 	status = states["fly"]
 	
@@ -103,7 +103,7 @@ func _ready():
 	):
 		speed = generate_speed()
 	
-	# Set ID & node name; and increment it
+	## Set ID & node name; and increment it
 	name = "plane_"+callsign
 	Global.plane_index += 1
 	
@@ -114,14 +114,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	# Set heading based on rotation of [Direction] Node
+	## Set heading based on rotation of [Direction] Node
 	if heading != Math.rot_to_deg(int(direction.rotation_degrees)):
 		heading = Math.rot_to_deg(int(direction.rotation_degrees))
 
 
-# Moevement stuff
+## Moveement
 func _physics_process(_delta):
-	# Destroy if out of the screen
+	## Destroy if out of the screen
 	if (
 		position.x > window_size.x + 500
 		or position.x < -500
@@ -134,7 +134,7 @@ func _physics_process(_delta):
 	):
 		queue_free()
 	
-	# Go faster if outside of the screen
+	## Go faster if outside of the screen to despawn
 	if (
 		position.x < window_size.x + 20
 		and position.x > 380
@@ -151,13 +151,13 @@ func _physics_process(_delta):
 	else:
 		speed_up = 10
 	
-	# Move straight depending on the direction its looking (/speed_slowdown to make the speed of movement more realistic)
-	velocity = ((Vector2(1, 0).rotated(direction.rotation) * speed) / 100) * speed_up # speed_slowdonw = 80 by default
-	# Initiate movement
+	## Move straight depending on the direction its looking (/speed_slowdown to make the speed of movement more realistic)
+	velocity = ((Vector2(1, 0).rotated(direction.rotation) * speed) / 100) * speed_up ## speed_slowdonw = 80 by default
+	## Initiate movement
 	move_and_slide()
 
 
-# Getter to retrieve a plane data
+## Get to retrieve a [Plane] data for other scripts
 func get_plane_data():
 	var data
 	data = {
@@ -169,16 +169,15 @@ func get_plane_data():
 		"direct" : direct
 	}
 	
-	if !Global.log_antispam:
-		Logger.write_to_console(name, "get_plane_data()")
-		Logger.write_to_log(name, "get_plane_data()")
+	Logger.write_to_console(name, "get_plane_data()")
+	Logger.write_to_log(name, "get_plane_data()")
 	
 	return data
 
 
-# Slowly transition altitude/heading/speed into a new values (increases the realism)
+## Slowly transition altitude/heading/speed into a new values ([Plane]s dont immediatly snap - increases the realism)
 func slow_update_data():
-	# Slowupdate altitude
+	## Slowupdate altitude
 	if (
 		new_alt != null 
 		and altitude != new_alt
@@ -194,7 +193,7 @@ func slow_update_data():
 				altitude = new_alt
 				new_alt = null
 	
-	# Slowupdate speed
+	## Slowupdate speed
 	if (
 		new_spd != null 
 		and speed != new_spd
@@ -210,7 +209,7 @@ func slow_update_data():
 				speed = new_spd
 				new_spd = null
 	
-	# Slowupdate heading
+	## Slowupdate heading
 	if (
 		new_hdg != null 
 		and heading != new_hdg
@@ -233,7 +232,7 @@ func slow_update_data():
 			direction.rotation_degrees = Math.deg_to_rot(heading_rotation)
 
 
-# Generate random callsign of plane (for spawning)
+## Generate random callsign for [Plane] (for spawning)
 func generate_callsign():
 	var letters 
 	letters = "abcdefghijklmnopqrstuvwxyz"
@@ -251,7 +250,7 @@ func generate_callsign():
 	return c_sign
 
 
-# Generate random altitude of plane (for spawning)
+## Generate random altitude for [Plane] (for spawning)
 func generate_altitude():
 	var alt : int
 	alt = rng.randi_range(3, 30) * 1000
@@ -262,7 +261,7 @@ func generate_altitude():
 	return alt
 
 
-# Generate random speed of plane (for spawning)
+## Generate random speed for [Plane] (for spawning)
 func generate_speed():
 	var spd : int
 	spd = rng.randi_range(150,350)
@@ -273,7 +272,7 @@ func generate_speed():
 	return spd
 
 
-# Set point
+## Set point, the [Plane] will fly towards
 func set_point(value):
 	point = value
 	
@@ -282,7 +281,7 @@ func set_point(value):
 	Logger.write_to_console(name, "set_point()", value)
 
 
-# Set altitude of Plane
+## Set altitude of [Plane]
 func set_altitude(value):
 	new_alt = int(value)
 	
@@ -291,7 +290,7 @@ func set_altitude(value):
 	Logger.write_to_console(name, "set_altitude()", value)
 
 
-# Set heading of Plane
+## Set heading of [Plane]
 func set_heading(value):
 	new_hdg = int(value)
 	heading_rotation = heading
@@ -301,7 +300,7 @@ func set_heading(value):
 	Logger.write_to_console(name, "set_altitude()", value)
 
 
-# Set speed of Plane
+## Set speed of [Plane]
 func set_speed(value):
 	new_spd = int(value)
 	
@@ -310,7 +309,7 @@ func set_speed(value):
 	Logger.write_to_console(name, "set_speed()", value)
 
 
-# Set status of Plane
+## Set status of [Plane]
 func set_status(value):
 	status = states[str(value)]
 	
@@ -319,15 +318,15 @@ func set_status(value):
 	Logger.write_to_console(name, "set_status()", value)
 
 
-# Set a point to which Plane flys toward
+## Set a point to which [Plane] flys toward
 func direct_to(value):
 	if value != null:
-		# Set the planes direction
+		## Set the [Plane]s direction
 		var angle_rot = rad_to_deg(global_position.direction_to(value.global_position).angle())
 		var angle = Math.rot_to_deg(angle_rot)
 		set_heading(angle)
 		
-		# Show in game_ui_description where the plane is going
+		## Show in game_ui_description where the [Plane] is going
 		direct = value.name.to_upper() 
 	
 	
@@ -335,7 +334,7 @@ func direct_to(value):
 	Logger.write_to_console(name, "direct_to()", direct) 
 
 
-# Put Plane into holding pattern
+## Put [Plane] into holding pattern
 func hold():
 	cancel_landing()
 	status = states["hold"]
@@ -347,7 +346,7 @@ func hold():
 	Logger.write_to_console(name, "hold()")
 
 
-# Cancel landing
+## Cancel landing
 func cancel_landing():
 	if is_in_group("land"):
 		remove_from_group("land")
@@ -362,7 +361,7 @@ func cancel_landing():
 	Logger.write_to_console(name, "cancel_landing()")
 
 
-# Hide and freeze the plane
+## Hide and freeze the [Plane]
 func hide_and_freeze():
 	speed = 0
 	get_node("body").visible = false
@@ -374,8 +373,8 @@ func hide_and_freeze():
 	Logger.write_to_console(name, "hide_and_freeze()", direct) 
 
 
-# Plane button pressed - If the plane was not previously interacted with, new Plane_tab will appear in Game_UI sidebar
-#                      - Select plane_tab in GAME_UI sidebar when the Plane was interacted with already
+## [Plane] button pressed - If the [Plane] was not previously interacted with, new plane_tab will appear in Game_UI sidebar
+##                      - Select plane_tab in GAME_UI sidebar when the [Plane] was interacted with already
 func _on_plane_button_pressed():
 	var plane_tabs 
 	var contains
@@ -395,10 +394,10 @@ func _on_plane_button_pressed():
 		plane_tabs[plane_tabs.size()-1].get_child(0).emit_signal("pressed")
 
 
-# Collision
+## Collision
 func _on_area_2d_body_entered(body):
 	if (
-		body.is_in_group("plane") 
+		body.is_in_group("[Plane]") 
 		and name != body.name
 		and (altitude - body.altitude <= 150
 		and  altitude - body.altitude >= -150)
@@ -419,16 +418,16 @@ func _on_area_2d_body_entered(body):
 
 
 
-# Update data every x seconds the timer is set to
+## Update data every x seconds the timer is set to
 func _on_timer_timeout():
 	slow_update_data()
 
 
-# Send plane towards point every x seconds (so it turns to it at all times)
+## Send [Plane] towards point every x seconds (so it turns to it at all times)
 func _on_direct_timer_timeout():
 	direct_to(point)
 
 
-# Turn 180° every x seconds
+## Turn 180° every x seconds
 func _on_hold_timer_timeout():
 	hold()

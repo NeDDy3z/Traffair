@@ -13,11 +13,12 @@ var temp_data : String = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Make "my_logs" folder if it doesnt exist
+	## Create my_logs folder if nonexistant
 	dir_access = DirAccess.open("user://")
 	if !dir_access.dir_exists("my_logs"):
 		dir_access.make_dir("my_logs")
 	
+	## Set log file path & name
 	var datetime 
 	datetime = Time.get_datetime_dict_from_system()
 	file_path = "user://my_logs/log_"+ str("%02d-%02d-%02d_%02d.%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute]) +".log"
@@ -29,11 +30,13 @@ func _ready():
 	write_to_console("Logger", "loaded")
 
 
-# Write into file log
+## Write into log file
 func write_to_log(object, action = "", message = ""):
-	if (Global.logging 
-			and !(Global.log_antispam 
-					and action == "direct_to()")):
+	if (
+		Global.logging 
+		and !(Global.log_antispam and action == "direct_to()")
+		and !(Global.log_antispam and action == "get_plane_data()")
+	):
 		var time
 		time = Time.get_time_string_from_system()
 		
@@ -41,6 +44,7 @@ func write_to_log(object, action = "", message = ""):
 		action = str(action)
 		message = str(message)
 		
+		## Convert data into a easily readable string
 		var out : String 
 		out = ""
 		if object == "":
@@ -58,7 +62,10 @@ func write_to_log(object, action = "", message = ""):
 		else:
 			out += " : "+ message
 		
-		# Open file - store data into variable - write old data + new data into file
+		## Open the file
+		## Read already written data and store them into the temporary variable
+		## Write old data with new new data appended into the file
+		## Close file
 		log_read = FileAccess.open(file_path, FileAccess.READ)
 		if log_read != null:
 			temp_data = log_read.get_as_text()
@@ -68,11 +75,13 @@ func write_to_log(object, action = "", message = ""):
 		log_write.close()
 
 
-# Write into console log
+## Write into console log (which is also saved by the godot itself)
 func write_to_console(object, action = "", message = ""):
-	if (Global.logging 
-			and !(Global.log_antispam 
-					and action == "direct_to()")):
+	if (
+		Global.logging 
+		and !(Global.log_antispam and action == "direct_to()")
+		and !(Global.log_antispam and action == "get_plane_data()")
+	):
 		var time
 		time = Time.get_time_string_from_system()
 		
@@ -83,7 +92,7 @@ func write_to_console(object, action = "", message = ""):
 		var out
 		out = time 
 		
-		# Its like this bcs of the project requirements
+		## Convert data into a easily readable string
 		if object == "":
 			out += " [ object_??"
 		else:
@@ -99,4 +108,5 @@ func write_to_console(object, action = "", message = ""):
 		else:
 			out += " : "+ message
 		
+		## Print data into a Debug console
 		print(out)

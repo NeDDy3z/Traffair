@@ -11,6 +11,7 @@ var is_game_level : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	 ## [PROCESS_MODE_ALWAYS] ensures the script will still work when the game is frozen
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	
@@ -18,6 +19,7 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
+## Check if scene is a game level
 func load_nodes(value : Object = null):
 	game_ui = value
 	
@@ -31,7 +33,8 @@ func load_nodes(value : Object = null):
 	Logger.write_to_console(name, "children nodes loaded")
 
 
-# Read input from user
+## Read user input
+## Do a specific action based on pressed button
 func _unhandled_input(event):
 	if (
 		event is InputEventKey
@@ -40,7 +43,6 @@ func _unhandled_input(event):
 	):
 		# Match (switch) doesnt work
 		if event.is_action_pressed("game_pause"):
-			#game_ui.controls.pause.emit_signal("toggled", !game_ui.controls.pause.toggled)
 			game_ui.controls.pause.set_pressed(!get_tree().paused)
 			
 			Logger.write_to_log(name, "game pause input")

@@ -226,6 +226,7 @@ var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	## Initialize variables
 	text_label = $"../../../../text"
 	
 	
@@ -233,7 +234,7 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# On "tip_dne" button click, show tip
+## On [Button] press the randomly chosen [riddle] will appear in the [text_label] window
 func _on_pressed():
 	text_label.text = riddles[rng.randi_range(0, len(riddles)-1)]
 	

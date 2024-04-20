@@ -2,13 +2,14 @@ extends Button
 
 
 
-var text_label : Label
 var time : String
+var text_label : Label
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	## Initialize variables
 	text_label = $"../../../../text"
 	
 	
@@ -16,7 +17,7 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# Set text of the label
+## Set [value] to the [text_label.text]
 func set_text_label(value):
 	var out
 	if (
@@ -32,7 +33,7 @@ func set_text_label(value):
 	Logger.write_to_console(name, "set_text_label()", out)
 
 
-# On button click, show time
+## On [Button] press call [code]set_text_label[/code] with [param time]
 func _on_pressed():
 	time = Time.get_time_string_from_system()
 	set_text_label(time)

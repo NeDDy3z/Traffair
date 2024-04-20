@@ -31,7 +31,7 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# Nonstop play
+## Nonstop play
 func play_background():
 	background_player.play()
 	
@@ -43,7 +43,7 @@ func play_background():
 	Logger.write_to_console(name, "music played")
 
 
-# Play explosion soundeffect on airplane collision
+## Play explosion soundeffect on airplane collision
 func play_explosion():
 	explosion_player.play()
 	

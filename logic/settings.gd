@@ -54,16 +54,16 @@ var write
 
 
 
-# Load settings on startup
+## Load settings on startup
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Set file_path of settings file
+	## Set file_path of settings file
 	file_path = "user://settings/settings.conf"
 	
-	# Create settings folder
+	## Create settings folder
 	create_settings()
 	
-	# Load saved settings into values
+	## Load saved settings into values
 	read_settings()
 	load_settings()
 	
@@ -72,12 +72,12 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# Create "settings" folder if it doesnt exist
+## Create "settings" folder if it doesnt exist
 func create_settings():
 	dir_access = DirAccess.open("user://")
 	if not dir_access.dir_exists("settings"):
 		dir_access.make_dir("settings")
-	# Create settings file if it doesnt exist (it definitely doesnt)
+	## Create settings file if it doesnt exist (it definitely doesnt)
 	if not FileAccess.file_exists("user://settings/settings.conf"):
 		write_settings(settings_data_default)
 	
@@ -86,21 +86,21 @@ func create_settings():
 	Logger.write_to_console(name, "created settings folder and file")
 
 
-# Load settings from file
+## Load settings from file
 func read_settings():
-	# Open file in read mode
+	## Open file in read mode
 	read = FileAccess.open(file_path, FileAccess.READ)
 	if read != null:
-		# Load data from text into variable
+		## Load data from text into variable
 		settings_data = read.get_as_text()
 		read.close() 
 		
-		# Convert JSON to Dictionary & close
+		## Convert JSON to Dictionary & close
 		settings_data = str_to_var(settings_data)
 		
 		validate_dic(settings_data)
 		
-		# Prevent zero value
+		## Prevent zero value
 		if settings_data["brightness"] == 0:
 			settings_data["brightness"] = 0.1
 		
@@ -115,13 +115,13 @@ func read_settings():
 		Logger.write_to_console(name, "failed to read settings", "settings file does not exist")
 
 
-# Save settings to file 
-# [ value : Dictionary = settings_data ] => is an "optional argument"
+## Save settings to file 
+## [ value : Dictionary = settings_data ] => is an "optional argument"
 func write_settings(value : Dictionary = settings_data):
-	# Convert dictionary with settings into savable fromat
+	## Convert dictionary with settings into savable fromat
 	var storable_settings = JSON.stringify(value, "\t", false)
 	
-	# Open file in write mode and save settings data
+	## Open file in write mode and save settings data
 	write = FileAccess.open(file_path, FileAccess.WRITE)
 	write.store_line(storable_settings.to_lower())
 	write.close()
@@ -147,7 +147,7 @@ func load_settings():
 	Logger.write_to_console(name, "load settings")
 
 
-# Validate if dictionary contains all required keys and corresponding data
+## Validate if dictionary contains all required keys and corresponding data
 func validate_dic(value : Dictionary):
 	var valid = true
 	for key in required_settings_keys:
@@ -167,7 +167,7 @@ func validate_dic(value : Dictionary):
 		Logger.write_to_console(name, "settings reset")
 
 
-# Set fullscreen
+## Set fullscreen
 func set_window_mode(value):
 	match value.to_lower():
 		"fullscreen":
@@ -188,7 +188,7 @@ func set_window_mode(value):
 	Logger.write_to_console(name, "window_mode set", value)
 
 
-# Set resolution
+## Set resolution
 func set_resolution(value):
 	if value is Vector2i:
 		DisplayServer.window_set_size(value)
@@ -204,7 +204,7 @@ func set_resolution(value):
 	Logger.write_to_console(name, "resolution set", value)
 
 
-# Set vsync
+## Set vsync
 func set_vsync(value):
 	match value.to_lower():
 		"on":
@@ -219,7 +219,7 @@ func set_vsync(value):
 	Logger.write_to_console(name, "vsync set", value)
 
 
-# Set fps
+## Set fps
 func set_fps(value):
 	Engine.max_fps = value
 	
@@ -228,13 +228,13 @@ func set_fps(value):
 	Logger.write_to_console(name, "fps set", value)
 
 
-# Set brightness
+## Set brightness
 func set_brightness(value):
-	# Prevent zero value
+	## Prevent zero value
 	if value == 0:
 		value = 0.1
 	
-	# Set brightness of "brightness_control.tsnc"
+	## Set brightness of "brightness_control.tsnc"
 	BrightnessControl.environment.adjustment_brightness = value
 	
 	
@@ -242,13 +242,13 @@ func set_brightness(value):
 	Logger.write_to_console(name, "brightness set", value)
 
 
-# Set sound level
+## Set sound level
 func set_sfx(value):
 	var sfx 
 	var db
 	
 	sfx = AudioServer.get_bus_index("SFX")
-	db = (float(value) / 100) * 80 - 80 # Convert <0-100> to <-80,-0>
+	db = (float(value) / 100) * 80 - 80 ## Convert <0-100> to <-80,-0>
 	
 	if sfx >= 0:
 		AudioServer.set_bus_volume_db(sfx, db)
@@ -258,13 +258,13 @@ func set_sfx(value):
 	Logger.write_to_console(name, "sfx volume set", value)
 
 
-# Set music level
+## Set music level
 func set_music(value : int = settings_data["music"]):
 	var music
 	var db
 	
 	music = AudioServer.get_bus_index("Music")
-	db = (float(value) / 100) * 80 - 80 # Convert <0-100> to <-80,-0>
+	db = (float(value) / 100) * 80 - 80 ## Convert <0-100> to <-80,-0>
 	
 	if music >= 0:
 		AudioServer.set_bus_volume_db(music, db)
@@ -274,9 +274,9 @@ func set_music(value : int = settings_data["music"]):
 	Logger.write_to_console(name, "music volume set", value)
 
 
-# Set debug
+## Set debug
 func set_debug(value):
-	# Set global variable debug
+	## Set global variable debug
 	Global.debug = value
 	
 	
@@ -284,17 +284,17 @@ func set_debug(value):
 	Logger.write_to_console(name, "debug set", value)
 
 
-# Set logging
+## Set logging
 func set_logging(value):
 	Logger.write_to_log(name, "logging set", value)
 	Logger.write_to_console(name, "logging set", value)
 	
 	
 	Global.logging = value
-	# Formatting reversed because the logger will stop working after setting it to false
+	## Formatting reversed because the logger will stop working after setting it to false
 
 
-# Get window size
+## Get window size
 func get_resolution():
 	var res
 	var x

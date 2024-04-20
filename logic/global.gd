@@ -1,13 +1,13 @@
+## Singleton of Globally accessible variables
 extends Node
 
 
 
-# These serve as a globally accessible variables
-var plane_index = 0 # Used for assiging planes their id
+var plane_index = 0 ## Counter of planes
 
-var debug : bool = false # Debug stuff - show sprites, ids, spawn somewhere else...
-var logging : bool = true
-var log_antispam : bool = true # prevent spamming "direct_to()"
+var debug : bool = false ## Debug purposes - show sprites, ids, spawn [Plane]s somewhere else, ...
+var logging : bool = true 
+var log_antispam : bool = true ## Prevents spam of the log
 
 const main_menu_paths : Dictionary = {
 	"main_menu" : "res://levels/main_menu/main_menu.tscn",

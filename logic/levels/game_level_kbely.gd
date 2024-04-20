@@ -19,6 +19,7 @@ var window_size : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	## Initialize variables
 	planes = $planes
 	target_point = $target_point
 	spawner = $spawner
@@ -26,9 +27,11 @@ func _ready():
 	rng = RandomNumberGenerator.new()
 	window_size = size
 	
+	## Set delay of the spawner [Timer] and start it
 	spawner.wait_time = plane_spawn_delay_in_s
 	spawner.start()
 	
+	## Call [code]load_nodes[/code] from GlobalInput script to start registering user input
 	GlobalInput.load_nodes(game_ui)
 	
 	
@@ -36,7 +39,7 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# Spawn plane
+## Spawn a [plane_body.tsnc] prefab
 func spawn_plane():
 	var plane
 	plane = plane_body_prefab.instantiate()
@@ -48,10 +51,12 @@ func spawn_plane():
 	planes.add_child(plane)
 
 
-# Generate a random position for plane to spawn
+## Generate a random spawn position, it is always outside the players view (/the screen size)
+## It firstly picks a random X position, then a random Y position
 func random_spawn_position():
 	var x : int
 	var y : int
+	
 	x = rng.randi_range(200, window_size.x + 100)
 	if (
 		x >= 300 
@@ -76,7 +81,7 @@ func random_spawn_position():
 	return out
 
 
-# Spawn delay, intiate random pick every x seconds the timer is set to
+## Spawner [Timer], once every [Timer.timeout] seconds, theres a X% chance to spawn a plane
 func _on_spawner_timeout():
 	var random
 	random = rng.randi_range(1, 100)

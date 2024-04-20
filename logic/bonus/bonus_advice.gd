@@ -1,5 +1,6 @@
 extends Button
 
+## Array of advices constant
 const advice = [
 	"Remember that spiders are more afraid of you, than you are of them.",
 	"Smile and the world smiles with you. Frown and you're on your own.",
@@ -231,6 +232,7 @@ var rng : RandomNumberGenerator
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	## Initialize variables
 	text_label = $"../../../../text"
 	rng = RandomNumberGenerator.new()
 	
@@ -239,7 +241,7 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# On"\"tip_dne" button click, show tip
+## On [Button] press the randomly chosen [advice] will appear in the [text_label] window
 func _on_pressed():
 	text_label.text = advice[rng.randi_range(0, len(advice)-1)]
 	

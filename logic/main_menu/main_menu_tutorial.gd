@@ -131,16 +131,16 @@ var main_menu
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	## Initialize variables
 	scroll_container = $ScrollContainer
 	scroll_vboxcont = $ScrollContainer/scroll_VBoxContainer
-	
 	main_menu = Global.main_menu_paths["main_menu"]
 	
-	# All containers into an array
+	## Put all containers into an array
 	for child in scroll_vboxcont.get_children():
 		containers.append(child)
 	
-	# Decalre most used container
+	## Decalre most used container
 	title_0 = containers[0].get_child(0)
 	description_0 = containers[0].get_child(1)
 	image_0 = containers[0].get_child(2)
@@ -149,7 +149,7 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# Clear text show using other buttons
+## Set the value of text in [Label]s to null
 func clear_contents():
 	for c in containers:
 		c.get_child(0).text = ""
@@ -157,6 +157,7 @@ func clear_contents():
 		#containers[i].get_child(2)
 
 
+## On Game [Button] press show game tutorial
 func _on_game_pressed():
 	clear_contents()
 	title_0.text = tutorials["game"]["title"]
@@ -168,6 +169,7 @@ func _on_game_pressed():
 	Logger.write_to_console(name, "game description")
 
 
+## On Basics [Button] press show basics tutorial
 func _on_basics_pressed():
 	clear_contents()
 	title_0.text = tutorials["basics"]["title"]
@@ -179,6 +181,7 @@ func _on_basics_pressed():
 	Logger.write_to_console(name, "game basics")
 
 
+## On Tips [Button] press show tips
 func _on_tips_pressed():
 	clear_contents()
 	title_0.text = tutorials["tips"]["title"]
@@ -191,6 +194,7 @@ func _on_tips_pressed():
 
 
 # TODO
+## On Controls [Button] press show controls tutorial
 func _on_controls_pressed():
 	clear_contents()
 	for i in range(0,6):
@@ -206,7 +210,7 @@ func _on_controls_pressed():
 	Logger.write_to_console(name, "game description")
 
 
-# Go back to main_menu
+## Return to mainMenu [main_menu.tsnc] on BackToMainMenu [Button] press
 func _on_back_pressed():
 	get_tree().change_scene_to_file(main_menu)
 	

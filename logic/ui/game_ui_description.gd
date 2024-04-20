@@ -2,6 +2,7 @@ extends Control
 
 
 
+## Maximum and minimum values a [Plane] can have
 @export_category("Plane data limits")
 @export var altitude_min : int = 0
 @export var altitude_max : int = 35000
@@ -33,8 +34,10 @@ var i : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	process_mode = Node.PROCESS_MODE_ALWAYS # The script will work even when the game is Frozen ("let it go..")
+	## [PROCESS_MODE_ALWAYS] ensures the script will still work when the game is frozen
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	
+	## Initialize variables
 	callsign_label = $callsign
 	altitude = $data/values/altitude_value
 	heading = $data/values/heading_value
@@ -50,6 +53,7 @@ func _ready():
 	load_nav_points()
 	load_runways()
 	
+	## Reset the [OptionButton]s selection 
 	direct.select(0)
 	land.select(0)
 	
@@ -58,7 +62,7 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# Get plane by callsign
+## Retrieve [Plane] by its callsign
 func get_plane():
 	var pl
 	if planes != null:
@@ -68,7 +72,7 @@ func get_plane():
 				return p
 
 
-# Update plane data in sidebar bottom tab
+## Update [Plane] data 
 func update_data():
 	var data
 	data = get_plane()
@@ -87,7 +91,7 @@ func update_data():
 		land.select(get_direct_runway(str(data["direct"])))
 
 
-# Set the point the plane is going towards 
+## Get a index value from the [OptionButton] list based on direct_point name
 func get_direct_point(value):
 	for j in range(0, direct.item_count):
 		if direct.get_item_text(j) == value:
@@ -95,7 +99,7 @@ func get_direct_point(value):
 	return 0
 
 
-# Set the point the plane is going towards
+## Get a index value from the [OptionButton] list based on runway_point name
 func get_direct_runway(value):
 	for j in range(0, land.item_count):
 		if land.get_item_text(j) == value:
@@ -103,7 +107,7 @@ func get_direct_runway(value):
 	return 0
 
 
-# Set callsign to refer to a plane
+## Set a reference callsign
 func callsign_reference(value):
 	id_callsign = value.text
 	
@@ -112,7 +116,7 @@ func callsign_reference(value):
 	Logger.write_to_console(name, "callsign reference set")
 
 
-# Load all nav_points into direct_to optionsbutton
+## Load all direct_points to the Direct [OptionButton]
 func load_nav_points():
 	var n_p
 	if nav_points != null:
@@ -126,7 +130,7 @@ func load_nav_points():
 	Logger.write_to_console(id_callsign, "nav_points_selection loaded")
 
 
-# Load all runways just like direct points to the options menu
+## Load all runway_points to the Land [OptionButton]
 func load_runways():
 	var rwys
 	if runways != null:
@@ -144,7 +148,7 @@ func load_runways():
 	Logger.write_to_console(id_callsign, "runways_selection loaded")
 
 
-# Reset plane data on landing canceled
+## Reset [Plane] direction on landing canceled
 func cancel(plane):
 	if plane.is_in_group("landing"):
 		plane.cancel_landing()
@@ -155,6 +159,7 @@ func cancel(plane):
 		Logger.write_to_console(name, "cancel")
 
 
+## Reset selection of Direct & Land [OptionButton]s
 func reset_selection():
 	direct.select(0)
 	land.select(0)
@@ -164,6 +169,7 @@ func reset_selection():
 	Logger.write_to_console(name, "reset selection")
 
 
+## Turn off [game_ui_description] input when [Plane] initiates landing
 func disable_input(plane : Object = null):
 	if plane == null:
 		plane = get_plane()
@@ -181,7 +187,7 @@ func disable_input(plane : Object = null):
 		Logger.write_to_console(id_callsign, "disabled input")
 
 
-# Set altitude of plane on text change
+## Set altitude of a [Plane] on [altitude.value] text submit
 func _on_altitude_value_text_submitted(new_text):
 	new_text = int(new_text)
 	
@@ -202,7 +208,7 @@ func _on_altitude_value_text_submitted(new_text):
 	Logger.write_to_console(id_callsign, "altitude set", new_text)
 
 
-# Set heading of plane on text change
+## Set heading of a [Plane] on [heading.value] text submit
 func _on_heading_value_text_submitted(new_text):
 	new_text = int(new_text)
 	
@@ -220,14 +226,16 @@ func _on_heading_value_text_submitted(new_text):
 	plane.set_heading(new_text)
 	plane.set_status("fly")
 	
+	## Turn off hold pattern & reset Land & Direct [OptionButton] selection
 	hold.emit_signal("toggled", false)
-	
+	land.select(0)
+	direct.select(0)
 	
 	Logger.write_to_log(id_callsign, "heading set", new_text)
 	Logger.write_to_console(id_callsign, "heading set", new_text)
 
 
-# Set speed of plane on text change
+## Set speed of a [Plane] on [speed.value] text submit
 func _on_speed_value_text_submitted(new_text):
 	new_text = int(new_text)
 	
@@ -249,7 +257,8 @@ func _on_speed_value_text_submitted(new_text):
 	Logger.write_to_console(id_callsign, "speed set", new_text)
 
 
-# Direct to selected -> plane gets sent to it
+## Set point of a [Plane] on Direct [OptionButton] selection
+## Reset selection in a Land [OptionButton]
 func _on_direct_value_item_selected(index):
 	var plane
 	var point
@@ -275,12 +284,12 @@ func _on_direct_value_item_selected(index):
 			point.name = "none"
 	
 	
-	
 	Logger.write_to_log(id_callsign, "fly towards nav_point selected", point.name)
 	Logger.write_to_console(id_callsign, "fly towards nav_point selected", point.name)
 
 
-# Runway selected -> plane gets sent to it
+## Set point of a [Plane] on Land [OptionButton] selection
+## Reset selection in a Direct [OptionButton]
 func _on_land_item_selected(index):
 	var plane
 	var point
@@ -311,6 +320,7 @@ func _on_land_item_selected(index):
 	Logger.write_to_console(id_callsign, "land on runway selected", point.name)
 
 
+## Set [Plane] to holding pattern on Hold [Button] toggle
 func _on_hold_toggled(toggled_on):
 	var plane
 	plane = get_plane()
@@ -330,17 +340,17 @@ func _on_hold_toggled(toggled_on):
 	Logger.write_to_console(id_callsign, "hold toggled", toggled_on)
 
 
-# Update data when description tab is shown
+## Update data on description open
 func _on_draw():
 	update_data()
 	disable_input()
 
 
-# Update data every x seconds
+## Data [Timer], once every [Timer.timeout] seconds, call data update
 func _on_data_timer_timeout():
 	update_data()
 
 
-# Hide window on "close" press
+## Hide description on close button
 func _on_close_button_pressed():
 	visible = false

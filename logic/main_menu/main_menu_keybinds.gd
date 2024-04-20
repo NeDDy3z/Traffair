@@ -23,11 +23,12 @@ var settings : String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	## Initialize variables
 	action_list = $MarginContainer/action_list
 	action_tab_prefab = preload("res://prefabs/keybinds_action.tscn")
-	
 	settings = Global.main_menu_paths["settings"]
 	
+	## Call [code]load_action_list[/code]
 	load_action_list()
 	
 	
@@ -35,7 +36,7 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# Load saved mapped keys
+## Load InputMap keys to the action_list [VBoxContainer]
 func load_action_list():
 	var saved_actions 
 	saved_actions = InputMap.get_actions()
@@ -61,13 +62,13 @@ func load_action_list():
 				action_label.text = action_names[action]
 				action_value.text = events[0].as_text()
 				
-				# Connect buttons into one event function
+				## Connect [Button] into one event function
 				action_value.pressed.connect(_on_action_value_pressed.bind(action_value, action))
 				
-				# Add tab to the list
+				## Add action_tab [Node] to the action_list [VBoxContainer]
 				action_list.add_child(action_tab)
 				
-				# Separator
+				## Add separator after speedup_backward action
 				if action.contains("speedup_backward"):
 					var separator
 					separator = action_tab_prefab.instantiate()
@@ -80,7 +81,7 @@ func load_action_list():
 	Logger.write_to_console(name, "inputmap displayed")
 
 
-# Update new data
+## Update action_tab data
 func update_action_tab(button, event):
 	button.text = event.as_text()
 	
@@ -90,7 +91,7 @@ func update_action_tab(button, event):
 
 
 
-# Set remaping
+## Set is_remapping 
 func set_is_remaping(value : bool):
 	is_remaping = value
 	
@@ -99,7 +100,7 @@ func set_is_remaping(value : bool):
 	Logger.write_to_console(name, "is remapping", is_remaping)
 
 
-# Remaping on button press
+## On action_value [Button] press, set remapping to true and register a user input
 func _on_action_value_pressed(button, action):
 	set_is_remaping(true)
 	button.text = "???"
@@ -112,7 +113,8 @@ func _on_action_value_pressed(button, action):
 	Logger.write_to_console(name, "action_tab button pressed")
 
 
-# Read input
+## If is_remapping is true, read the user input
+## After user presses and key, it will be registered and set to the InputMap and called [code]update_action_tab[/code]
 func _unhandled_input(event):
 	if (
 		is_remaping
@@ -131,7 +133,7 @@ func _unhandled_input(event):
 		Logger.write_to_console(name, "new action input registered")
 
 
-# Return to settings menu
+## Return to mainMenu [main_menu.tsnc] on BackToMainMenu [Button] press
 func _on_back_pressed():
 	get_tree().change_scene_to_file(settings)
 	

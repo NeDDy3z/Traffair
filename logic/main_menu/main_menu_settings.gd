@@ -21,9 +21,9 @@ var main_menu : String
 
 
 
-# Called when the node enters the scene tree for the first time.
+## Called when the node enters the scene tree for the first time.
 func _ready():
-	# Load value Nodes
+	## Initialize variables
 	resolution = $options_container/HBoxContainer/VBoxContainer2/resolution_value
 	window_mode = $options_container/HBoxContainer/VBoxContainer2/window_mode
 	vsync = $options_container/HBoxContainer/VBoxContainer2/vsync_value
@@ -40,17 +40,19 @@ func _ready():
 	keybinds = Global.main_menu_paths["keybinds"]
 	main_menu = Global.main_menu_paths["main_menu"]
 	
-	# Add resolution options into resolution-optionbutton
+	## Add resolution into a resolution_value [OptionButton]
 	for res in Settings.resolutions:
 		resolution.add_item(res)
 	
-	# Add window modes options into window_mode-optionbutton
+	## Add window modes into a window_mode_value [OptionButton]
 	for wm in Settings.window_modes:
 		window_mode.add_item(wm)
 	
+	## Add vsync modes into a vsync_value [OptionButton]
 	for vs in Settings.vsyncs:
 		vsync.add_item(vs)
 	
+	## Call [code]display_settings[/code] to load settings from a saved file
 	display_settings()
 	
 	
@@ -58,51 +60,52 @@ func _ready():
 	Logger.write_to_console(name, "loaded")
 
 
-# Display saved settings in selectors
+## Set selection into [OptionButton]s based on saved settings in a file
 func display_settings():
-	# Window mode
+	## Window Mode
 	for i in window_mode.item_count:
 		if window_mode.get_item_text(i).to_lower() == Settings.settings_data["window_mode"]:
 			window_mode.select(i)
 	
-	# Resolution
+	## Resolution
 	for i in resolution.item_count:
 		if resolution.get_item_text(i).to_lower() == Settings.settings_data["resolution"]:
 			resolution.select(i)
 	
-	# Vsync
+	## Vsync
 	for i in vsync.item_count:
 		if vsync.get_item_text(i).to_lower() == Settings.settings_data["vsync"]:
 			vsync.select(i)
 	
-	# max FPS
+	## max FPS
 	fps.text = str(Settings.settings_data["fps"])
 	
-	# Brightness
+	## Brightness
 	brightness.value = Settings.settings_data["brightness"]
 	brightness_label.text = str(Settings.settings_data["brightness"])
 	
-	# SFX
+	## SFX
 	sfx.value = Settings.settings_data["sfx"]
 	sfx_label.text = str(Settings.settings_data["sfx"])
 	
-	# Music
+	## Music
 	music.value = Settings.settings_data["music"]
 	music_label.text = str(Settings.settings_data["music"])
 	
-	# Debug
+	## Debug
 	if Settings.settings_data["debug"]:
 		debug.select(0)
 	else:
 		debug.select(1)
 	
-	# Logging
+	## Logging
 	if Settings.settings_data["logging"]:
 		logging.select(0)
 	else:
 		logging.select(1)
 	
 	
+	## Call [code]disable_resolution_selection[/code]
 	disable_resolution_selection()
 	
 	
@@ -110,9 +113,8 @@ func display_settings():
 	Logger.write_to_console(name, "display settings")
 
 
-# Turn off resolution optionButton
+## Disable resolution_value [OptionButton] if the game is in Fullscreen mode
 func disable_resolution_selection():
-	# In fullscreen disable resolution selection
 	var wm_item
 	var wm_text
 	
@@ -139,22 +141,23 @@ func disable_resolution_selection():
 
 
 
-# Events
+## On window_mode_value [OptionButton] selection, set the window_mode and save selection into a file
 func _on_window_mode_item_selected(index):
-	# Load selection into variable
-	var win = window_mode.get_item_text(index)
+	## Initialize variables
+	var win 
+	win = window_mode.get_item_text(index)
 	
-	# Set window mode
+	## Set window mode
 	Settings.settings_data["window_mode"] = win
 	Settings.set_window_mode(win)
 	
-	# Save new settings
+	## Save new settings
 	Settings.write_settings()
 	
-	# Refresh resolution
+	## Refresh resolution
 	Settings.set_resolution(Settings.settings_data["resolution"])
 	
-	# In fullscreen disable resolution because it doesnt do a thing
+	## In fullscreen disable resolution because it doesnt do a thing
 	disable_resolution_selection()
 	
 	
@@ -162,18 +165,20 @@ func _on_window_mode_item_selected(index):
 	Logger.write_to_console(name, "window_mode option changed")
 
 
+## On resolution_value [OptionButton] selection, set the resolution and save selection into a file
 func _on_resolution_value_item_selected(index):
-	# Load selection into variable
-	var res = resolution.get_item_text(index)
+	## Initialize variables
+	var res 
+	res = resolution.get_item_text(index)
 	
-	# Set resolution
+	## Set resolution
 	Settings.settings_data["resolution"] = res
 	Settings.set_resolution(Settings.resolutions.get(res))
 	
-	# Save new settings
+	## Save new settings
 	Settings.write_settings()
 	
-	# Refresh window mode
+	## Refresh window mode
 	Settings.set_window_mode(Settings.settings_data["window_mode"])
 	
 	
@@ -181,15 +186,17 @@ func _on_resolution_value_item_selected(index):
 	Logger.write_to_console(name, "vsync option changed")
 
 
+## On vsync_value [OptionButton] selection, set the vsync and save selection into a file
 func _on_vsync_value_item_selected(index):
-	# Load selection into variable
-	var vnc = vsync.get_item_text(index)
+	## Initialize variables
+	var vnc 
+	vnc = vsync.get_item_text(index)
 	
-	# Set resolution
+	## Set resolution
 	Settings.settings_data["vsync"] = vnc
 	Settings.set_vsync(vnc)
 	
-	# Save new settings
+	## Save new settings
 	Settings.write_settings()
 	
 	
@@ -197,6 +204,7 @@ func _on_vsync_value_item_selected(index):
 	Logger.write_to_console(name, "resolution option changed")
 
 
+## On fps_value [TextEdit] selection, set the fps and save selection into a file
 func _on_fps_value_text_submitted(new_text):
 	new_text = int(new_text)
 	if (
@@ -206,11 +214,11 @@ func _on_fps_value_text_submitted(new_text):
 		new_text = str(Settings.settings_data["fps"])
 		fps.text = new_text
 	
-	# Set fps
+	## Set fps
 	Settings.settings_data["fps"] = int(new_text)
 	Settings.set_fps(int(new_text))
 	
-	# Save new settings
+	## Save new settings
 	Settings.write_settings()
 	
 	
@@ -218,19 +226,20 @@ func _on_fps_value_text_submitted(new_text):
 	Logger.write_to_console(name, "fps value changed")
 
 
+## On brigtness_value [HSlider] selection, set the brightness and save selection into a file
 func _on_brightness_value_value_changed(value):
-	# Prevent darkness (0 made availabe because of design reason)
+	## Prevent darkness (0 made availabe because of design reason)
 	if value == 0:
 		value = 0.1
 	
-	# Set brightness
+	## Set brightness
 	Settings.settings_data["brightness"] = value
 	Settings.set_brightness(value)
 	
-	# Set value to label
+	## Set value to label
 	brightness_label.text = str(Settings.settings_data["brightness"])
 	
-	# Save new settings
+	## Save new settings
 	Settings.write_settings()
 	
 	
@@ -238,15 +247,16 @@ func _on_brightness_value_value_changed(value):
 	Logger.write_to_console(name, "brightness value changed")
 
 
+## On sfx_value [HSlider] selection, set the sfx volume and save selection into a file
 func _on_sfx_value_value_changed(value):
-	# Set sfx
+	## Set sfx
 	Settings.settings_data["sfx"] = value
 	Settings.set_sfx(value)
 	
-	# Set value to label
+	## Set value to label
 	sfx_label.text = str(Settings.settings_data["sfx"])
 	
-	# Save new settings
+	## Save new settings
 	Settings.write_settings()
 	
 	
@@ -269,15 +279,16 @@ func _on_sfx_value_value_changed(value):
 	Logger.write_to_console(name, "sfx value changed")
 
 
+## On music_value [HSlider] selection, set the music volume and save selection into a file
 func _on_music_value_value_changed(value):
-	# Set sfx
+	## Set sfx
 	Settings.settings_data["music"] = value
 	Settings.set_music(value)
 	
-	# Set value to label
+	## Set value to label
 	music_label.text = str(Settings.settings_data["music"])
 	
-	# Save new settings
+	## Save new settings
 	Settings.write_settings()
 	
 	
@@ -285,21 +296,22 @@ func _on_music_value_value_changed(value):
 	Logger.write_to_console(name, "music value changed")
 
 
+## On debug_value [OptionButton] selection set the [Global.debug] and save selection into a file
 func _on_debug_value_item_selected(index):
-	# Load debug value into variable
+	## Load debug value into variable
 	var item_text 
 	item_text = debug.get_item_text(index)
 	
-	# Check if value is on/off, on = true, off = false
+	## Check if value is on/off, on = true, off = false
 	if item_text.to_lower() == "on":
 		Settings.settings_data["debug"] = true
 	else:
 		Settings.settings_data["debug"] = false
 	
-	# Set debug
+	## Set debug
 	Settings.set_debug(Settings.settings_data["debug"])
 	
-	# Save new settings
+	## Save new settings
 	Settings.write_settings()
 	
 	
@@ -307,21 +319,22 @@ func _on_debug_value_item_selected(index):
 	Logger.write_to_console(name, "debug option changed")
 
 
+## On logging_value [OptionButton] selection set the [Global.logging] and save selection into a file
 func _on_logging_value_item_selected(index):
-	# Load debug value into variable
+	## Load debug value into variable
 	var item_text 
 	item_text = logging.get_item_text(index)
 	
-	# Check if value is on/off, on = true, off = false
+	## Check if value is on/off, on = true, off = false
 	if item_text.to_lower() == "on":
 		Settings.settings_data["logging"] = true
 	else:
 		Settings.settings_data["logging"] = false
 	
-	# Set debug
+	## Set debug
 	Settings.set_logging(Settings.settings_data["logging"])
 	
-	# Save new settings
+	## Save new settings
 	Settings.write_settings()
 	
 	
@@ -329,7 +342,7 @@ func _on_logging_value_item_selected(index):
 	Logger.write_to_console(name, "debug option changed")
 
 
-# open keybind menu
+## Open keybinds [main_menu_keybinds.tsnc] on Keybinds [Button] press
 func _on_keybinds_pressed():
 	get_tree().change_scene_to_file(keybinds)
 	
@@ -338,7 +351,7 @@ func _on_keybinds_pressed():
 	Logger.write_to_console(name, "open keybinds")
 
 
-# Return to main_menu
+## Return to mainMenu [main_menu.tsnc] on BackToMainMenu [Button] press
 func _on_back_pressed():
 	get_tree().change_scene_to_file(main_menu)
 	

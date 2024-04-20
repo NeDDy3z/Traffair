@@ -7,7 +7,8 @@ func _ready():
 	Logger.write_to_log(name, "loaded")
 
 
-# Convert Godot Engine rotation value (-180,-90,0,90,180) to degrees (0,360)
+
+## Convert Godot Engine rotation value (-180,-90,0,90,180) to degrees (0,360)
 func rot_to_deg(value):
 	if value != null:
 		var angle
@@ -26,7 +27,7 @@ func rot_to_deg(value):
 		return angle
 
 
-# Convert degrees (0,360) to Godot Engine rotation value (-180,-90,0,90,180)
+## Convert degrees (0,360) to Godot Engine rotation value (-180,-90,0,90,180)
 func deg_to_rot(value):
 	if value != null:
 		var angle
