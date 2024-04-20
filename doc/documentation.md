@@ -176,7 +176,7 @@ SUM:                                                    1116            378     
 - All textures and images are made by me in Photoshop
 	- *except the background image in the main menu*
 ### Sound
-- Outsourced from the youtube
+- Outsourced from Youtube
 - All sound effects and music used is Copyright Free and is free to use
 ## License
 - Free to use
