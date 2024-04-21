@@ -45,6 +45,18 @@ This functionality is provided by the Sidebar which shows all the contacted plan
 Planes also have their data right on them, but to recieve all necessary data, player has to "contact" them for them to appear in the sidebar.
 To retrieve data from a specific aircraft, any script can call the get_plane_data function to obtain the desired information from a plane. 
 This mechanism enables other parts of the game to efficiently utilize information about the movement and status of aircraft.
+### Used Architectures
+- Component-based Architecture
+	- Each element of the game, such as planes, UI, settings, logging, and game mechanics, is organized into separate components or scripts. This allows for easier management, maintenance, and scalability of the project. Additionally, the GDScrpit language supports this.
+- Entity-Component-System:
+	- ECS divides the game into individual entities (objects in the game), components (functionality added to entities), and systems (component managers).
+	- This is used in a few places across the game, such as planes and runways. Planes have a separate objects and scripts for e.g. the body which is controlling where to move and how fast and the description showing how data of the plane.
+- Command pattern:
+	- The Command Pattern is a behavioral design pattern that encapsulates a request as an object.
+	- Used for commanding a plane what to do, or in Settings 
+- Object pooling (Not used and here's why)
+	- The main point of pooling is to pre-instantiate an object multiple times, store all instances in an array, and continuously reuse those instances instead of instantiating and destroying objects on the fly.
+	- This approach should be used when using a garbage-collected language like C#, however GDScript is not garbage-collecting language, the nodes and resources are reference-counted, and when there is no reference to them, they get freed instantly
 ### Logging
 Basic logging is used to write to file and console what is happening in the game for the debugging purposes. 
 
