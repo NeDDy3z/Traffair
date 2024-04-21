@@ -9,8 +9,8 @@ var kbely : String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	ruzyne = "res://levels/game/game_level_ruzyne.tscn"
-	kbely = "res://levels/game/game_level_kbely.tscn"
+	kbely = Global.levels["kbely"]
+	ruzyne = Global.levels["ruzyne"]
 	
 	
 	Logger.write_to_log(name, "loaded")

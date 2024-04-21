@@ -3,10 +3,10 @@ extends Node
 
 
 const window_modes = [
-	"Fullscreen",
-	"Fullscreen-Bordless",
-	"Window",
-	"Window-Bordless"
+	"fullscreen",
+	"fullscreen-bordless",
+	"window",
+	"window-bordless"
 ]
 const resolutions = {
 	"3840 x 2160" : Vector2i(3840,2160),
@@ -18,11 +18,10 @@ const resolutions = {
 	"1600 x 900" : Vector2i(1600,900)
 }
 const vsyncs = [
-	"On",
-	"Off",
-	"Adaptive"
+	"on",
+	"off",
+	"adaptive"
 ]
-
 const required_settings_keys = [
 	"window_mode",
 	"resolution",
@@ -45,6 +44,7 @@ const settings_data_default = {
 	"debug" : false,
 	"logging" : true
 }
+
 var settings_data
 
 var file_path : String
@@ -65,7 +65,6 @@ func _ready():
 	
 	## Load saved settings into values
 	read_settings()
-	load_settings()
 	
 	
 	Logger.write_to_log(name, "loaded")
@@ -98,11 +97,23 @@ func read_settings():
 		## Convert JSON to Dictionary & close
 		settings_data = str_to_var(settings_data)
 		
-		validate_dic(settings_data)
+		## Check if the config file is valid
+		var valid
+		valid = validate_dic(settings_data)
 		
-		## Prevent zero value
-		if settings_data["brightness"] == 0:
-			settings_data["brightness"] = 0.1
+		if valid:
+			load_settings()
+			
+			Logger.write_to_log(name, "settings valid", valid)
+			Logger.write_to_console(name, "settings valid", valid)
+			Logger.write_to_log(name, "settings reset")
+			Logger.write_to_console(name, "settings reset")
+		else:
+			write_settings(settings_data_default)
+			read_settings()
+			
+			Logger.write_to_log(name, "settings valid", valid)
+			Logger.write_to_console(name, "settings valid", valid)
 		
 		
 		Logger.write_to_log(name, "read settings")
@@ -149,22 +160,33 @@ func load_settings():
 
 ## Validate if dictionary contains all required keys and corresponding data
 func validate_dic(value : Dictionary):
-	var valid = true
+	var valid
+	var temp_
+	valid = true
+	
 	for key in required_settings_keys:
 		if key not in value:
 			valid = false
 	
-	if valid:
-		Logger.write_to_log(name, "settings valid", valid)
-		Logger.write_to_console(name, "settings valid", valid)
-	else:
-		write_settings(settings_data_default)
-		read_settings()
-		
-		Logger.write_to_log(name, "settings valid", valid)
-		Logger.write_to_console(name, "settings valid", valid)
-		Logger.write_to_log(name, "settings reset")
-		Logger.write_to_console(name, "settings reset")
+	if (
+		str(value["window_mode"]) not in window_modes
+		or str(value["resolution"]) not in resolutions.keys()
+		or str(value["vsync"]) not in vsyncs
+		or !(value["fps"] is int)
+		or !(float(value["brightness"]) is float)
+		or !(value["sfx"] is int)
+		or !(value["music"] is int)
+		or !(value["debug"] is bool)
+		or !(value["logging"] is bool)
+	):
+		valid = false
+	
+	
+	Logger.write_to_log(name, "dictionary checked")
+	Logger.write_to_console(name, "dictionary checked")
+	
+	
+	return valid
 
 
 ## Set fullscreen

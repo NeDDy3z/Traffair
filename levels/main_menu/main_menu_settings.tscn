@@ -93,94 +93,100 @@ texture = ExtResource("3_jwjo4")
 expand_mode = 1
 
 [node name="options_container" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 1
 anchors_preset = -1
+anchor_right = 0.539
+anchor_bottom = 1.0
 offset_left = 20.0
 offset_top = 100.0
-offset_right = 593.0
-offset_bottom = 523.0
+offset_right = 0.119873
+offset_bottom = -189.0
 theme = SubResource("Theme_bfiil")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="options_container"]
+[node name="ScrollContainer" type="ScrollContainer" parent="options_container"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="options_container/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 80
 
-[node name="VBoxContainer" type="VBoxContainer" parent="options_container/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="options_container/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="window_mode" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="window_mode" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "WINDOW MODE"
 
-[node name="resolution" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="resolution" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "RESOLUTION"
 
-[node name="vsync" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="vsync" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "VSYNC"
 
-[node name="fps" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="fps" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "MAX FPS"
 
-[node name="brightness" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="brightness" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "BRIGHTNESS"
 
-[node name="separator" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="separator" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="sfx" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="sfx" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "SFX"
 
-[node name="music" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="music" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "MUSIC"
 
-[node name="separator2" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="separator2" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="keybinds" type="Button" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="keybinds" type="Button" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6xq1x")
 text = "KEYBINDS"
 alignment = 0
 
-[node name="separator3" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="separator3" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="debug" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="debug" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "DEBUG"
 
-[node name="logging" type="Label" parent="options_container/HBoxContainer/VBoxContainer"]
+[node name="logging" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "LOGGING"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="options_container/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="options_container/ScrollContainer/HBoxContainer"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="window_mode" type="OptionButton" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="window_mode" type="OptionButton" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 allow_reselect = true
 
-[node name="resolution_value" type="OptionButton" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="resolution_value" type="OptionButton" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 allow_reselect = true
 
-[node name="vsync_value" type="OptionButton" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="vsync_value" type="OptionButton" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 allow_reselect = true
 
-[node name="fps_value" type="LineEdit" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="fps_value" type="LineEdit" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 max_length = 3
 context_menu_enabled = false
@@ -189,10 +195,10 @@ shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
 caret_blink = true
 
-[node name="brightness_box" type="Label" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="brightness_box" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="brightness_value" type="HSlider" parent="options_container/HBoxContainer/VBoxContainer2/brightness_box"]
+[node name="brightness_value" type="HSlider" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/brightness_box"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -204,7 +210,7 @@ max_value = 2.0
 step = 0.1
 value = 1.0
 
-[node name="brightness_value_label" type="Label" parent="options_container/HBoxContainer/VBoxContainer2/brightness_box/brightness_value"]
+[node name="brightness_value_label" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/brightness_box/brightness_value"]
 layout_mode = 2
 anchor_left = 1.047
 anchor_right = 1.047
@@ -216,13 +222,13 @@ text = "1
 "
 vertical_alignment = 1
 
-[node name="separator" type="Label" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="separator" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="sfx_box" type="Label" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="sfx_box" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="sfx_value" type="HSlider" parent="options_container/HBoxContainer/VBoxContainer2/sfx_box"]
+[node name="sfx_value" type="HSlider" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/sfx_box"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -232,7 +238,7 @@ grow_vertical = 2
 theme = SubResource("Theme_jq335")
 value = 50.0
 
-[node name="sfx_value_label" type="Label" parent="options_container/HBoxContainer/VBoxContainer2/sfx_box/sfx_value"]
+[node name="sfx_value_label" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/sfx_box/sfx_value"]
 layout_mode = 2
 anchor_left = 1.047
 anchor_right = 1.047
@@ -244,10 +250,10 @@ text = "50
 "
 vertical_alignment = 1
 
-[node name="music_box" type="Label" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="music_box" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="music_value" type="HSlider" parent="options_container/HBoxContainer/VBoxContainer2/music_box"]
+[node name="music_value" type="HSlider" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/music_box"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -257,7 +263,7 @@ grow_vertical = 2
 theme = SubResource("Theme_jq335")
 value = 50.0
 
-[node name="music_value_label" type="Label" parent="options_container/HBoxContainer/VBoxContainer2/music_box/music_value"]
+[node name="music_value_label" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/music_box/music_value"]
 layout_mode = 2
 anchor_left = 1.047
 anchor_right = 1.047
@@ -269,16 +275,16 @@ text = "50
 "
 vertical_alignment = 1
 
-[node name="separator2" type="Label" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="separator2" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="separator3" type="Label" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="separator3" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="separator4" type="Label" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="separator4" type="Label" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="debug_value" type="OptionButton" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="debug_value" type="OptionButton" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 item_count = 2
@@ -288,7 +294,7 @@ popup/item_0/id = 1
 popup/item_1/text = "OFF"
 popup/item_1/id = 0
 
-[node name="logging_value" type="OptionButton" parent="options_container/HBoxContainer/VBoxContainer2"]
+[node name="logging_value" type="OptionButton" parent="options_container/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 item_count = 2
@@ -316,14 +322,14 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_6xq1x")
 text = "BACK TO MAIN MENU"
 alignment = 0
 
-[connection signal="pressed" from="options_container/HBoxContainer/VBoxContainer/keybinds" to="." method="_on_keybinds_pressed"]
-[connection signal="item_selected" from="options_container/HBoxContainer/VBoxContainer2/window_mode" to="." method="_on_window_mode_item_selected"]
-[connection signal="item_selected" from="options_container/HBoxContainer/VBoxContainer2/resolution_value" to="." method="_on_resolution_value_item_selected"]
-[connection signal="item_selected" from="options_container/HBoxContainer/VBoxContainer2/vsync_value" to="." method="_on_vsync_value_item_selected"]
-[connection signal="text_submitted" from="options_container/HBoxContainer/VBoxContainer2/fps_value" to="." method="_on_fps_value_text_submitted"]
-[connection signal="value_changed" from="options_container/HBoxContainer/VBoxContainer2/brightness_box/brightness_value" to="." method="_on_brightness_value_value_changed"]
-[connection signal="value_changed" from="options_container/HBoxContainer/VBoxContainer2/sfx_box/sfx_value" to="." method="_on_sfx_value_value_changed"]
-[connection signal="value_changed" from="options_container/HBoxContainer/VBoxContainer2/music_box/music_value" to="." method="_on_music_value_value_changed"]
-[connection signal="item_selected" from="options_container/HBoxContainer/VBoxContainer2/debug_value" to="." method="_on_debug_value_item_selected"]
-[connection signal="item_selected" from="options_container/HBoxContainer/VBoxContainer2/logging_value" to="." method="_on_logging_value_item_selected"]
+[connection signal="pressed" from="options_container/ScrollContainer/HBoxContainer/VBoxContainer/keybinds" to="." method="_on_keybinds_pressed"]
+[connection signal="item_selected" from="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/window_mode" to="." method="_on_window_mode_item_selected"]
+[connection signal="item_selected" from="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/resolution_value" to="." method="_on_resolution_value_item_selected"]
+[connection signal="item_selected" from="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/vsync_value" to="." method="_on_vsync_value_item_selected"]
+[connection signal="text_submitted" from="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/fps_value" to="." method="_on_fps_value_text_submitted"]
+[connection signal="value_changed" from="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/brightness_box/brightness_value" to="." method="_on_brightness_value_value_changed"]
+[connection signal="value_changed" from="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/sfx_box/sfx_value" to="." method="_on_sfx_value_value_changed"]
+[connection signal="value_changed" from="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/music_box/music_value" to="." method="_on_music_value_value_changed"]
+[connection signal="item_selected" from="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/debug_value" to="." method="_on_debug_value_item_selected"]
+[connection signal="item_selected" from="options_container/ScrollContainer/HBoxContainer/VBoxContainer2/logging_value" to="." method="_on_logging_value_item_selected"]
 [connection signal="pressed" from="back_to_main_menu_container/back" to="." method="_on_back_pressed"]

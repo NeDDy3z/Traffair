@@ -18,24 +18,35 @@ var logging : OptionButton
 var keybinds : String
 var main_menu : String
 
+const window_modes = {
+	"fullscreen" : "Fullscreen",
+	"fullscreen-bordless" : "Fullscreen-Bordless",
+	"window" : "Window",
+	"window-bordless" : "Window-Bordless"
+}
+const vsyncs = {
+	"on" : "On",
+	"off" : "Off",
+	"adaptive" : "Adaptive"
+}
 
 
 
 ## Called when the node enters the scene tree for the first time.
 func _ready():
 	## Initialize variables
-	resolution = $options_container/HBoxContainer/VBoxContainer2/resolution_value
-	window_mode = $options_container/HBoxContainer/VBoxContainer2/window_mode
-	vsync = $options_container/HBoxContainer/VBoxContainer2/vsync_value
-	fps = $options_container/HBoxContainer/VBoxContainer2/fps_value
-	brightness = $options_container/HBoxContainer/VBoxContainer2/brightness_box/brightness_value
-	brightness_label = $options_container/HBoxContainer/VBoxContainer2/brightness_box/brightness_value/brightness_value_label
-	sfx = $options_container/HBoxContainer/VBoxContainer2/sfx_box/sfx_value
-	sfx_label = $options_container/HBoxContainer/VBoxContainer2/sfx_box/sfx_value/sfx_value_label
-	music = $options_container/HBoxContainer/VBoxContainer2/music_box/music_value
-	music_label = $options_container/HBoxContainer/VBoxContainer2/music_box/music_value/music_value_label
-	debug = $options_container/HBoxContainer/VBoxContainer2/debug_value
-	logging = $options_container/HBoxContainer/VBoxContainer2/logging_value
+	resolution = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/resolution_value
+	window_mode = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/window_mode
+	vsync = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/vsync_value
+	fps = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/fps_value
+	brightness = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/brightness_box/brightness_value
+	brightness_label = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/brightness_box/brightness_value/brightness_value_label
+	sfx = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/sfx_box/sfx_value
+	sfx_label = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/sfx_box/sfx_value/sfx_value_label
+	music = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/music_box/music_value
+	music_label = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/music_box/music_value/music_value_label
+	debug = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/debug_value
+	logging = $options_container/ScrollContainer/HBoxContainer/VBoxContainer2/logging_value
 	
 	keybinds = Global.main_menu_paths["keybinds"]
 	main_menu = Global.main_menu_paths["main_menu"]
@@ -46,11 +57,11 @@ func _ready():
 	
 	## Add window modes into a window_mode_value [OptionButton]
 	for wm in Settings.window_modes:
-		window_mode.add_item(wm)
+		window_mode.add_item(window_modes[wm])
 	
 	## Add vsync modes into a vsync_value [OptionButton]
 	for vs in Settings.vsyncs:
-		vsync.add_item(vs)
+		vsync.add_item(vsyncs[vs])
 	
 	## Call [code]display_settings[/code] to load settings from a saved file
 	display_settings()

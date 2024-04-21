@@ -18,6 +18,11 @@ const main_menu_paths : Dictionary = {
 	"credits" : "res://levels/main_menu/main_menu_credits.tscn"
 }
 
+const levels : Dictionary = {
+	"kbely" : "res://levels/game/game_level_kbely.tscn",
+	"ruzyne" : "res://levels/game/game_level_ruzyne.tscn"
+}
+
 
 
 # Called when the node enters the scene tree for the first time.
