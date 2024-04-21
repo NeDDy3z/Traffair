@@ -70,8 +70,8 @@ File                                                   blank        comment     
 .\logic\bonus\bonus_advice.gd                             11              4            235
 .\logic\ui\game_ui_description.gd                         95             27            234
 .\logic\bonus\bonus_riddle.gd                             11              3            229
-.\logic\settings.gd                                       84             31            195
-.\logic\main_menu\main_menu_settings.gd                  106             61            193
+.\logic\settings.gd                                       90             31            211
+.\logic\main_menu\main_menu_settings.gd                  106             61            204
 .\logic\main_menu\main_menu_tutorial.gd                   44             26            149
 .\logic\levels\runway.gd                                  36              7             86
 .\logic\main_menu\main_menu_keybinds.gd                   46             13             83
@@ -98,10 +98,10 @@ File                                                   blank        comment     
 .\logic\main_menu\main_menu_bonus.gd                      20              8             26
 .\logic\main_menu\main_menu_levels.gd                     22              3             23
 .\logic\bonus\bonus_time.gd                               17              4             22
-.\logic\global.gd                                          8              2             16
+.\logic\global.gd                                          9              2             20
 .\logic\plane\target_point.gd                             10              5             11
 ------------------------------------------------------------------------------------------
-SUM:                                                    1116            378           2722
+SUM:                                                    1123            378           2753
 ------------------------------------------------------------------------------------------
 ```
 ## Game Mechanics
