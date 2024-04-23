@@ -66,9 +66,9 @@ Log files are located in a user folder **%appdata%\Godot\app_userdata\Traffair\m
 ------------------------------------------------------------------------------------------
 File                                                   blank        comment           code
 ------------------------------------------------------------------------------------------
-.\logic\plane\plane.gd                                   112             44            277
+.\logic\plane\plane.gd                                   113             43            278
+.\logic\ui\game_ui_description.gd                        101             27            247
 .\logic\bonus\bonus_advice.gd                             11              4            235
-.\logic\ui\game_ui_description.gd                         95             27            234
 .\logic\bonus\bonus_riddle.gd                             11              3            229
 .\logic\settings.gd                                       90             31            211
 .\logic\main_menu\main_menu_settings.gd                  106             61            204
@@ -101,7 +101,7 @@ File                                                   blank        comment     
 .\logic\global.gd                                          9              2             20
 .\logic\plane\target_point.gd                             10              5             11
 ------------------------------------------------------------------------------------------
-SUM:                                                    1123            378           2753
+SUM:                                                    1130            377           2767
 ------------------------------------------------------------------------------------------
 ```
 ## Game Mechanics
