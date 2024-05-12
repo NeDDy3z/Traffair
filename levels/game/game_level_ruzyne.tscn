@@ -30,6 +30,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1v88k")
+plane_spawn_delay_in_s = 40.0
 
 [node name="background" type="ColorRect" parent="."]
 layout_direction = 1
@@ -917,9 +918,6 @@ shape = SubResource("CircleShape2D_n4n2x")
 
 [node name="planes" type="Node2D" parent="."]
 
-[node name="plane_body" parent="planes" instance=ExtResource("4_8dxgn")]
-position = Vector2(864, 1135)
-
 [node name="plane_body2" parent="planes" instance=ExtResource("4_8dxgn")]
 position = Vector2(203, 714)
 
@@ -936,7 +934,10 @@ position = Vector2(923, 1117)
 position = Vector2(304, 271)
 
 [node name="plane_body7" parent="planes" instance=ExtResource("4_8dxgn")]
-position = Vector2(798, 440)
+position = Vector2(740, 742)
+altitude = 5000
+heading = 90
+speed = 150
 
 [node name="plane_body8" parent="planes" instance=ExtResource("4_8dxgn")]
 position = Vector2(2002, 112)

@@ -3,7 +3,7 @@ extends Control
 
 
 @export var plane_spawn_chance : int = 50 # in %
-@export var plane_spawn_delay_in_s : float = 20 # in seconds 
+@export var plane_spawn_delay_in_s : float = 40 # in seconds 
 
 var plane_body_prefab = preload("res://prefabs/plane_body.tscn")
 

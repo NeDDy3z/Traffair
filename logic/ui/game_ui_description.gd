@@ -187,6 +187,23 @@ func disable_input(plane : Object = null):
 		Logger.write_to_console(id_callsign, "disabled input")
 
 
+func enable_input(plane : Object = null):
+	if plane == null:
+		plane = get_plane()
+	
+	if plane.status != plane.states["landing"]:
+		altitude.editable = true
+		heading.editable = true
+		speed.editable = true
+		direct.disabled = false
+		land.disabled = false
+		hold.disabled = false
+		
+		
+		Logger.write_to_log(id_callsign, "enabled input")
+		Logger.write_to_console(id_callsign, "enabled input")
+
+
 ## Set altitude of a [Plane] on [altitude.value] text submit
 func _on_altitude_value_text_submitted(new_text):
 	new_text = int(new_text)
@@ -221,15 +238,16 @@ func _on_heading_value_text_submitted(new_text):
 	
 	heading.text = str(new_text)
 	
-	var plane
-	plane = get_plane()
-	plane.set_heading(new_text)
-	plane.set_status("fly")
-	
 	## Turn off hold pattern & reset Land & Direct [OptionButton] selection
 	hold.emit_signal("toggled", false)
 	land.select(0)
 	direct.select(0)
+	
+	var plane
+	plane = get_plane()
+	plane.set_heading(int(new_text))
+	plane.set_status("fly")
+	
 	
 	Logger.write_to_log(id_callsign, "heading set", new_text)
 	Logger.write_to_console(id_callsign, "heading set", new_text)
@@ -344,6 +362,7 @@ func _on_hold_toggled(toggled_on):
 func _on_draw():
 	update_data()
 	disable_input()
+	enable_input()
 
 
 ## Data [Timer], once every [Timer.timeout] seconds, call data update

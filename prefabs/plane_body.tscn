@@ -43,6 +43,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kaubd")
+disabled = true
 
 [node name="body" type="Sprite2D" parent="."]
 scale = Vector2(0.04, 0.04)
@@ -103,6 +104,7 @@ wait_time = 2.0
 [node name="hold_timer" type="Timer" parent="."]
 wait_time = 60.0
 
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="mouse_entered" from="plane_description/plane_button" to="plane_description" method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="plane_description/plane_button" to="plane_description" method="_on_button_mouse_exited"]

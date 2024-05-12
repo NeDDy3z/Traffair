@@ -21,7 +21,7 @@ func _ready():
 	HTTP_req = HTTPRequest.new()
 	text_label = $"../../../../../text"
 	icao = $"../icao"
-	api_link = "https://api.api-ninjas.com/v1/airports?icao="
+	api_link = "yyshttps://api.api-ninjas.com/v1/airports?icao="
 	api_key = "hR1LjzS5Mqz+5L4x20wTJw==KzbXcGzzS6qKysoJ"
 	headers = ['X-Api-Key: '+str(api_key)]
 	

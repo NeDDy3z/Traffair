@@ -91,7 +91,6 @@ func _ready():
 	## Set description of an air[Plane]
 	callsign = generate_callsign()
 	status = states["fly"]
-	
 	if (
 		altitude == null 
 		or altitude == 0
@@ -394,10 +393,10 @@ func _on_plane_button_pressed():
 		plane_tabs[plane_tabs.size()-1].get_child(0).emit_signal("pressed")
 
 
-## Collision
-func _on_area_2d_body_entered(body):
+func _on_area_2d_area_entered(area):
+	var body = area.get_parent()
 	if (
-		body.is_in_group("[Plane]") 
+		body.is_in_group("plane") 
 		and name != body.name
 		and (altitude - body.altitude <= 150
 		and  altitude - body.altitude >= -150)
@@ -417,7 +416,6 @@ func _on_area_2d_body_entered(body):
 		Logger.write_to_console(name, "collision with another aircraft", body.name)
 
 
-
 ## Update data every x seconds the timer is set to
 func _on_timer_timeout():
 	slow_update_data()
@@ -431,3 +429,6 @@ func _on_direct_timer_timeout():
 ## Turn 180° every x seconds
 func _on_hold_timer_timeout():
 	hold()
+
+
+
